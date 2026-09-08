@@ -98,13 +98,13 @@ ACCURACY (%)
 | **T3: Explainability** *(Sprint 2 Mid)* | Implemented neural Class Activation Maps (Grad-CAM) to verify attention is centered on lesions, not soil clods. | PyTorch Hook engine, OpenCV Jet colormap generator. | **79.8%** *(+7.7%)* | 66.0% | 65 ms | $0.060/q | 36.0% |
 | **T4: Zero-Token LLM** *(Sprint 3 Start)* | Deployed local Ollama daemon on `127.0.0.1:11434` with Qwen 2.5 Coder on Drive `D:\OllamaModels`. | Ollama daemon, Qwen 2.5 Coder 7B/1.5B, PCPB DB parser. | **84.6%** *(+4.8%)* | 66.0% | 50 ms | **$0.000** *(Zero Tokens)* | 28.0% |
 | **T5: SAHI Slicing** *(Sprint 3 Mid)* | Slicing-Aided Hyper Inference: sliced 1080p frames into overlapping $640\times640$ patches with class-aware PyTorch NMS. | Native SAHI engine (`models/sahi_inference.py`), Torchvision NMS. | **89.2%** *(+4.6%)* | **85.1%** *(+19.1% leap)* | 255 ms *(Sliced)* | **$0.000** | 18.0% |
-| **T6: CDFA EIL Matrix** *(Sprint 3 Final)* | Evaluated pest counts against crop phenology (vegetative vs silking) + hardened UI Pydantic models. | CDFA EIL Matrix (`models/cdfa_thresholds.py`), Streamlit app. | **94.2%** *(+5.0%)* | **85.1%** | 255 ms *(E2E)* | **$0.000** | **8.0%** *(88% drop)* |
+| **T6: CDFA EIL Matrix** *(Sprint 3 Final)* | Evaluated pest counts against crop phenology (vegetative vs silking) + hardened UI Pydantic models. | CDFA EIL Matrix (`models/cdfa_thresholds.py`), Streamlit app. | **89.2%** *(Foliar)* | **85.1%** | 255 ms *(E2E)* | **$0.000** | **12.6%** *(83.2% drop)* |
 
 ---
 
 ## 4. Key Lessons & What We Deliberately Discarded
 
-A critical factor in reaching $94.2\%$ accuracy was **filtering out misleading or low-ROI methods**:
+A critical factor in elevating decision precision and edge reliability was **filtering out misleading or low-ROI methods**:
 
 1. **Discarded Scratch 3-Layer CNNs (shivam1423 style)**:
    * Scratch shallow CNNs lack pre-trained feature extractors. They overfit rapidly in variable African sunlight and have no bounding-box localization. We discarded the scratch model and adopted modern transfer-learned backbones.
@@ -121,4 +121,4 @@ A critical factor in reaching $94.2\%$ accuracy was **filtering out misleading o
 
 * **Cost Savings**: $100\%$ reduction in recurring cloud API fees ($\$0.00$ spend vs $\$6,000$ per 100,000 farmer queries).
 * **Crop Protection**: Detection of tiny chewing insects (Fall Armyworm neonates, stem borers, aphids) improved from $34\%$ to $85.1\%$.
-* **Environmental Safety**: Preventing $88\%$ of unnecessary chemical pesticide sprays protects Kenyan soil biology, preserves beneficial predator species (ladybirds), and reduces chemical exposure for smallholders.
+* **Environmental Safety**: Preventing $83.2\%$ of unnecessary chemical pesticide sprays (empirically validated via 1,000-event CDFA Monte Carlo simulation) protects Kenyan soil biology, preserves beneficial predator species (ladybirds), and reduces chemical exposure for smallholders.

@@ -44,7 +44,8 @@ class TelemetryLogger:
         ollama_latency_ms: float = 0.0,
         lesion_focus_pct: float = 0.0,
         model_version: str = "v1.1.0-enhanced",
-        county: str = "Western Kenya (Kakamega/Bungoma)"
+        county: str = "Western Kenya (Kakamega/Bungoma)",
+        is_synthetic: bool = False
     ) -> Dict[str, Any]:
         """
         Record a single diagnostic inference event.
@@ -58,6 +59,7 @@ class TelemetryLogger:
         record = {
             "request_id": str(uuid.uuid4())[:8],
             "timestamp": time.strftime("%Y-%m-%d %H:%M:%S"),
+            "is_synthetic": is_synthetic,
             "image_name": Path(image_name).name,
             "model_version": model_version,
             "county": county,

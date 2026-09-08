@@ -115,6 +115,17 @@ def evaluate_cdfa_threshold(
         return {
             "evaluated": False,
             "pest": pest_name,
+            "pest_common_name": pest_name,
+            "growth_stage": crop_stage,
+            "observed_density": pest_count,
+            "action_threshold_value": 0.0,
+            "threshold_unit": "N/A",
+            "threshold_exceeded": False,
+            "action_level": "GOOD_AGRICULTURAL_PRACTICE",
+            "regulatory_guidance": f"Standard economic threshold data not cataloged for {pest_name}. Apply standard KALRO good agricultural practices.",
+            "quarantine_level": "LOW",
+            "cultural_ipm": "Practice standard crop rotation, weed sanitation, and field hygiene.",
+            "sampling_protocol": "CDFA 5-Point Field Grid: Sample 10 plants at 5 stations across the field (W-pattern).",
             "message": f"Standard economic threshold data not cataloged for {pest_name}. Apply standard KALRO good agricultural practices."
         }
 

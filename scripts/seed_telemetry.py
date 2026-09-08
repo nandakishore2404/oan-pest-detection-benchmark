@@ -38,7 +38,8 @@ def seed_events():
             gradcam_latency_ms=s[7],
             ollama_latency_ms=s[8],
             lesion_focus_pct=s[9],
-            county=s[10]
+            county=s[10],
+            is_synthetic=True
         )
     print(f"Successfully seeded {len(samples)} realistic diagnostic telemetry events.")
 

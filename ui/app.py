@@ -30,7 +30,7 @@ if REPO_ROOT not in sys.path:
 from ui.design_system import (
     COLOR_GROUND, COLOR_SURFACE, COLOR_SURFACE_HOVER, COLOR_ACCENT,
     COLOR_CAUTION, COLOR_ALERT, COLOR_TEXT, COLOR_MUTED, COLOR_MUTED_LIGHT,
-    COLOR_BORDER, inject_theme, svg_leaf, svg_sun, svg_camera, svg_shield,
+    COLOR_BORDER, COLOR_BORDER_FOCUS, inject_theme, svg_leaf, svg_sun, svg_camera, svg_shield,
     svg_shield_alert, svg_checkmark, svg_chat_bubble, svg_settings,
     svg_chevron_left, svg_chevron_right, svg_chevron_down, svg_sliders,
     svg_microscope, svg_cpu, svg_clock, svg_bookmark, svg_user, svg_zap,
@@ -138,15 +138,23 @@ with top_col1:
     """, unsafe_allow_html=True)
 
 with top_col2:
-    view_options = ["Farmer Home", "Farmer Result", "Lab View", "Components"]
+    reverse_map = {
+        "Farmer Home": "Farmer View",
+        "Farmer Result": "Farmer View",
+        "Lab View": "Lab View",
+        "Components": "Design System Specs"
+    }
+    view_options = ["Farmer View", "Lab View", "Design System Specs"]
+    current_label = reverse_map.get(st.session_state.active_view, "Farmer View")
     chosen_view = st.segmented_control(
         "Navigation",
         view_options,
-        default=st.session_state.active_view,
+        default=current_label,
         label_visibility="collapsed"
     )
-    if chosen_view and chosen_view != st.session_state.active_view:
-        st.session_state.active_view = chosen_view
+    if chosen_view and reverse_map.get(st.session_state.active_view) != chosen_view:
+        target_screen = "Farmer Home" if chosen_view == "Farmer View" else ("Lab View" if chosen_view == "Lab View" else "Components")
+        st.session_state.active_view = target_screen
         st.rerun()
 
 with top_col3:
@@ -212,10 +220,12 @@ def execute_lab_inference(
     
     # Agronomic Advisory
     advisory = generate_agronomic_advisory(
-        prediction_class=pred.prediction,
+        prediction=pred.prediction,
+        scientific_name=pred.scientific_name,
+        severity=pred.severity,
+        is_unknown=pred.unknown,
         confidence=pred.confidence,
-        county=county,
-        stage=crop_stage
+        threshold=threshold
     )
     
     return {
@@ -656,13 +666,27 @@ def render_screen_lab_view():
         
         with tab_adv:
             # 3-column grid of advisory cards
+            cultural_actions = adv.get('cultural_actions') or []
+            bio_controls = adv.get('biological_controls') or []
+            chem_interventions = adv.get('chemical_interventions') or []
+            
+            cultural_txt = cultural_actions[0] if cultural_actions else "Inspect 10 plants per station across 5 locations."
+            bio_txt = bio_controls[0] if bio_controls else "Preserve ladybird beetles, hoverfly larvae, and parasitic wasps."
+            
+            if chem_interventions and isinstance(chem_interventions[0], dict):
+                first_chem = chem_interventions[0]
+                chem_active = first_chem.get("active_ingredient", "PCPB-registered active")
+                chem_txt = f"<strong>{chem_active}</strong>: {first_chem.get('application_timing', 'Apply targeted spray into whorl funnel')}"
+            else:
+                chem_txt = "Apply PCPB-registered active only if economic threshold is breached."
+
             adv_c1, adv_c2, adv_c3 = st.columns(3)
             with adv_c1:
                 st.markdown(f"""
                 <div class="oan-card">
-                    <div style="font-size: 11px; font-weight: 700; color: {COLOR_ACCENT}; text-transform: uppercase;">1. IMMEDIATE ACTION</div>
+                    <div style="font-size: 11px; font-weight: 700; color: {COLOR_ACCENT}; text-transform: uppercase;">1. CULTURAL ACTION</div>
                     <div style="font-family: var(--font-display); font-weight: 700; font-size: 15px; margin: 6px 0; color: {COLOR_TEXT};">Field Scouting & Containment</div>
-                    <div style="font-size: 12px; color: {COLOR_MUTED_LIGHT}; line-height: 1.5;">{adv.get('immediate_action', 'Inspect 10 plants per station across 5 locations.')}</div>
+                    <div style="font-size: 12px; color: {COLOR_MUTED_LIGHT}; line-height: 1.5;">{cultural_txt}</div>
                 </div>
                 """, unsafe_allow_html=True)
             with adv_c2:
@@ -670,7 +694,7 @@ def render_screen_lab_view():
                 <div class="oan-card">
                     <div style="font-size: 11px; font-weight: 700; color: {COLOR_CAUTION}; text-transform: uppercase;">2. BIOLOGICAL CONTROL</div>
                     <div style="font-family: var(--font-display); font-weight: 700; font-size: 15px; margin: 6px 0; color: {COLOR_TEXT};">Conserve Natural Predators</div>
-                    <div style="font-size: 12px; color: {COLOR_MUTED_LIGHT}; line-height: 1.5;">{adv.get('biological_control', 'Preserve ladybird beetles, hoverfly larvae, and parasitic wasps.')}</div>
+                    <div style="font-size: 12px; color: {COLOR_MUTED_LIGHT}; line-height: 1.5;">{bio_txt}</div>
                 </div>
                 """, unsafe_allow_html=True)
             with adv_c3:
@@ -678,7 +702,7 @@ def render_screen_lab_view():
                 <div class="oan-card">
                     <div style="font-size: 11px; font-weight: 700; color: {COLOR_ALERT}; text-transform: uppercase;">3. ESCALATION & PCPB</div>
                     <div style="font-family: var(--font-display); font-weight: 700; font-size: 15px; margin: 6px 0; color: {COLOR_TEXT};">Registered Chemical Interventions</div>
-                    <div style="font-size: 12px; color: {COLOR_MUTED_LIGHT}; line-height: 1.5;">{adv.get('chemical_control', 'Apply PCPB-registered active only if economic threshold is breached.')}</div>
+                    <div style="font-size: 12px; color: {COLOR_MUTED_LIGHT}; line-height: 1.5;">{chem_txt}</div>
                 </div>
                 """, unsafe_allow_html=True)
                 
@@ -718,6 +742,14 @@ def render_screen_lab_view():
             st.dataframe(pd.DataFrame(scorecard), use_container_width=True)
             
         with tab_slip:
+            chem_interventions = adv.get('chemical_interventions') or []
+            if chem_interventions and isinstance(chem_interventions[0], dict):
+                slip_chem = chem_interventions[0].get("active_ingredient", "Chlorantraniliprole 200 g/L")
+                slip_phi = chem_interventions[0].get("phi_days", "14 days")
+            else:
+                slip_chem = "PCPB-registered biopesticide or active"
+                slip_phi = "7 days"
+                
             slip_json = {
                 "prescription_id": f"OAN-RX-{int(time.time())}",
                 "timestamp": time.strftime("%Y-%m-%dT%H:%M:%SZ"),
@@ -727,8 +759,8 @@ def render_screen_lab_view():
                 "confidence_calibrated": round(conf, 3),
                 "cdfa_threshold_exceeded": cdfa.get("threshold_exceeded", False),
                 "action_recommended": cdfa.get("regulatory_guidance"),
-                "pcpb_registered_active": adv.get("chemical_control"),
-                "phi_days": adv.get("pre_harvest_interval_days", 7),
+                "pcpb_registered_active": slip_chem,
+                "phi_days": slip_phi,
                 "beckn_bpp_action": "crop-protection:oan:kenya:on_search"
             }
             st.code(json.dumps(slip_json, indent=2), language="json")
@@ -746,6 +778,12 @@ def render_screen_lab_view():
 def render_screen_components():
     st.markdown("""
     <div style="max-width: 1200px; margin: 0 auto;">
+        <div style="background: rgba(34, 192, 138, 0.08); border: 1px solid #22c08a; border-radius: 12px; padding: 14px 18px; margin-bottom: 20px;">
+            <div style="font-weight: 700; font-size: 13px; color: #5fe0ac;">🛠️ INTERNAL DEVELOPER & AUDIT REFERENCE SHEET (Wireframe Artboard 4)</div>
+            <div style="font-size: 12px; color: #8b9a91; margin-top: 4px; line-height: 1.5;">
+                This catalog displays the design tokens (6-color palette, Manrope/Work Sans typography, stroke-only SVGs) and reusable UI primitives (confidence pills, stat tiles, safety brake banners). It serves as a visual conformance test bench for engineers and auditors — <strong>not an end-user diagnostic tool</strong>. Smallholder farmers use <strong>Farmer View</strong> and agricultural officers use <strong>Lab View</strong>.
+            </div>
+        </div>
         <div style="font-family: var(--font-display); font-weight: 800; font-size: 26px; color: var(--text-primary); margin-bottom: 6px;">
             🎨 OAN Kenya Design System · Component Specification Sheet
         </div>
@@ -868,6 +906,7 @@ def render_shamba_chat_modal():
     if user_q:
         st.session_state.shamba_messages.append({"role": "user", "content": user_q})
         with st.spinner("Shamba AI is formulating guidance..."):
+            t_start = time.perf_counter()
             advisor = OllamaAdvisor()
             resp = advisor.generate_advisory_qwen(
                 predicted_class="Fall Armyworm",
@@ -875,9 +914,10 @@ def render_shamba_chat_modal():
                 crop_stage="mid_to_late_whorl",
                 county="Trans-Nzoia"
             )
+            elapsed_ms = round((time.perf_counter() - t_start) * 1000, 1)
             # Concise fallback response
             ans = resp.get("response", "Apply Bacillus thuringiensis (Bt) or Neem oil into the central whorls early morning. Conserve natural ladybird predators.")
-            st.session_state.shamba_messages.append({"role": "assistant", "content": ans})
+            st.session_state.shamba_messages.append({"role": "assistant", "content": f"{ans}\n\n*(Measured local latency: {elapsed_ms:.1f} ms)*"})
             st.rerun()
 
 
