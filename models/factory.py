@@ -39,7 +39,10 @@ def get_model_adapter(
     m_id = model_id.lower()
 
     if "yolo" in m_id:
-        return YOLOAdapter(model_id=model_id, weights_path=weights_path, threshold=threshold)
+        repo_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        default_yolo = os.path.join(repo_root, "models", "trained", "yolov8_agripests_kenya.pt")
+        actual_weights = weights_path or (default_yolo if os.path.exists(default_yolo) else None)
+        return YOLOAdapter(model_id=model_id, weights_path=actual_weights, threshold=threshold)
 
     elif "efficientnet" in m_id:
         return TimmAdapter(

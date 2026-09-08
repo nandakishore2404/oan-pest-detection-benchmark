@@ -98,12 +98,12 @@ class CerealPestAIDAdapter(BasePestModel):
         t0 = time.time()
         img_id = self._resolve_image_id(image, image_id)
 
-        if not self.is_loaded:
-            loaded = self.load()
-            if not loaded:
-                raise RuntimeError(f"CerealPestAIDAdapter({self.model_id}) unavailable: weights failed to load.")
-
         try:
+            if not self.is_loaded:
+                loaded = self.load()
+                if not loaded:
+                    raise RuntimeError(f"CerealPestAIDAdapter({self.model_id}) unavailable: weights failed to load.")
+
             import numpy as np
 
             # Image preprocessing for standard CerealPestAID (224x224 or 528x528 normalized)

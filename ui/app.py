@@ -261,14 +261,14 @@ st.sidebar.title("🎛️ Control Center")
 
 # Friendly model options
 model_choices = {
-    "All Models (Consensus / Multi-Model Benchmark)": "All Models",
-    "yolov8s_pest": "🎯 YOLOv8s (Locates & Counts Pests)",
-    "bioclip_treeoflife": "🧬 BioCLIP (Tree of Life 10M Species)",
-    "cereal_pestaid": "🌾 CerealPestAID (26 African Cereal Pests)",
+    "yolov8s_pest": "🎯 YOLOv8s (Locates & Counts Pests) [Primary Edge Engine]",
+    "mobilenetv4_conv_large": "⚡ MobileNetV4 (Ultra-Fast Foliar Classifier)",
+    "All Models (Consensus / Multi-Model Benchmark)": "🤝 All Models (Consensus / Multi-Model Benchmark)",
     "efficientnet_b4_agri": "🍃 EfficientNet-B4 (Foliar Disease Expert)",
-    "mobilenetv4_conv_large": "⚡ MobileNetV4 (Ultra-Fast Mobile Edge)",
-    "florence2_large_agri": "🔍 Florence-2 (Foundation Vision Grounding)",
-    "ibean_classifier": "🌱 iBean (East African Bean Diseases)"
+    "ibean_classifier": "🌱 iBean (East African Bean Diseases)",
+    "cereal_pestaid": "🌾 CerealPestAID (26 African Cereal Pests)",
+    "bioclip_treeoflife": "🧬 BioCLIP (Tree of Life 10M Species)",
+    "florence2_large_agri": "🔍 Florence-2 (Foundation Vision Grounding)"
 }
 
 selected_model_key = st.sidebar.selectbox(
@@ -421,7 +421,13 @@ with nav_tab1:
         with st.spinner("⚡ Running computer vision models on the identical image..."):
             predictions = []
             if is_multi_model:
-                for mid in SHORTLISTED_MODEL_IDS:
+                ensemble_models = [
+                    "yolov8s_pest",
+                    "mobilenetv4_conv_large",
+                    "efficientnet_b4_agri",
+                    "ibean_classifier"
+                ]
+                for mid in ensemble_models:
                     try:
                         adapter = get_model_adapter(mid, threshold=threshold_val)
                         pred = adapter.predict(temp_img_path, image_id=active_image_name)
@@ -430,6 +436,8 @@ with nav_tab1:
                         predictions.append(NormalizedPrediction(
                             model_id=mid,
                             image_id=active_image_name,
+                            timestamp=time.strftime('%Y-%m-%dT%H:%M:%SZ'),
+                            task="crop_pest_disease_detection",
                             prediction="Model Offline / Skipped",
                             confidence=0.0,
                             unknown=True,
@@ -449,6 +457,8 @@ with nav_tab1:
                     primary_pred = NormalizedPrediction(
                         model_id=selected_model_key,
                         image_id=active_image_name,
+                        timestamp=time.strftime('%Y-%m-%dT%H:%M:%SZ'),
+                        task="crop_pest_disease_detection",
                         prediction="Model Offline",
                         confidence=0.0,
                         unknown=True,
@@ -696,7 +706,7 @@ KALRO Helpline: 0800 721 741
                 with st.spinner("Computing Class Activation Map across MobileNetV4 blocks..."):
                     try:
                         temp_path = os.path.join(REPO_ROOT, "data", "temp_ui_leaf.jpg")
-                        image.save(temp_path)
+                        active_image.save(temp_path)
                         xai_res = explain_crop_image(temp_path)
                         st.image(xai_res["comparison_card"], caption=f"Lesion Focus Score: {xai_res['lesion_focus_pct']:.1f}%", use_container_width=True)
                         st.success(f"Grad-CAM generated in sub-50ms! Focus score: {xai_res['lesion_focus_pct']:.1f}%.")
@@ -729,8 +739,8 @@ KALRO Helpline: 0800 721 741
                             image_name=active_image_name,
                             foliar_disease=primary_pred.prediction,
                             foliar_conf=primary_pred.confidence,
-                            pest_count=len(boxes_to_draw) if 'boxes_to_draw' in locals() else 0,
-                            pests_detected=[],
+                            pest_count=len(primary_pred.bounding_boxes),
+                            pests_detected=[b["class_name"] for b in primary_pred.bounding_boxes] if primary_pred.bounding_boxes else [],
                             tier1_latency_ms=primary_pred.inference_time_ms,
                             tier2_latency_ms=33.54,
                             gradcam_latency_ms=45.0,

@@ -33,12 +33,12 @@ class NormalizedPrediction(BaseModel):
     Fields unsupported by a particular architecture MUST be set to null.
     """
     model_id: str
-    image_id: str
-    timestamp: str
-    task: str
-    prediction: str
+    image_id: str = "unknown"
+    timestamp: str = Field(default_factory=lambda: datetime.now(timezone.utc).isoformat())
+    task: str = "crop_pest_disease_detection"
+    prediction: str = "Unknown / Unsupported Class"
     scientific_name: Optional[str] = None
-    confidence: float
+    confidence: float = 0.0
     top_predictions: List[Dict[str, Any]] = Field(default_factory=list)
     bounding_boxes: List[Dict[str, Any]] = Field(default_factory=list)
     severity: Optional[str] = None

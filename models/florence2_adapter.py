@@ -70,12 +70,12 @@ class Florence2Adapter(BasePestModel):
         t0 = time.time()
         img_id = self._resolve_image_id(image, image_id)
 
-        if not self.is_loaded:
-            loaded = self.load()
-            if not loaded:
-                raise RuntimeError(f"Florence2Adapter({self.model_id}) unavailable: model weights failed to load.")
-
         try:
+            if not self.is_loaded:
+                loaded = self.load()
+                if not loaded:
+                    raise RuntimeError(f"Florence2Adapter({self.model_id}) unavailable: model weights failed to load.")
+
             import torch
 
             if isinstance(image, str):
