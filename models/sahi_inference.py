@@ -2,7 +2,7 @@
 """
 Slicing-Aided Hyper Inference (SAHI) Engine for Agricultural Pest Detection
 ===========================================================================
-Program Manager turned Architect (Powered by AI skills/tools): Nanda Kishore Kakulla <nandakishore.kakulla9@gmail.com>
+Program Manager turned Architect — building with AI: Nanda Kishore Kakulla <nandakishore.kakulla9@gmail.com>
 Repository: https://github.com/nandakishore2404/oan-pest-detection-benchmark
 
 Implements slice-based multi-scale inference inspired by:

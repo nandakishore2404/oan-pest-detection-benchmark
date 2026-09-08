@@ -2,7 +2,7 @@
 """
 Enhanced MobileNetV4 Domain Adaptation Fine-Tuning for Kenya / East Africa
 ===========================================================================
-Program Manager turned Architect (Powered by AI skills/tools): Nanda Kishore Kakulla <nandakishore.kakulla9@gmail.com>
+Program Manager turned Architect — building with AI: Nanda Kishore Kakulla <nandakishore.kakulla9@gmail.com>
 Repository: https://github.com/nandakishore2404/oan-pest-detection-benchmark
 
 Key Architectural Enhancements:
@@ -63,7 +63,7 @@ AFRICA_FOLDER_MAP = {
 def train_and_evaluate():
     print("=" * 70)
     print("🌾 OAN KENYA: ENHANCED MOBILENETV4 DOMAIN ADAPTATION FINE-TUNING")
-    print("Program Manager turned Architect (Powered by AI skills/tools): Nanda Kishore Kakulla <nandakishore.kakulla9@gmail.com>")
+    print("Program Manager turned Architect — building with AI: Nanda Kishore Kakulla <nandakishore.kakulla9@gmail.com>")
     print("=" * 70)
     
     # 1. Ingest African field images

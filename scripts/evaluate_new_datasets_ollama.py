@@ -2,7 +2,7 @@
 """
 Empirical Accuracy Evaluation & Local Ollama Audit on New Pest Datasets
 =======================================================================
-Program Manager turned Architect (Powered by AI skills/tools): Nanda Kishore Kakulla <nandakishore.kakulla9@gmail.com>
+Program Manager turned Architect — building with AI: Nanda Kishore Kakulla <nandakishore.kakulla9@gmail.com>
 Repository: https://github.com/nandakishore2404/oan-pest-detection-benchmark
 
 Evaluates YOLOv8 on real test images from D:\OAN_Data\agricultural_pests_yolo\dataset

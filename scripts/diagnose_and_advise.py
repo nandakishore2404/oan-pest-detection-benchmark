@@ -2,7 +2,7 @@
 r"""
 OAN Kenya: Unified Multi-Tier Diagnostic & Local Ollama Advisory Engine
 ======================================================================
-Program Manager turned Architect (Powered by AI skills/tools): Nanda Kishore Kakulla <nandakishore.kakulla9@gmail.com>
+Program Manager turned Architect — building with AI: Nanda Kishore Kakulla <nandakishore.kakulla9@gmail.com>
 Repository: https://github.com/nandakishore2404/oan-pest-detection-benchmark
 
 Executes the complete sovereign pipeline in a single command:
@@ -33,7 +33,7 @@ def run_unified_diagnosis(image_path: str, model_type: str = "qwen2.5-coder:7b")
         
     print("=" * 70)
     print("🌾 OPENAGRINET (OAN) KENYA: SOVEREIGN DIAGNOSTIC & ADVISORY ENGINE")
-    print(f"Program Manager turned Architect (Powered by AI skills/tools): Nanda Kishore Kakulla")
+    print(f"Program Manager turned Architect — building with AI: Nanda Kishore Kakulla")
     print(f"Target Image  : {image_path}")
     print("=" * 70)
     

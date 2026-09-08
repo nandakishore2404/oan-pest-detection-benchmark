@@ -2,7 +2,7 @@
 """
 OAN Kenya: Explainable AI (XAI) Grad-CAM Module
 ================================================
-Program Manager turned Architect (Powered by AI skills/tools): Nanda Kishore Kakulla <nandakishore.kakulla9@gmail.com>
+Program Manager turned Architect — building with AI: Nanda Kishore Kakulla <nandakishore.kakulla9@gmail.com>
 Repository: https://github.com/nandakishore2404/oan-pest-detection-benchmark
 
 Generates Class Activation Maps (Grad-CAM) showing exact foliar lesion attention,

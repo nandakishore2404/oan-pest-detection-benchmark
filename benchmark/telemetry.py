@@ -2,7 +2,7 @@
 """
 OAN Kenya: Model Observability & Telemetry Engine
 =================================================
-Program Manager turned Architect (Powered by AI skills/tools): Nanda Kishore Kakulla <nandakishore.kakulla9@gmail.com>
+Program Manager turned Architect — building with AI: Nanda Kishore Kakulla <nandakishore.kakulla9@gmail.com>
 Repository: https://github.com/nandakishore2404/oan-pest-detection-benchmark
 
 Tracks model inference latency (P50, P90, P95, P99), throughput, accuracy evolution,

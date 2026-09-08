@@ -2,7 +2,7 @@
 """
 Model Quality & Attention Focus Audit (Grad-CAM XAI)
 =====================================================
-Program Manager turned Architect (Powered by AI skills/tools): Nanda Kishore Kakulla <nandakishore.kakulla9@gmail.com>
+Program Manager turned Architect — building with AI: Nanda Kishore Kakulla <nandakishore.kakulla9@gmail.com>
 Repository: https://github.com/nandakishore2404/oan-pest-detection-benchmark
 
 Audits the fine-tuned MobileNetV4 model against genuine African field images.
@@ -29,7 +29,7 @@ def run_quality_audit():
 
     print("=" * 70)
     print("🔬 OAN KENYA: GRAD-CAM ATTENTION FOCUS & XAI QUALITY AUDIT")
-    print("Program Manager turned Architect (Powered by AI skills/tools): Nanda Kishore Kakulla <nandakishore.kakulla9@gmail.com>")
+    print("Program Manager turned Architect — building with AI: Nanda Kishore Kakulla <nandakishore.kakulla9@gmail.com>")
     print("=" * 70)
 
     val_dir = repo_root / "data" / "african_beans_field" / "validation"

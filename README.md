@@ -4,7 +4,7 @@
 [![Framework: PyTorch](https://img.shields.io/badge/Framework-PyTorch%20%7C%20ONNX%20%7C%20Ultralytics-orange.svg)](https://pytorch.org/)
 [![DPI: Beckn Protocol](https://img.shields.io/badge/Protocol-Beckn%20ONIX-blue.svg)](https://docs.openagrinet.global/)
 [![Edge: ONNX Runtime](https://img.shields.io/badge/Edge%20Inference-1.99ms%20CPU-brightgreen.svg)](https://onnxruntime.ai/)
-[![Author: Nanda Kishore Kakulla](https://img.shields.io/badge/Lead%20Architect-Nanda%20Kishore%20Kakulla-blue.svg)](https://github.com/nandakishore2404)
+[![Author: Nanda Kishore Kakulla](https://img.shields.io/badge/Program%20Manager%20turned%20Architect-building%20with%20AI-10574e.svg)](https://github.com/nandakishore2404)
 
 An open-source, edge-optimized computer-vision engine and benchmarking laboratory for automated agricultural pest and foliar disease diagnosis, engineered specifically for the **OpenAgriNet (OAN) Kenya Digital Public Infrastructure (DPI)** under the **Beckn Protocol**.
 
@@ -196,15 +196,26 @@ To prevent misapplication of costly agrochemicals, the model applies temperature
 
 ---
 
-## 👨‍💻 Author & Project Architect
+## 👨‍💻 Author & Profile
 
-* **Nanda Kishore Kakulla** — *Lead AI/ML Solution Architect & Core Contributor*
-  * **GitHub Profile**: [https://github.com/nandakishore2404](https://github.com/nandakishore2404)
-  * Conceptualized and implemented the sovereign **Two-Tier Computer Vision Architecture** (separating foliar pathology classification from insect detection and counting).
-  * Ingested and benchmarked real East African smallholder field datasets (Makerere iBean, Roboflow Agricultural Pests ODinW-RF100).
-  * Executed domain-adaptation fine-tuning on `MobileNetV4 Conv Small` (+17.17% accuracy gain on field imagery) and fine-tuned `YOLOv8n` across 28 real agricultural pest species (83.19% precision).
-  * Optimized sub-20ms edge ONNX runtimes (1.99 ms foliar classifier, 17.03 ms pest detector) for offline budget Android smartphone deployment.
-  * Architected Beckn Protocol (ONIX) BPP provider integration for the OpenAgriNet (OAN) Kenya DPI exchange.
+### 👋 Hi, I'm Nanda Kishore Kakulla
+
+**Program Manager turned Architect — building with AI.**
+
+I bridge business, product, architecture, and engineering to turn ideas into working digital solutions. I increasingly use AI-assisted development, GenAI, agentic workflows, and modern engineering tools to prototype faster, solve complex problems, and take concepts from **idea → architecture → implementation**.
+
+#### What I work on
+* 🤖 **AI / GenAI & Agentic Systems**
+* 🏗️ **Solution & Enterprise Architecture**
+* 🌐 **Digital Public Infrastructure (DPI & Beckn Protocol)**
+* ☁️ **Cloud & Distributed Platforms**
+* 🔬 **AI experimentation & model evaluation**
+* 🧩 **APIs, integrations & ecosystems**
+* 🚀 **Rapid prototyping & AI-assisted engineering**
+
+> *My philosophy*: You don't have to be a traditional developer to build with technology anymore — AI can turn strong problem-solving, architecture, and domain knowledge into working software.
+
+📫 **Let's build**: [nandakishore.kakulla9@gmail.com](mailto:nandakishore.kakulla9@gmail.com) | **GitHub**: [@nandakishore2404](https://github.com/nandakishore2404)
 
 ---
 
