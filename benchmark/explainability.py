@@ -169,8 +169,11 @@ def explain_crop_image(
         
     grad_cam = GradCAM(model, target_layer)
     
-    # Preprocess image
-    img_pil = Image.open(image_path).convert("RGB")
+    # Preprocess image (supports file path, string, or PIL Image)
+    if isinstance(image_path, Image.Image):
+        img_pil = image_path.convert("RGB")
+    else:
+        img_pil = Image.open(image_path).convert("RGB")
     transform = transforms.Compose([
         transforms.Resize((224, 224)),
         transforms.ToTensor(),
@@ -201,7 +204,9 @@ def explain_crop_image(
         "confidence": round(confidence, 4),
         "confidence_pct": round(confidence * 100.0, 2),
         "lesion_focus_pct": round(focus_pct, 2),
+        "focus_score": round(focus_pct, 1),
         "overlay_image": overlay_img,
+        "annotated_image": overlay_img,
         "comparison_card": comparison_card,
         "cam_array": cam
     }

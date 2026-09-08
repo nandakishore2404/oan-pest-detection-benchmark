@@ -140,6 +140,18 @@ def svg_zap(color: str = COLOR_ACCENT, size: int = 16) -> str:
         <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
     </svg>"""
 
+def svg_chart_bar(color: str = COLOR_ACCENT, size: int = 18) -> str:
+    return f"""<svg width="{size}" height="{size}" viewBox="0 0 24 24" fill="none" stroke="{color}" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="12" y1="20" x2="12" y2="10"/>
+        <line x1="18" y1="20" x2="18" y2="4"/>
+        <line x1="6" y1="20" x2="6" y2="16"/>
+    </svg>"""
+
+def svg_activity(color: str = COLOR_ACCENT, size: int = 18) -> str:
+    return f"""<svg width="{size}" height="{size}" viewBox="0 0 24 24" fill="none" stroke="{color}" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+    </svg>"""
+
 
 # ==============================================================================
 # 3. GLOBAL THEME & TYPOGRAPHY INJECTION
@@ -460,6 +472,76 @@ def inject_theme():
         /* Streamlit Input Override for Dark Theme */
         .stSelectbox, .stSlider, .stFileUploader {{
             font-family: var(--font-body) !important;
+        }}
+
+        /* -------------------------------------------------------------
+           Device Screensize & Strict Image Constraints
+           Ensures uploaded and analyzed photos fit within screen bounds
+           ------------------------------------------------------------- */
+        [data-testid="stImage"] {{
+            display: flex !important;
+            justify-content: center !important;
+            align-items: center !important;
+            width: 100% !important;
+            margin: 6px auto !important;
+        }}
+
+        [data-testid="stImage"] img {{
+            max-height: 270px !important;
+            max-width: 100% !important;
+            width: auto !important;
+            height: auto !important;
+            object-fit: contain !important;
+            border-radius: 14px !important;
+            border: 1px solid var(--border) !important;
+            background-color: #040806 !important;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.45) !important;
+        }}
+
+        [data-testid="stImage"] [data-testid="stCaptionContainer"] {{
+            font-size: 11px !important;
+            color: var(--text-muted) !important;
+            text-align: center !important;
+            margin-top: 5px !important;
+        }}
+
+        /* Lab View 3-panel side-by-side images */
+        .lab-photo-panel [data-testid="stImage"] img {{
+            max-height: 220px !important;
+            height: 220px !important;
+            object-fit: contain !important;
+        }}
+
+        /* Mobile Device Mockup Frame for Farmer Experience */
+        .mobile-device-shell {{
+            max-width: 430px;
+            width: 100%;
+            margin: 0 auto;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 28px;
+            padding: 20px 18px;
+            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.55);
+        }}
+
+        /* Responsive Breakpoints for Mobile Phones & Tablets */
+        @media (max-width: 768px) {{
+            .mobile-device-shell {{
+                max-width: 100% !important;
+                border: none !important;
+                padding: 10px 4px !important;
+                box-shadow: none !important;
+                background: transparent !important;
+            }}
+            .mobile-viewport-wrapper {{
+                max-width: 100% !important;
+                border: none !important;
+                padding: 10px 4px !important;
+                box-shadow: none !important;
+            }}
+            [data-testid="stImage"] img {{
+                max-height: 240px !important;
+            }}
         }}
     </style>
     """, unsafe_allow_html=True)
