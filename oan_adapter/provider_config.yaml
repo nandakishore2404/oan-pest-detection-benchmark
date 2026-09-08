@@ -1,0 +1,40 @@
+provider:
+  id: oan-pest-ai-provider-kenya-01
+  name: OAN Kenya Pest & Disease Diagnostic BPP
+  jurisdiction: Kenya
+  counties_supported:
+  - Kakamega
+  - Bungoma
+  - Uasin Gishu
+  - Nakuru
+  - Trans Nzoia
+  category: AGRONOMIC_DIAGNOSTICS
+  beckn_spec_version: 1.1.0
+  bpp_id: bpp.pest-ai.oan.kenya.deloitte.org
+  bpp_uri: https://bpp.pest-ai.oan.kenya.deloitte.org/bpp
+  supported_actions:
+  - search
+  - select
+  - init
+  - confirm
+  - status
+service_tiers:
+  tier_1_offline_mobile:
+    model_id: mobilenetv4_5class
+    runtime: ONNX Runtime Mobile
+    latency_ms_sla: 50
+    cost_per_query_kes: 0.0
+  tier_2_deep_detector:
+    model_id: yolov8n_pest
+    runtime: ONNX Runtime / TensorRT
+    latency_ms_sla: 200
+    cost_per_query_kes: 0.5
+  tier_3_expert_escalation:
+    type: HUMAN_EXTENSION_OFFICER
+    sla_hours: 24
+    helpline: KALRO 0800-720021
+integration_status:
+  request_mapping: IMPLEMENTED
+  response_mapping: IMPLEMENTED
+  onix_gateway_connection: REQUIRES_OAN_CREDENTIALS
+  bpp_onboarding: REQUIRES_ONIX_CONFIGURATION

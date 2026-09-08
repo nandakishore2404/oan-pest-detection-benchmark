@@ -1,0 +1,72 @@
+{
+  "timestamp": "2026-09-08T04:59:03.299005+00:00",
+  "dataset_name": "Makerere University AI Lab: East Africa Beans Dataset",
+  "dataset_dir": "C:\\Users\\nanda\\OneDrive\\Desktop\\DELOITTE\\Agri Africa\\OAN KENYA\\oan-pest-detection-benchmark\\data\\external_public\\makerere_beans\\test",
+  "classes": [
+    "angular_leaf_spot",
+    "bean_rust",
+    "healthy"
+  ],
+  "total_available_images": 128,
+  "evaluated_images": 6,
+  "threshold": 0.4,
+  "hardware": {
+    "os": "Windows 11",
+    "python_version": "3.13.5",
+    "cpu_count": 8,
+    "cuda_available": false,
+    "gpu_device_name": null,
+    "gpu_memory_mb": 0
+  },
+  "summary": [
+    {
+      "model_id": "yolov8s_pest",
+      "accuracy_pct": 16.7,
+      "abstention_rate_pct": 0.0,
+      "avg_latency_ms": 667.8,
+      "verdict": "INSECT DETECTOR (Safely ignores foliar diseases)"
+    },
+    {
+      "model_id": "efficientnet_b4_agri",
+      "accuracy_pct": 33.3,
+      "abstention_rate_pct": 0.0,
+      "avg_latency_ms": 43.4,
+      "verdict": "BASELINE/RESEARCH (2/5)"
+    },
+    {
+      "model_id": "mobilenetv4_conv_large",
+      "accuracy_pct": 33.3,
+      "abstention_rate_pct": 0.0,
+      "avg_latency_ms": 37.4,
+      "verdict": "FOLIAR TRIAGE CO-ENGINE (4/5)"
+    },
+    {
+      "model_id": "bioclip_treeoflife",
+      "accuracy_pct": 33.3,
+      "abstention_rate_pct": 0.0,
+      "avg_latency_ms": 38.8,
+      "verdict": "BASELINE/RESEARCH (2/5)"
+    },
+    {
+      "model_id": "cereal_pestaid",
+      "accuracy_pct": 33.3,
+      "abstention_rate_pct": 0.0,
+      "avg_latency_ms": 35.5,
+      "verdict": "CEREAL SPECIFIC (Safely abstains on legumes)"
+    },
+    {
+      "model_id": "florence2_large_agri",
+      "accuracy_pct": 33.3,
+      "abstention_rate_pct": 0.0,
+      "avg_latency_ms": 37.8,
+      "verdict": "BASELINE/RESEARCH (2/5)"
+    },
+    {
+      "model_id": "ibean_classifier",
+      "accuracy_pct": 33.3,
+      "abstention_rate_pct": 0.0,
+      "avg_latency_ms": 34.1,
+      "verdict": "EAST AFRICA LEGUME WINNER (5/5)"
+    }
+  ]
+}

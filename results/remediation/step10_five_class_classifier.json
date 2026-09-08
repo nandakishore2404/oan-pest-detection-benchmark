@@ -1,0 +1,118 @@
+{
+  "step": 10,
+  "status": "DONE",
+  "timestamp": "2026-09-08T07:10:00Z",
+  "SCOPE_AND_TAXONOMY_DISCLAIMER": "This result covers 5 of the project's 15 real target classes: Potato Late Blight, Tomato Early Blight, Bean Angular Leaf Spot, Bean Rust, and Healthy Foliage. It says nothing about the other 10 classes (including Fall Armyworm, Maize Stem Borer, and every other insect pest), for which zero labeled data exists.",
+  "task_nature": "Whole-leaf foliar disease and healthy foliage image classification (NOT pest detection / NOT bounding box)",
+  "model_architecture": {
+    "architecture": "mobilenetv4_conv_small (timm)",
+    "parameters": 2499429,
+    "rationale_for_selection": "MobileNetV4 Conv Small provides high edge efficiency (<15 MB footprint, sub-10ms CPU forward pass), making it the prime candidate for offline Android mobile classification on sub-$100 field smartphones."
+  },
+  "class_imbalance_handling": {
+    "imbalance_noted": "Bean Angular Leaf Spot and Bean Rust have only 43 images total on disk, compared to 1,000 for Potato Late Blight and Tomato Early Blight.",
+    "remediation_strategy": "Loss-Weighted Cross-Entropy (weights inversely proportional to class frequency: Bean classes upweighted to ~2.5x vs ~0.7x for majority classes) combined with random rotation, flip, and color jitter augmentations to avoid minority class recall collapse."
+  },
+  "dataset_splits": {
+    "Potato_Late_Blight": {
+      "total_deduped": 150,
+      "train": 105,
+      "val": 22,
+      "test": 23
+    },
+    "Tomato_Early_Blight": {
+      "total_deduped": 150,
+      "train": 105,
+      "val": 22,
+      "test": 23
+    },
+    "Bean_Angular_Leaf_Spot": {
+      "total_deduped": 43,
+      "train": 30,
+      "val": 6,
+      "test": 7
+    },
+    "Bean_Rust": {
+      "total_deduped": 43,
+      "train": 30,
+      "val": 6,
+      "test": 7
+    },
+    "Healthy_Foliage": {
+      "total_deduped": 150,
+      "train": 105,
+      "val": 22,
+      "test": 23
+    }
+  },
+  "total_dataset_sizes": {
+    "train": 375,
+    "validation": 78,
+    "hold_out_test": 83
+  },
+  "evaluation_metrics_test_split": {
+    "overall_accuracy_pct": 87.95,
+    "correct_predictions": 73,
+    "total_test_images": 83,
+    "mean_forward_pass_ms": 18.16,
+    "per_class_breakdown": {
+      "Potato_Late_Blight": {
+        "test_samples": 23,
+        "true_positives": 23,
+        "false_positives": 4,
+        "false_negatives": 0,
+        "precision_pct": 85.19,
+        "recall_pct": 100.0,
+        "f1_score_pct": 92.0
+      },
+      "Tomato_Early_Blight": {
+        "test_samples": 23,
+        "true_positives": 20,
+        "false_positives": 0,
+        "false_negatives": 3,
+        "precision_pct": 100.0,
+        "recall_pct": 86.96,
+        "f1_score_pct": 93.03
+      },
+      "Bean_Angular_Leaf_Spot": {
+        "test_samples": 7,
+        "true_positives": 3,
+        "false_positives": 1,
+        "false_negatives": 4,
+        "precision_pct": 75.0,
+        "recall_pct": 42.86,
+        "f1_score_pct": 54.55
+      },
+      "Bean_Rust": {
+        "test_samples": 7,
+        "true_positives": 6,
+        "false_positives": 4,
+        "false_negatives": 1,
+        "precision_pct": 60.0,
+        "recall_pct": 85.71,
+        "f1_score_pct": 70.59
+      },
+      "Healthy_Foliage": {
+        "test_samples": 23,
+        "true_positives": 21,
+        "false_positives": 1,
+        "false_negatives": 2,
+        "precision_pct": 95.45,
+        "recall_pct": 91.3,
+        "f1_score_pct": 93.33
+      }
+    }
+  },
+  "edge_onnx_profile": {
+    "onnx_model_path": "c:\\Users\\nanda\\OneDrive\\Desktop\\DELOITTE\\Agri Africa\\OAN KENYA\\oan-pest-detection-benchmark\\models\\trained\\mobilenetv4_5class.onnx",
+    "file_size_mb": 9.51,
+    "file_size_bytes": 9970653,
+    "benchmark_50_runs": {
+      "mean_latency_ms": 1.99,
+      "p50_latency_ms": 1.27,
+      "p95_latency_ms": 5.31
+    }
+  },
+  "raw_predictions_csv": "c:\\Users\\nanda\\OneDrive\\Desktop\\DELOITTE\\Agri Africa\\OAN KENYA\\oan-pest-detection-benchmark\\results\\remediation\\step10_raw_predictions.csv",
+  "caveat": "Evaluated on 83 held-out test images on Intel Core Ultra 5 CPU. While overall accuracy reaches legitimate validation levels, the 43-image bean classes have small test support (N=7 each). Expanding bean sample sizes via Makerere full archive or local field collection is required to tighten confidence intervals."
+}

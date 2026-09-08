@@ -1,0 +1,23 @@
+# OAN Kenya YOLOv8 Dataset Configuration
+# Standardized mapping for the 12-Class Agricultural Pest Dataset
+
+path: "C:/Users/nanda/OneDrive/Desktop/DELOITTE/Agri Africa/OAN KENYA/SPRINT-3/Pest Control/Pest Data Sets/archive (1)"
+train: "train/images"
+val: "valid/images"
+test: "test/images"
+
+nc: 12
+names: [
+  "Ants",
+  "Bees",
+  "Beetles",
+  "Caterpillars",
+  "Earthworms",
+  "Earwigs",
+  "Grasshoppers",
+  "Moths",
+  "Slugs",
+  "Snails",
+  "Wasps",
+  "Weevils"
+]

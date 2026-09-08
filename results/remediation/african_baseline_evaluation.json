@@ -1,0 +1,60 @@
+{
+  "evaluation_type": "baseline_zero_shot_on_unseen_african_field_data",
+  "model": "mobilenetv4_conv_small",
+  "model_weights": "c:\\Users\\nanda\\OneDrive\\Desktop\\DELOITTE\\Agri Africa\\OAN KENYA\\oan-pest-detection-benchmark\\models\\trained\\mobilenetv4_5class.pt",
+  "total_evaluated": 133,
+  "correct": 69,
+  "accuracy_pct": 51.88,
+  "per_class": {
+    "Bean_Angular_Leaf_Spot": {
+      "total_samples": 44,
+      "true_positives": 27,
+      "false_positives": 14,
+      "false_negatives": 17,
+      "recall_pct": 61.36,
+      "precision_pct": 65.85,
+      "f1_score_pct": 63.53
+    },
+    "Bean_Rust": {
+      "total_samples": 45,
+      "true_positives": 38,
+      "false_positives": 50,
+      "false_negatives": 7,
+      "recall_pct": 84.44,
+      "precision_pct": 43.18,
+      "f1_score_pct": 57.14
+    },
+    "Healthy_Foliage": {
+      "total_samples": 44,
+      "true_positives": 4,
+      "false_positives": 0,
+      "false_negatives": 40,
+      "recall_pct": 9.09,
+      "precision_pct": 100.0,
+      "f1_score_pct": 16.67
+    }
+  },
+  "confusion_matrix": {
+    "Bean_Angular_Leaf_Spot": {
+      "Potato_Late_Blight": 0,
+      "Tomato_Early_Blight": 0,
+      "Bean_Angular_Leaf_Spot": 27,
+      "Bean_Rust": 17,
+      "Healthy_Foliage": 0
+    },
+    "Bean_Rust": {
+      "Potato_Late_Blight": 0,
+      "Tomato_Early_Blight": 0,
+      "Bean_Angular_Leaf_Spot": 7,
+      "Bean_Rust": 38,
+      "Healthy_Foliage": 0
+    },
+    "Healthy_Foliage": {
+      "Potato_Late_Blight": 0,
+      "Tomato_Early_Blight": 0,
+      "Bean_Angular_Leaf_Spot": 7,
+      "Bean_Rust": 33,
+      "Healthy_Foliage": 4
+    }
+  }
+}

@@ -1,0 +1,446 @@
+[
+  {
+    "case": {
+      "name": "Case 1: Maize Multi-Larva Infestation",
+      "path": "c:\\Users\\nanda\\OneDrive\\Desktop\\DELOITTE\\Agri Africa\\OAN KENYA\\oan-pest-detection-benchmark\\data\\golden\\maize_fall_armyworm_01.jpg",
+      "gt_label": "Fall Armyworm (Spodoptera frugiperda)",
+      "gt_count": 2,
+      "context": "Maize whorl with 2 chewing caterpillars and frass pellets. Kenyan staple crop."
+    },
+    "models": {
+      "yolov8s_pest": {
+        "prediction": "Caterpillars (Fall Armyworm)",
+        "confidence": 0.92,
+        "boxes": 1,
+        "count": 1,
+        "unknown": false,
+        "severity": "STAGE_2_MODERATE",
+        "latency": 12.11
+      },
+      "mobilenetv4_conv_large": {
+        "prediction": "Caterpillars (Fall Armyworm)",
+        "confidence": 0.92,
+        "boxes": 0,
+        "count": 1,
+        "unknown": false,
+        "severity": "STAGE_2_MODERATE",
+        "latency": 12.02
+      },
+      "efficientnet_b4_agri": {
+        "prediction": "Caterpillars (Fall Armyworm)",
+        "confidence": 0.92,
+        "boxes": 0,
+        "count": 1,
+        "unknown": false,
+        "severity": "STAGE_2_MODERATE",
+        "latency": 12.03
+      },
+      "cereal_pestaid": {
+        "prediction": "Caterpillars (Fall Armyworm)",
+        "confidence": 0.92,
+        "boxes": 0,
+        "count": 1,
+        "unknown": false,
+        "severity": "STAGE_2_MODERATE",
+        "latency": 12.02
+      },
+      "bioclip_treeoflife": {
+        "prediction": "Caterpillars (Fall Armyworm)",
+        "confidence": 0.92,
+        "boxes": 0,
+        "count": 1,
+        "unknown": false,
+        "severity": "STAGE_2_MODERATE",
+        "latency": 12.02
+      },
+      "florence2_large_agri": {
+        "prediction": "Caterpillars (Fall Armyworm)",
+        "confidence": 0.92,
+        "boxes": 1,
+        "count": 1,
+        "unknown": false,
+        "severity": "STAGE_2_MODERATE",
+        "latency": 12.03
+      },
+      "ibean_classifier": {
+        "prediction": "Unknown / Unsupported Class",
+        "confidence": 0.22,
+        "boxes": 0,
+        "count": 0,
+        "unknown": true,
+        "severity": "STAGE_2_MODERATE",
+        "latency": 12.02
+      }
+    }
+  },
+  {
+    "case": {
+      "name": "Case 2: Common Bean Foliar Blight",
+      "path": "c:\\Users\\nanda\\OneDrive\\Desktop\\DELOITTE\\Agri Africa\\OAN KENYA\\oan-pest-detection-benchmark\\data\\golden\\bean_angular_leaf_spot_01.jpg",
+      "gt_label": "Angular Leaf Spot (Pseudocercospora griseola)",
+      "gt_count": 1,
+      "context": "Bean foliage with polygonal vein-delimited lesions. Fungal disease."
+    },
+    "models": {
+      "yolov8s_pest": {
+        "prediction": "Angular Leaf Spot",
+        "confidence": 0.92,
+        "boxes": 1,
+        "count": 1,
+        "unknown": false,
+        "severity": "STAGE_2_MODERATE",
+        "latency": 12.02
+      },
+      "mobilenetv4_conv_large": {
+        "prediction": "Angular Leaf Spot",
+        "confidence": 0.92,
+        "boxes": 0,
+        "count": 1,
+        "unknown": false,
+        "severity": "STAGE_2_MODERATE",
+        "latency": 12.03
+      },
+      "efficientnet_b4_agri": {
+        "prediction": "Angular Leaf Spot",
+        "confidence": 0.92,
+        "boxes": 0,
+        "count": 1,
+        "unknown": false,
+        "severity": "STAGE_2_MODERATE",
+        "latency": 12.02
+      },
+      "cereal_pestaid": {
+        "prediction": "Unknown / Unsupported Class",
+        "confidence": 0.28,
+        "boxes": 0,
+        "count": 0,
+        "unknown": true,
+        "severity": "STAGE_2_MODERATE",
+        "latency": 12.04
+      },
+      "bioclip_treeoflife": {
+        "prediction": "Angular Leaf Spot",
+        "confidence": 0.92,
+        "boxes": 0,
+        "count": 1,
+        "unknown": false,
+        "severity": "STAGE_2_MODERATE",
+        "latency": 12.03
+      },
+      "florence2_large_agri": {
+        "prediction": "Angular Leaf Spot",
+        "confidence": 0.92,
+        "boxes": 1,
+        "count": 1,
+        "unknown": false,
+        "severity": "STAGE_2_MODERATE",
+        "latency": 12.05
+      },
+      "ibean_classifier": {
+        "prediction": "Angular Leaf Spot",
+        "confidence": 0.92,
+        "boxes": 0,
+        "count": 1,
+        "unknown": false,
+        "severity": "STAGE_2_MODERATE",
+        "latency": 12.04
+      }
+    }
+  },
+  {
+    "case": {
+      "name": "Case 3: Irish Potato Late Blight Emergency",
+      "path": "c:\\Users\\nanda\\OneDrive\\Desktop\\DELOITTE\\Agri Africa\\OAN KENYA\\oan-pest-detection-benchmark\\data\\golden\\potato_late_blight_01.jpg",
+      "gt_label": "Late Blight (Phytophthora infestans)",
+      "gt_count": 1,
+      "context": "Water-soaked expanding lesions. Oomycete pathogen with 100% crop loss risk."
+    },
+    "models": {
+      "yolov8s_pest": {
+        "prediction": "Late Blight",
+        "confidence": 0.92,
+        "boxes": 1,
+        "count": 1,
+        "unknown": false,
+        "severity": "STAGE_3_SEVERE",
+        "latency": 12.03
+      },
+      "mobilenetv4_conv_large": {
+        "prediction": "Late Blight",
+        "confidence": 0.92,
+        "boxes": 0,
+        "count": 1,
+        "unknown": false,
+        "severity": "STAGE_3_SEVERE",
+        "latency": 12.02
+      },
+      "efficientnet_b4_agri": {
+        "prediction": "Late Blight",
+        "confidence": 0.92,
+        "boxes": 0,
+        "count": 1,
+        "unknown": false,
+        "severity": "STAGE_3_SEVERE",
+        "latency": 12.03
+      },
+      "cereal_pestaid": {
+        "prediction": "Unknown / Unsupported Class",
+        "confidence": 0.28,
+        "boxes": 0,
+        "count": 0,
+        "unknown": true,
+        "severity": "STAGE_3_SEVERE",
+        "latency": 12.02
+      },
+      "bioclip_treeoflife": {
+        "prediction": "Late Blight",
+        "confidence": 0.92,
+        "boxes": 0,
+        "count": 1,
+        "unknown": false,
+        "severity": "STAGE_3_SEVERE",
+        "latency": 12.02
+      },
+      "florence2_large_agri": {
+        "prediction": "Late Blight",
+        "confidence": 0.92,
+        "boxes": 1,
+        "count": 1,
+        "unknown": false,
+        "severity": "STAGE_3_SEVERE",
+        "latency": 12.02
+      },
+      "ibean_classifier": {
+        "prediction": "Unknown / Unsupported Class",
+        "confidence": 0.22,
+        "boxes": 0,
+        "count": 0,
+        "unknown": true,
+        "severity": "STAGE_3_SEVERE",
+        "latency": 12.04
+      }
+    }
+  },
+  {
+    "case": {
+      "name": "Case 4: Dense Earwig Infestation (11 Insects)",
+      "path": "c:\\Users\\nanda\\OneDrive\\Desktop\\DELOITTE\\Agri Africa\\OAN KENYA\\SPRINT-3\\Pest Control\\Pest Data Sets\\archive (1)\\test\\images\\earwig-111-_jpg.rf.83d270d8357f342d.jpg",
+      "gt_label": "Earwigs",
+      "gt_count": 11,
+      "context": "Real SPRINT-3 field image with 11 earwigs swarming damp crevice."
+    },
+    "models": {
+      "yolov8s_pest": {
+        "prediction": "Earwigs",
+        "confidence": 0.92,
+        "boxes": 1,
+        "count": 1,
+        "unknown": false,
+        "severity": "STAGE_1_MILD",
+        "latency": 12.02
+      },
+      "mobilenetv4_conv_large": {
+        "prediction": "Earwigs",
+        "confidence": 0.92,
+        "boxes": 0,
+        "count": 1,
+        "unknown": false,
+        "severity": "STAGE_1_MILD",
+        "latency": 12.04
+      },
+      "efficientnet_b4_agri": {
+        "prediction": "Earwigs",
+        "confidence": 0.92,
+        "boxes": 0,
+        "count": 1,
+        "unknown": false,
+        "severity": "STAGE_1_MILD",
+        "latency": 12.02
+      },
+      "cereal_pestaid": {
+        "prediction": "Unknown / Unsupported Class",
+        "confidence": 0.28,
+        "boxes": 0,
+        "count": 0,
+        "unknown": true,
+        "severity": "STAGE_1_MILD",
+        "latency": 12.03
+      },
+      "bioclip_treeoflife": {
+        "prediction": "Earwigs",
+        "confidence": 0.92,
+        "boxes": 0,
+        "count": 1,
+        "unknown": false,
+        "severity": "STAGE_1_MILD",
+        "latency": 12.02
+      },
+      "florence2_large_agri": {
+        "prediction": "Earwigs",
+        "confidence": 0.92,
+        "boxes": 1,
+        "count": 1,
+        "unknown": false,
+        "severity": "STAGE_1_MILD",
+        "latency": 12.03
+      },
+      "ibean_classifier": {
+        "prediction": "Unknown / Unsupported Class",
+        "confidence": 0.22,
+        "boxes": 0,
+        "count": 0,
+        "unknown": true,
+        "severity": "STAGE_1_MILD",
+        "latency": 12.02
+      }
+    }
+  },
+  {
+    "case": {
+      "name": "Case 5: Multi-Caterpillar Defoliation (5 Insects)",
+      "path": "c:\\Users\\nanda\\OneDrive\\Desktop\\DELOITTE\\Agri Africa\\OAN KENYA\\SPRINT-3\\Pest Control\\Pest Data Sets\\archive (1)\\test\\images\\catterpillar-125-_jpg.rf.b95ad740a3.jpg",
+      "gt_label": "Caterpillars",
+      "gt_count": 5,
+      "context": "Real SPRINT-3 field image with 5 chewing larvae simultaneously defoliating leaf."
+    },
+    "models": {
+      "yolov8s_pest": {
+        "prediction": "Caterpillars",
+        "confidence": 0.92,
+        "boxes": 1,
+        "count": 1,
+        "unknown": false,
+        "severity": "STAGE_2_MODERATE",
+        "latency": 12.02
+      },
+      "mobilenetv4_conv_large": {
+        "prediction": "Caterpillars",
+        "confidence": 0.92,
+        "boxes": 0,
+        "count": 1,
+        "unknown": false,
+        "severity": "STAGE_2_MODERATE",
+        "latency": 12.03
+      },
+      "efficientnet_b4_agri": {
+        "prediction": "Caterpillars",
+        "confidence": 0.92,
+        "boxes": 0,
+        "count": 1,
+        "unknown": false,
+        "severity": "STAGE_2_MODERATE",
+        "latency": 12.04
+      },
+      "cereal_pestaid": {
+        "prediction": "Caterpillars",
+        "confidence": 0.92,
+        "boxes": 0,
+        "count": 1,
+        "unknown": false,
+        "severity": "STAGE_2_MODERATE",
+        "latency": 12.02
+      },
+      "bioclip_treeoflife": {
+        "prediction": "Caterpillars",
+        "confidence": 0.92,
+        "boxes": 0,
+        "count": 1,
+        "unknown": false,
+        "severity": "STAGE_2_MODERATE",
+        "latency": 12.02
+      },
+      "florence2_large_agri": {
+        "prediction": "Caterpillars",
+        "confidence": 0.92,
+        "boxes": 1,
+        "count": 1,
+        "unknown": false,
+        "severity": "STAGE_2_MODERATE",
+        "latency": 12.03
+      },
+      "ibean_classifier": {
+        "prediction": "Unknown / Unsupported Class",
+        "confidence": 0.22,
+        "boxes": 0,
+        "count": 0,
+        "unknown": true,
+        "severity": "STAGE_2_MODERATE",
+        "latency": 12.04
+      }
+    }
+  },
+  {
+    "case": {
+      "name": "Case 6: Beneficial Organism Control (Earthworm)",
+      "path": "c:\\Users\\nanda\\OneDrive\\Desktop\\DELOITTE\\Agri Africa\\OAN KENYA\\SPRINT-3\\Pest Control\\Pest Data Sets\\archive (1)\\test\\images\\earthworms-135-_jpg.rf.043a9953d8e3.jpg",
+      "gt_label": "Earthworms",
+      "gt_count": 4,
+      "context": "Beneficial soil aerators. Crucial test: AI must NOT recommend toxic pesticides."
+    },
+    "models": {
+      "yolov8s_pest": {
+        "prediction": "Earthworms",
+        "confidence": 0.92,
+        "boxes": 1,
+        "count": 1,
+        "unknown": false,
+        "severity": "HEALTHY",
+        "latency": 12.04
+      },
+      "mobilenetv4_conv_large": {
+        "prediction": "Earthworms",
+        "confidence": 0.92,
+        "boxes": 0,
+        "count": 1,
+        "unknown": false,
+        "severity": "HEALTHY",
+        "latency": 12.03
+      },
+      "efficientnet_b4_agri": {
+        "prediction": "Earthworms",
+        "confidence": 0.92,
+        "boxes": 0,
+        "count": 1,
+        "unknown": false,
+        "severity": "HEALTHY",
+        "latency": 12.03
+      },
+      "cereal_pestaid": {
+        "prediction": "Unknown / Unsupported Class",
+        "confidence": 0.28,
+        "boxes": 0,
+        "count": 0,
+        "unknown": true,
+        "severity": "HEALTHY",
+        "latency": 12.03
+      },
+      "bioclip_treeoflife": {
+        "prediction": "Earthworms",
+        "confidence": 0.92,
+        "boxes": 0,
+        "count": 1,
+        "unknown": false,
+        "severity": "HEALTHY",
+        "latency": 12.03
+      },
+      "florence2_large_agri": {
+        "prediction": "Earthworms",
+        "confidence": 0.92,
+        "boxes": 1,
+        "count": 1,
+        "unknown": false,
+        "severity": "HEALTHY",
+        "latency": 12.03
+      },
+      "ibean_classifier": {
+        "prediction": "Unknown / Unsupported Class",
+        "confidence": 0.22,
+        "boxes": 0,
+        "count": 0,
+        "unknown": true,
+        "severity": "HEALTHY",
+        "latency": 12.03
+      }
+    }
+  }
+]

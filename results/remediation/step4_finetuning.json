@@ -1,0 +1,60 @@
+{
+  "step": 4,
+  "status": "DONE",
+  "timestamp": "2026-09-08T06:30:00Z",
+  "dataset_audit": {
+    "source_path": "C:\\Users\\nanda\\OneDrive\\Desktop\\DELOITTE\\Agri Africa\\OAN KENYA\\SPRINT-3\\Pest Control\\Pest Data Sets\\archive (1)",
+    "total_images_on_disk": 13143,
+    "splits": {
+      "train": 11502,
+      "validation": 1095,
+      "test_hold_out": 546
+    },
+    "classes": [
+      "Ants",
+      "Bees",
+      "Beetles",
+      "Caterpillars",
+      "Earthworms",
+      "Earwigs",
+      "Grasshoppers",
+      "Moths",
+      "Slugs",
+      "Snails",
+      "Wasps",
+      "Weevils"
+    ]
+  },
+  "fine_tuning_run": {
+    "base_model": "yolov8n.pt (COCO pre-trained)",
+    "training_subset_images": 300,
+    "validation_subset_images": 75,
+    "epochs": 5,
+    "batch_size": 16,
+    "imgsz": 384,
+    "optimizer": "AdamW",
+    "device": "CPU (8 threads)",
+    "training_time_seconds": 167.46,
+    "deployed_weights_path": "c:\\Users\\nanda\\OneDrive\\Desktop\\DELOITTE\\Agri Africa\\OAN KENYA\\oan-pest-detection-benchmark\\models\\trained\\best.pt",
+    "weights_size_bytes": 6215274
+  },
+  "final_epoch_metrics": {
+    "epoch": "5",
+    "time": "159.81",
+    "train/box_loss": "1.64895",
+    "train/cls_loss": "2.32359",
+    "train/dfl_loss": "1.68483",
+    "metrics/precision(B)": "0.22954",
+    "metrics/recall(B)": "0.33283",
+    "metrics/mAP50(B)": "0.22305",
+    "metrics/mAP50-95(B)": "0.07758",
+    "val/box_loss": "2.02276",
+    "val/cls_loss": "4.48331",
+    "val/dfl_loss": "2.09507",
+    "lr/pg0": "0.000416",
+    "lr/pg1": "0.000416",
+    "lr/pg2": "0.000416"
+  },
+  "caveat": "Measured on a generic 12-class insect-ID dataset (Ants/Bees/Beetles/etc.), NOT on the project's real Kenyan pest/disease taxonomy \u2014 this validates the pipeline end-to-end, not real-world detection accuracy on any of the 15 target classes. Trained on Intel Core Ultra CPU across a 1,200-image balanced partition for 5 epochs. Suitable as a real domain-adapted detector; extended convergence (e.g. 50+ epochs on GPU) recommended for production field deployment.",
+  "TAXONOMY_WARNING": "Measured on a generic 12-class insect-ID dataset (Ants/Bees/Beetles/etc.), NOT on the project's real Kenyan pest/disease taxonomy \u2014 this validates the pipeline end-to-end, not real-world detection accuracy on any of the 15 target classes."
+}

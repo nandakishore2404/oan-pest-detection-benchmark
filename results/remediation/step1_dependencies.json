@@ -1,0 +1,36 @@
+{
+  "step": 1,
+  "status": "DONE",
+  "timestamp": "2026-09-08T06:07:30Z",
+  "dependencies": {
+    "ultralytics": {
+      "version": "8.4.143",
+      "class": "<class 'ultralytics.models.yolo.model.YOLO'>"
+    },
+    "timm": {
+      "version": "1.0.29",
+      "class": "<class 'timm.models.mobilenetv3.MobileNetV3'>"
+    },
+    "open_clip_torch": {
+      "version": "3.3.0",
+      "class": "<class 'open_clip.model.CLIP'>"
+    },
+    "transformers": {
+      "version": "5.16.1",
+      "class": "<class 'transformers.models.auto.modeling_auto.AutoModel'>"
+    },
+    "onnx": {
+      "version": "1.22.0",
+      "class": "<class 'onnx.onnx_ml_pb2.ModelProto'>"
+    },
+    "onnxruntime": {
+      "version": "1.29.0",
+      "class": "<class 'onnxruntime.capi.onnxruntime_inference_collection.InferenceSession'>"
+    },
+    "ai_edge_litert": {
+      "version": "2.2.0",
+      "class": "<class 'ai_edge_litert.interpreter.Interpreter'>"
+    }
+  },
+  "caveat": "All dependencies resolved and verified on Windows 11 x64 (Python 3.13.5). Model class loaders are active and importable with zero fallback."
+}

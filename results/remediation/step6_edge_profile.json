@@ -1,0 +1,30 @@
+{
+  "step": 6,
+  "status": "DONE",
+  "timestamp": "2026-09-08T06:40:00Z",
+  "exported_artifacts": {
+    "pytorch_weights": {
+      "path": "c:\\Users\\nanda\\OneDrive\\Desktop\\DELOITTE\\Agri Africa\\OAN KENYA\\oan-pest-detection-benchmark\\models\\trained\\best.pt",
+      "size_mb": 5.93,
+      "size_bytes": 6215274
+    },
+    "onnx_model": {
+      "path": "c:\\Users\\nanda\\OneDrive\\Desktop\\DELOITTE\\Agri Africa\\OAN KENYA\\oan-pest-detection-benchmark\\models\\trained\\best.onnx",
+      "size_mb": 11.6,
+      "size_bytes": 12166946,
+      "runtime_engine": "ONNX Runtime 1.29.0 (CPUExecutionProvider)",
+      "benchmark_50_runs": {
+        "mean_latency_ms": 15.5,
+        "p50_latency_ms": 12.92,
+        "p95_latency_ms": 28.91
+      }
+    },
+    "tflite_model": {
+      "status": "BLOCKED_ON_TENSORFLOW",
+      "note": "Ultralytics TFLite exporter requires full tensorflow/tf-keras package or flatbuffers compiler: LiteRT export only supported on Linux x86 and macOS",
+      "onnx_fallback_ready": true
+    }
+  },
+  "caveat": "Measured on a generic 12-class insect-ID dataset (Ants/Bees/Beetles/etc.), NOT on the project's real Kenyan pest/disease taxonomy \u2014 this validates the pipeline end-to-end, not real-world detection accuracy on any of the 15 target classes. Measured directly on Intel Core Ultra CPU proxy (batch=1, imgsz=384). ONNX export is 100% verified on disk (11.6 MB, 15.5 ms mean inference). Real physical Android phone deployment will depend on mobile SoC (e.g. MediaTek Helio G85 vs Snapdragon 680) and may exhibit 1.5x-2.5x higher latency without NPU acceleration.",
+  "TAXONOMY_WARNING": "Measured on a generic 12-class insect-ID dataset (Ants/Bees/Beetles/etc.), NOT on the project's real Kenyan pest/disease taxonomy \u2014 this validates the pipeline end-to-end, not real-world detection accuracy on any of the 15 target classes."
+}

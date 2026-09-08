@@ -1,0 +1,67 @@
+{
+  "step": 9,
+  "status": "DONE",
+  "timestamp": "2026-09-08T06:50:00Z",
+  "headline_finding": "ZERO labeled object-detection images (YOLO bounding boxes) exist anywhere in the project or on this machine for ANY of the 15 real Kenyan target taxa (KENYA_CANDIDATE_TAXA).",
+  "consequence": "The 16.3% top-1 accuracy, 22.3% mAP@50, and T=10.0 calibration measured in Steps 4-8 are real, honest measurements of a generic 12-class insect-ID dataset (Ants, Bees, Beetles, Caterpillars, Earthworms, Earwigs, Grasshoppers, Moths, Slugs, Snails, Wasps, Weevils) from archive (1). They validate the software and benchmarking pipeline end-to-end, but provide ZERO evidence of field accuracy on Fall Armyworm, Maize Stem Borer, Potato Late Blight, or any other client target class.",
+  "taxonomy_discrepancy": {
+    "benchmarked_classes_in_archive_1": [
+      "Ants",
+      "Bees",
+      "Beetles",
+      "Caterpillars",
+      "Earthworms",
+      "Earwigs",
+      "Grasshoppers",
+      "Moths",
+      "Slugs",
+      "Snails",
+      "Wasps",
+      "Weevils"
+    ],
+    "project_real_target_taxa_kenya": [
+      "Fall Armyworm",
+      "African Maize Stem Borer",
+      "Maize Lethal Necrosis Disease (MLND)",
+      "Potato Late Blight",
+      "Potato Bacterial Wilt",
+      "Tomato Leafminer",
+      "Tomato Early Blight",
+      "Bean Angular Leaf Spot",
+      "Bean Rust",
+      "Black Bean Aphid",
+      "Coffee Leaf Rust",
+      "Coffee Berry Disease",
+      "Sukuma Wiki Diamondback Moth",
+      "Banana Xanthomonas Wilt (BXW)",
+      "Healthy Foliage"
+    ],
+    "overlap_count": 0,
+    "overlap_percentage": 0.0
+  },
+  "foliar_disease_classification_data_found_on_disk": {
+    "Potato___Late_blight": 1000,
+    "Potato___Early_blight": 1000,
+    "Tomato___Early_blight": 1000,
+    "Tomato___Late_blight": 1909,
+    "Corn_(maize)___healthy": 1162,
+    "Tomato___healthy": 1591,
+    "Potato___healthy": 152,
+    "Bean_Angular_Leaf_Spot_Makerere_Test": 43,
+    "Bean_Rust_Makerere_Test": 43,
+    "format_limitation": "All above images are single whole-leaf image classification folders. None contain bounding-box coordinates (.txt labels) required to train or evaluate an object detector like YOLO."
+  },
+  "insect_pest_detection_data_found_on_disk": {
+    "Fall_Armyworm": 0,
+    "African_Maize_Stem_Borer": 0,
+    "Tomato_Leafminer_Tuta_absoluta": 0,
+    "Black_Bean_Aphid": 0,
+    "Sukuma_Wiki_Diamondback_Moth": 0,
+    "Maize_Lethal_Necrosis_Disease": 0,
+    "Potato_Bacterial_Wilt": 0,
+    "Coffee_Leaf_Rust": 0,
+    "Coffee_Berry_Disease": 0,
+    "Banana_Xanthomonas_Wilt": 0,
+    "status": "COMPLETELY_ABSENT"
+  }
+}

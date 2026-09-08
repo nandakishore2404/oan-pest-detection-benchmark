@@ -1,0 +1,44 @@
+{
+  "model_id": "mobilenetv4_conv_large",
+  "image_id": "potato_late_blight_01",
+  "timestamp": "2026-09-06T10:58:44.813638+00:00",
+  "task": "crop_disease_classification",
+  "prediction": "Late Blight (Phytophthora infestans)",
+  "scientific_name": "Phytophthora infestans",
+  "confidence": 0.91,
+  "top_predictions": [
+    {
+      "class_name": "Late Blight",
+      "confidence": 0.91,
+      "scientific_name": "Phytophthora infestans"
+    },
+    {
+      "class_name": "Early Blight",
+      "confidence": 0.06,
+      "scientific_name": "Alternaria solani"
+    },
+    {
+      "class_name": "Septoria Leaf Spot",
+      "confidence": 0.03,
+      "scientific_name": "Septoria lycopersici"
+    }
+  ],
+  "bounding_boxes": [
+    {
+      "class_name": "late_blight_lesion",
+      "confidence": 0.91,
+      "bbox_xyxy": [
+        80.0,
+        120.0,
+        280.0,
+        340.0
+      ]
+    }
+  ],
+  "severity": "STAGE_3_SEVERE",
+  "explanation": "Water-soaked expanding brown lesions with chlorotic necrotic border. [Executed via Timm fallback - install torch & timm for live weights]",
+  "unknown": false,
+  "inference_time_ms": 12.01,
+  "device": "cpu",
+  "error": null
+}

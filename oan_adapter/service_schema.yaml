@@ -1,0 +1,25 @@
+service:
+  name: AI Agricultural Diagnostic & Pest Scouting Service
+  schema_version: 1.1.0
+  beckn_descriptor:
+    name: OAN Crop Health & Pest AI
+    code: CROP_HEALTH_AI
+    short_desc: Instant automated diagnosis of crop pests and foliar diseases from
+      phone photos.
+    images:
+    - https://oan.kenya/assets/pest-ai-banner.jpg
+  item_attributes:
+    supported_crops:
+    - Maize
+    - Potato
+    - Tomato
+    - Common Bean
+    - Coffee
+    - Kale (Sukuma Wiki)
+    - Banana
+    diagnostic_modalities:
+    - Whole-leaf lesion classification
+    - Insect pest bounding-box counting
+    languages:
+    - en
+    - sw (Swahili)

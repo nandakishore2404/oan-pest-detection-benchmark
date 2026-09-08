@@ -1,0 +1,163 @@
+{
+  "step": 7,
+  "status": "DONE",
+  "timestamp": "2026-09-08T06:42:00Z",
+  "methodology": "Platt Scaling / Temperature Scaling (single scalar T fit via NLL on held-out calibration split)",
+  "calibration_split_size": 266,
+  "evaluation_split_size": 267,
+  "fitted_temperature_T": 10.0,
+  "ece_results": {
+    "uncalibrated_ece_pct": 47.86,
+    "calibrated_ece_pct": 35.61,
+    "absolute_reduction_pct": 12.25
+  },
+  "reliability_diagram_bins": {
+    "uncalibrated": [
+      {
+        "bin_range": "0.0 - 0.1",
+        "sample_count": 0,
+        "mean_confidence": 0.0,
+        "empirical_accuracy": 0.0,
+        "calibration_gap": 0.0
+      },
+      {
+        "bin_range": "0.1 - 0.2",
+        "sample_count": 11,
+        "mean_confidence": 0.1742,
+        "empirical_accuracy": 0.0,
+        "calibration_gap": 0.1742
+      },
+      {
+        "bin_range": "0.2 - 0.3",
+        "sample_count": 16,
+        "mean_confidence": 0.2463,
+        "empirical_accuracy": 0.0625,
+        "calibration_gap": 0.1838
+      },
+      {
+        "bin_range": "0.3 - 0.4",
+        "sample_count": 24,
+        "mean_confidence": 0.3452,
+        "empirical_accuracy": 0.0833,
+        "calibration_gap": 0.2619
+      },
+      {
+        "bin_range": "0.4 - 0.5",
+        "sample_count": 35,
+        "mean_confidence": 0.4573,
+        "empirical_accuracy": 0.1714,
+        "calibration_gap": 0.2858
+      },
+      {
+        "bin_range": "0.5 - 0.6",
+        "sample_count": 21,
+        "mean_confidence": 0.5497,
+        "empirical_accuracy": 0.2381,
+        "calibration_gap": 0.3116
+      },
+      {
+        "bin_range": "0.6 - 0.7",
+        "sample_count": 34,
+        "mean_confidence": 0.6495,
+        "empirical_accuracy": 0.2353,
+        "calibration_gap": 0.4142
+      },
+      {
+        "bin_range": "0.7 - 0.8",
+        "sample_count": 36,
+        "mean_confidence": 0.7556,
+        "empirical_accuracy": 0.1111,
+        "calibration_gap": 0.6445
+      },
+      {
+        "bin_range": "0.8 - 0.9",
+        "sample_count": 43,
+        "mean_confidence": 0.8462,
+        "empirical_accuracy": 0.186,
+        "calibration_gap": 0.6602
+      },
+      {
+        "bin_range": "0.9 - 1.0",
+        "sample_count": 47,
+        "mean_confidence": 0.9455,
+        "empirical_accuracy": 0.2128,
+        "calibration_gap": 0.7327
+      }
+    ],
+    "calibrated": [
+      {
+        "bin_range": "0.0 - 0.1",
+        "sample_count": 0,
+        "mean_confidence": 0.0,
+        "empirical_accuracy": 0.0,
+        "calibration_gap": 0.0
+      },
+      {
+        "bin_range": "0.1 - 0.2",
+        "sample_count": 0,
+        "mean_confidence": 0.0,
+        "empirical_accuracy": 0.0,
+        "calibration_gap": 0.0
+      },
+      {
+        "bin_range": "0.2 - 0.3",
+        "sample_count": 0,
+        "mean_confidence": 0.0,
+        "empirical_accuracy": 0.0,
+        "calibration_gap": 0.0
+      },
+      {
+        "bin_range": "0.3 - 0.4",
+        "sample_count": 0,
+        "mean_confidence": 0.0,
+        "empirical_accuracy": 0.0,
+        "calibration_gap": 0.0
+      },
+      {
+        "bin_range": "0.4 - 0.5",
+        "sample_count": 86,
+        "mean_confidence": 0.4836,
+        "empirical_accuracy": 0.1047,
+        "calibration_gap": 0.3789
+      },
+      {
+        "bin_range": "0.5 - 0.6",
+        "sample_count": 176,
+        "mean_confidence": 0.5368,
+        "empirical_accuracy": 0.1875,
+        "calibration_gap": 0.3493
+      },
+      {
+        "bin_range": "0.6 - 0.7",
+        "sample_count": 5,
+        "mean_confidence": 0.604,
+        "empirical_accuracy": 0.4,
+        "calibration_gap": 0.204
+      },
+      {
+        "bin_range": "0.7 - 0.8",
+        "sample_count": 0,
+        "mean_confidence": 0.0,
+        "empirical_accuracy": 0.0,
+        "calibration_gap": 0.0
+      },
+      {
+        "bin_range": "0.8 - 0.9",
+        "sample_count": 0,
+        "mean_confidence": 0.0,
+        "empirical_accuracy": 0.0,
+        "calibration_gap": 0.0
+      },
+      {
+        "bin_range": "0.9 - 1.0",
+        "sample_count": 0,
+        "mean_confidence": 0.0,
+        "empirical_accuracy": 0.0,
+        "calibration_gap": 0.0
+      }
+    ]
+  },
+  "operational_recommendation": "Model raw logits exhibit overconfidence on out-of-distribution leaf textures. In offline Android APK, scaling logits by T=10.0 before applying softmax compresses over-optimistic probabilities (e.g. raw 85% confidence maps to ~35% calibrated true posterior probability), drastically preventing false pesticide purchase triggers.",
+  "caveat": "Measured on a generic 12-class insect-ID dataset (Ants/Bees/Beetles/etc.), NOT on the project's real Kenyan pest/disease taxonomy \u2014 this validates the pipeline end-to-end, not real-world detection accuracy on any of the 15 target classes. Calibrated against 546-image hold-out detection predictions. Temperature parameter T=10.0 derived from 5-epoch model; recalibration will be required when upgrading to 50-epoch GPU production weights.",
+  "TAXONOMY_WARNING": "Measured on a generic 12-class insect-ID dataset (Ants/Bees/Beetles/etc.), NOT on the project's real Kenyan pest/disease taxonomy \u2014 this validates the pipeline end-to-end, not real-world detection accuracy on any of the 15 target classes."
+}

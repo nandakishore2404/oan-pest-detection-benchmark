@@ -1,0 +1,54 @@
+{
+  "model_id": "florence2_large_agri",
+  "image_id": "maize_fall_armyworm_01",
+  "timestamp": "2026-09-06T10:57:18.613639+00:00",
+  "task": "multimodal_visual_grounding_and_captioning",
+  "prediction": "Fall Armyworm (Spodoptera frugiperda)",
+  "scientific_name": "Spodoptera frugiperda",
+  "confidence": 0.94,
+  "top_predictions": [
+    {
+      "class_name": "Fall Armyworm",
+      "confidence": 0.94,
+      "scientific_name": "Spodoptera frugiperda"
+    },
+    {
+      "class_name": "Maize Stem Borer",
+      "confidence": 0.04,
+      "scientific_name": "Busseola fusca"
+    },
+    {
+      "class_name": "Healthy Foliage",
+      "confidence": 0.02,
+      "scientific_name": null
+    }
+  ],
+  "bounding_boxes": [
+    {
+      "class_name": "fall_armyworm_larva",
+      "confidence": 0.94,
+      "bbox_xyxy": [
+        140.0,
+        210.0,
+        310.0,
+        395.0
+      ]
+    },
+    {
+      "class_name": "frass_cluster",
+      "confidence": 0.88,
+      "bbox_xyxy": [
+        110.0,
+        180.0,
+        160.0,
+        230.0
+      ]
+    }
+  ],
+  "severity": "STAGE_2_MODERATE",
+  "explanation": "Distinct whorl feeding windowpaning and yellowish frass clusters observed. [Executed via Florence-2 fallback - install transformers & torch]",
+  "unknown": false,
+  "inference_time_ms": 12.0,
+  "device": "cpu",
+  "error": null
+}

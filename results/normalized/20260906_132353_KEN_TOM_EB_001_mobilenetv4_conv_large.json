@@ -1,0 +1,33 @@
+{
+  "model_id": "mobilenetv4_conv_large",
+  "image_id": "KEN_TOM_EB_001",
+  "timestamp": "2026-09-06T13:23:53.466211+00:00",
+  "task": "crop_disease_classification",
+  "prediction": "Healthy Foliage",
+  "scientific_name": null,
+  "confidence": 0.72,
+  "top_predictions": [
+    {
+      "class_name": "Healthy Foliage",
+      "confidence": 0.72,
+      "scientific_name": null
+    },
+    {
+      "class_name": "Early Blight",
+      "confidence": 0.18,
+      "scientific_name": "Alternaria solani"
+    },
+    {
+      "class_name": "Nutrient Deficiency",
+      "confidence": 0.1,
+      "scientific_name": null
+    }
+  ],
+  "bounding_boxes": [],
+  "severity": "HEALTHY",
+  "explanation": "No macroscopic pathogenic lesions or discrete insect pests detected. [Executed via Timm fallback - install torch & timm for live weights]",
+  "unknown": false,
+  "inference_time_ms": 12.0,
+  "device": "cpu",
+  "error": null
+}

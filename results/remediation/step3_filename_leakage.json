@@ -1,0 +1,61 @@
+{
+  "step": 3,
+  "status": "DONE",
+  "timestamp": "2026-09-08T06:17:00Z",
+  "anonymization_verified": true,
+  "staging_directory": "c:\\Users\\nanda\\OneDrive\\Desktop\\DELOITTE\\Agri Africa\\OAN KENYA\\oan-pest-detection-benchmark\\data\\anonymized_staging",
+  "sample_verifications": [
+    {
+      "original_path": "c:\\Users\\nanda\\OneDrive\\Desktop\\DELOITTE\\Agri Africa\\OAN KENYA\\sample_images_to_test\\archive_beetle_field_01.jpg",
+      "original_basename": "archive_beetle_field_01.jpg",
+      "anonymized_path": "c:\\Users\\nanda\\OneDrive\\Desktop\\DELOITTE\\Agri Africa\\OAN KENYA\\oan-pest-detection-benchmark\\data\\anonymized_staging\\b25eb43008ea78f43a611ac3461bb904c2adf9abf0470bd20556fafe57a94e80.jpg",
+      "sha256_hash": "b25eb43008ea78f43a611ac3461bb904c2adf9abf0470bd20556fafe57a94e80",
+      "exists": true,
+      "size_bytes": 28319
+    },
+    {
+      "original_path": "c:\\Users\\nanda\\OneDrive\\Desktop\\DELOITTE\\Agri Africa\\OAN KENYA\\sample_images_to_test\\archive_caterpillar_field_01.jpg",
+      "original_basename": "archive_caterpillar_field_01.jpg",
+      "anonymized_path": "c:\\Users\\nanda\\OneDrive\\Desktop\\DELOITTE\\Agri Africa\\OAN KENYA\\oan-pest-detection-benchmark\\data\\anonymized_staging\\0aa145f811d04a26d7f2c5558068e2a18fd50c3c088da4afe6eb27116f32d647.jpg",
+      "sha256_hash": "0aa145f811d04a26d7f2c5558068e2a18fd50c3c088da4afe6eb27116f32d647",
+      "exists": true,
+      "size_bytes": 40930
+    },
+    {
+      "original_path": "c:\\Users\\nanda\\OneDrive\\Desktop\\DELOITTE\\Agri Africa\\OAN KENYA\\sample_images_to_test\\archive_grasshopper_field_01.jpg",
+      "original_basename": "archive_grasshopper_field_01.jpg",
+      "anonymized_path": "c:\\Users\\nanda\\OneDrive\\Desktop\\DELOITTE\\Agri Africa\\OAN KENYA\\oan-pest-detection-benchmark\\data\\anonymized_staging\\3cf2ab8771137ca7ad05bb315305b4bfe9c593364a74b2f619a13d422c538b83.jpg",
+      "sha256_hash": "3cf2ab8771137ca7ad05bb315305b4bfe9c593364a74b2f619a13d422c538b83",
+      "exists": true,
+      "size_bytes": 36873
+    }
+  ],
+  "adapter_inspections": {
+    "YOLOAdapter": {
+      "inspects_basename": false,
+      "inspects_filename_keywords": false,
+      "pure_pixel_inference": true
+    },
+    "TimmAdapter": {
+      "inspects_basename": false,
+      "inspects_filename_keywords": false,
+      "pure_pixel_inference": true
+    },
+    "BioCLIPAdapter": {
+      "inspects_basename": false,
+      "inspects_filename_keywords": false,
+      "pure_pixel_inference": true
+    },
+    "Florence2Adapter": {
+      "inspects_basename": false,
+      "inspects_filename_keywords": false,
+      "pure_pixel_inference": true
+    },
+    "CerealPestAIDAdapter": {
+      "inspects_basename": false,
+      "inspects_filename_keywords": false,
+      "pure_pixel_inference": true
+    }
+  },
+  "caveat": "All evaluation paths strictly ingest SHA-256 byte-hashed image files. Adapters operate solely on raw pixel tensors; zero string or regex inference exists in neural adapters."
+}

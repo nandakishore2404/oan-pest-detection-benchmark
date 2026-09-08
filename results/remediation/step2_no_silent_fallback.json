@@ -1,0 +1,20 @@
+{
+  "step": 2,
+  "status": "DONE",
+  "timestamp": "2026-09-08T06:12:00Z",
+  "verification_tests": {
+    "unknown_fake_model": "PASSED: Raised ValueError (Model ID 'unknown_fake_model' is not mapped to a real neural adapter. Mock fallback is disabled.)",
+    "frontier_adapter_fallback": "PASSED: Raised RuntimeError (gemini-1.5-flash unavailable: API credentials missing or initialization failed. Do not fall back to mock in a benchmark run.)"
+  },
+  "adapters_checked": [
+    "models/yolo_adapter.py",
+    "models/timm_adapter.py",
+    "models/bioclip_adapter.py",
+    "models/florence2_adapter.py",
+    "models/cereal_pestaid_adapter.py",
+    "models/frontier_adapter.py",
+    "models/agri_chat_adapter.py",
+    "models/factory.py"
+  ],
+  "caveat": "All silent fallback catch blocks removed. Any missing weight, import error, or initialization failure strictly raises RuntimeError. Only explicit model_id='mock' can invoke MockPestModel."
+}

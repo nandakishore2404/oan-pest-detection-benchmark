@@ -1,0 +1,85 @@
+# CAVEAT: Measured on a 5-class foliar disease & healthy control set (Potato Late Blight, Tomato Early Blight, Bean Angular Leaf Spot, Bean Rust, Healthy Foliage). This says nothing about the project's 10 insect pest classes (Fall Armyworm, Stem Borer, etc.), for which zero labeled data exists.
+image_index,image_hash,filename,true_class,predicted_class,confidence,is_correct,forward_pass_ms
+1,aaa89ba926015258361f9d48baf59ebf0594f0b92308260674fec50684d66b1d,cf2e3e15-2284-474a-a36a-b102aa7d50cc___RS_LB 4760.JPG,Potato_Late_Blight,Potato_Late_Blight,0.9682,True,31.15
+2,65b5d668e31065d89708fdffbfcb1df1845a03403adc838da8b9314df1c1d06e,a0622f86-c94d-4b59-9483-68c57dee81fa___RS_LB 4794.JPG,Potato_Late_Blight,Potato_Late_Blight,0.991,True,16.76
+3,f0e0111b096e0d134af4f56499745fe025480f14153520f42d5de404d69ee597,5f6e341d-3a02-4bc5-ae02-c0a343a835ea___RS_LB 4882.JPG,Potato_Late_Blight,Potato_Late_Blight,0.9253,True,15.75
+4,09dc64b9fd5f2d56914a0309e1ad945a644d4ff5a88cb7430c4c3b916d692779,d6a4ae30-77a6-458c-99e4-c817e7234aa3___RS_LB 4706.JPG,Potato_Late_Blight,Potato_Late_Blight,0.9723,True,17.86
+5,8e9c473ef0b0dd54853f309b3b49b1384fbaa4bb41bd59c861d91898e88b7d9f,c970a188-e4e6-43cd-aff7-d0ac40d378dc___RS_LB 4834.JPG,Potato_Late_Blight,Potato_Late_Blight,0.9993,True,17.96
+6,20f9efb0217a6cb89c88bd8ab561c44cccf3d5565ea7f28f51f81ad5ca67984f,d3cbf715-a2a3-4024-ac5d-c6ae21a77720___RS_LB 2735.JPG,Potato_Late_Blight,Potato_Late_Blight,0.9966,True,13.71
+7,eda24593228d98a559a19833755dd3fffa76df152a200f4a605864353f1fe28d,919150bd-372b-44e0-a70e-a13e60dccbce___RS_LB 3263.JPG,Potato_Late_Blight,Potato_Late_Blight,0.9935,True,16.7
+8,7759e7c863e71774e9dbc0a1ceb6d256ca88c01a280cf231250c62d7222be003,ec958877-f479-4c8c-a947-3686039f8921___RS_LB 2587.JPG,Potato_Late_Blight,Potato_Late_Blight,0.9959,True,19.17
+9,cc3949ddff7853967d4cb4b5d99a1fd0b4e0a31250162ee4b1daa25c0ca19db3,5d1486fa-750f-47ca-a973-abc45ea5b4fe___RS_LB 4281.JPG,Potato_Late_Blight,Potato_Late_Blight,0.9962,True,20.9
+10,add8a18acde1c396d3aeaed8adb89b732d0e50e99ae84d1c8893466fa6e4302d,8542cb42-d817-4850-b42f-1fa7083e37d9___RS_LB 4780.JPG,Potato_Late_Blight,Potato_Late_Blight,0.9965,True,20.67
+11,daa21a6cc619dcc906b04cd6017c2c47f3a6ef0675069be2efe981307fb16b7d,b598f9a7-b582-4fef-9c3d-cc985f2f9c03___RS_LB 3294.JPG,Potato_Late_Blight,Potato_Late_Blight,0.9363,True,19.31
+12,344fe9e2568303c79dbd17bd61e7b54858e532c86107bc071b117fdd1b9718b6,4ca06863-f89b-497c-bd3a-9bca78f02942___RS_LB 3088.JPG,Potato_Late_Blight,Potato_Late_Blight,0.999,True,17.94
+13,ba2b920c9328d3b191889f844eeba095a1a33dd297282d558ba2a132cd793f4d,cba4be0b-2554-4a9e-8dd0-94cbb2467388___RS_LB 3335.JPG,Potato_Late_Blight,Potato_Late_Blight,0.6118,True,16.29
+14,a2b78c15301d98ddcaacde56648ae08260667460743c5bcad4386fddb645a81f,afcad9ca-9bd2-4c7b-b034-2b3d0360ac30___RS_LB 2741.JPG,Potato_Late_Blight,Potato_Late_Blight,0.9825,True,17.64
+15,710c3544b6493fd6d969a57627fce512d289612dc7300baf0244c05d7f03a94f,a4534f9b-87ca-4ce0-a6f8-84f94544ef37___RS_LB 2775.JPG,Potato_Late_Blight,Potato_Late_Blight,0.9852,True,18.17
+16,04c0f785ad2254aa9fbf1e2bb3708f7abbd9cdc4bff87d5f7f682d538cdebf1e,c89d5a2a-2c1e-496e-84b8-b7a844a97ac9___RS_LB 4920.JPG,Potato_Late_Blight,Potato_Late_Blight,0.9986,True,16.03
+17,75d7b33662252bc19b2864d1d7b33f4ed01543475315faf17667c28bd659140b,d5bf2575-1e57-4792-81a1-5770e701be1b___RS_LB 3209.JPG,Potato_Late_Blight,Potato_Late_Blight,0.9993,True,16.72
+18,ff85828ab122fb5dd399309a05c85e0f6347e49543772e4c5b92fe407f4b3183,8b0ef54c-6d28-47bb-a657-287afbb8a620___RS_LB 3298.JPG,Potato_Late_Blight,Potato_Late_Blight,0.7439,True,16.56
+19,95ac87ada7c5dedb3ad119a9308a339cc08053fe4ff7c0ba3fc110c0bfe6ae86,6fa565d1-4fab-4331-b30d-772babc186a4___RS_LB 3887.JPG,Potato_Late_Blight,Potato_Late_Blight,0.8844,True,16.73
+20,c6fb811310693e954645226b6d3f630d5db98095a3b425319be8b53fadb45d8a,55c87fde-32cc-474c-a25a-1846d39aa6f4___RS_LB 2683.JPG,Potato_Late_Blight,Potato_Late_Blight,0.9954,True,14.36
+21,139b3984f333082ed52bcb198ae4e7b1ca5e32193d31e0526c7234f1661c05a7,33938ff2-ee2c-4571-96dd-6229a0cb4e0c___RS_LB 5184.JPG,Potato_Late_Blight,Potato_Late_Blight,0.9957,True,18.23
+22,841a66768a01bc7228a2b56b4ad814448ed2c5781707c77893db53c152a8ba0f,5318452f-222d-4abc-b39c-55fa6c26a82a___RS_LB 3063.JPG,Potato_Late_Blight,Potato_Late_Blight,0.8499,True,17.3
+23,8c980a658fcba653e913aec2d6004e2bfc419f8e926c65954e48662afe0ba2f5,c77d14df-faac-47e9-97e1-fc84a7aa6e74___RS_LB 4322.JPG,Potato_Late_Blight,Potato_Late_Blight,0.5452,True,19.73
+24,07ba84b5d47184bcdf6565ccf59039fe438466559df2981868c9526355f13488,53c47cc3-e958-4e9a-811a-e19e99ef0a8c___RS_Erly.B 6373.JPG,Tomato_Early_Blight,Tomato_Early_Blight,0.9999,True,22.99
+25,40a2193d0cd0523dac7ad997f6738fd3e77de976fe5b9f9aa4986bc1bd0a975f,6f8ac19d-d97f-47ee-8ad4-bb53ab7984a0___RS_Erly.B 7786.JPG,Tomato_Early_Blight,Tomato_Early_Blight,0.6825,True,23.73
+26,7b544c3791308c0e9cc5bc2a0ca178ba8c04f45f2dd0d76164e92dd92bfb1696,c10623b4-33fe-458c-9d8e-d9a74fb74a6a___RS_Erly.B 7450.JPG,Tomato_Early_Blight,Tomato_Early_Blight,0.9999,True,18.05
+27,22e83a2c6912d6a8fb7e436e6d4adaf9adb0a9531a430869ba2058361607ac3d,aca65de6-6464-4f8c-803d-b55f92f950f8___RS_Erly.B 6663.JPG,Tomato_Early_Blight,Healthy_Foliage,0.998,False,15.08
+28,9632ea6211366b630edfc84d9f8d6e3fcbd93cd8346b1eb224f14018c0a41c65,164f6427-eeed-42da-bb51-ec07a57840dc___RS_Erly.B 9372.JPG,Tomato_Early_Blight,Tomato_Early_Blight,0.9235,True,19.59
+29,539e25516425379975346044d1fed2d8d399c042ec5bbb9a6577b6654be03914,b037f266-a24e-4f2c-9115-cf2eadd17293___RS_Erly.B 8214.JPG,Tomato_Early_Blight,Tomato_Early_Blight,0.612,True,16.13
+30,f5dca20fb73d6ec2a1b82aa035fad7c0ca18216275b449e20a6805c6a6678907,df86b9f1-3871-4139-be7d-928bd3e6d642___RS_Erly.B 7497.JPG,Tomato_Early_Blight,Tomato_Early_Blight,0.9912,True,19.46
+31,01ddae58e37b0aecf37cd46bb639af5039feeb3d1715ac50e4e2ee4851ff6064,e63371a7-2fb1-4446-9fb2-6d679485d2b0___RS_Erly.B 8415.JPG,Tomato_Early_Blight,Potato_Late_Blight,0.791,False,18.15
+32,2e2a0d622869aab536ac8d0c6f81f34ad0281db024034b84fddbf148335c80e7,0378db62-5231-4eff-815d-c0deb0043e80___RS_Erly.B 7464.JPG,Tomato_Early_Blight,Tomato_Early_Blight,0.9962,True,16.53
+33,a2bf7ad7e9f83a2c66303e59e34acfbb952c0ebd01d3eb4d10e09f34987a1fc4,e5266d06-0ba7-49c6-9bc6-c8351b56fc88___RS_Erly.B 8294.JPG,Tomato_Early_Blight,Tomato_Early_Blight,0.8306,True,16.11
+34,4cd5ec37b1bfc469586af4862a79c48ec2772820c0f6f0bdd94181a030d244b0,a5b33d5a-99bc-43b9-b408-aaf9535189e0___RS_Erly.B 8372.JPG,Tomato_Early_Blight,Tomato_Early_Blight,0.8531,True,18.03
+35,392d1dc9d9f5202814e01c940856a5fd7ce499a4301c829ac406f78cda63ea45,22b653c4-9e15-4081-8ece-9b5950a94120___RS_Erly.B 7814.JPG,Tomato_Early_Blight,Tomato_Early_Blight,0.8659,True,17.06
+36,ae33e9120aae0324cc6f6f584907c79e06dd02b4fd128ed8efa95b79be656e8f,b45de15f-76b6-46bf-9990-e819dbef21d1___RS_Erly.B 9491.JPG,Tomato_Early_Blight,Tomato_Early_Blight,0.9122,True,14.99
+37,b69f11481999b86f47ff46ced455727440f38d40c5fcc7ec71bece917f58a9e1,03b4571c-b1eb-4e2a-b372-307046913f50___RS_Erly.B 7548.JPG,Tomato_Early_Blight,Tomato_Early_Blight,0.998,True,19.85
+38,1c4021e49e7fecbcfa63dfb837f19df0a77c4893ef3f0c3ede41b70823173bb4,089243e5-f319-4ed2-b10c-603328ff4143___RS_Erly.B 9428.JPG,Tomato_Early_Blight,Tomato_Early_Blight,0.9998,True,17.86
+39,76fda7e4c18222a7d89ea53c474eb46f21ab0658d300cf7075f482378b428922,62ce29f9-81ea-4616-8562-22a5830b3286___RS_Erly.B 7436.JPG,Tomato_Early_Blight,Tomato_Early_Blight,0.9917,True,16.16
+40,1bf6a48223c155cff5c9b18c355c4552d1d64a44af409054f3b427d79f97f53c,8734e1ef-fb0c-4cdd-aa97-b5a4ea8d6cf5___RS_Erly.B 7804.JPG,Tomato_Early_Blight,Tomato_Early_Blight,1.0,True,15.39
+41,5cbcb7893e6a75a10433f4dfa63196e483a5967654d3ee0d26d2d923edab3012,932fabe0-247e-4e51-92d3-cd824fc6bc5d___RS_Erly.B 9540.JPG,Tomato_Early_Blight,Tomato_Early_Blight,0.9994,True,15.84
+42,cb6c2556e998b851a2da86c0d1374742810ca7e9dffd7c2a3d011540085661c2,b24f8f98-4bfe-4605-85f5-738fc09e58fe___RS_Erly.B 6406.JPG,Tomato_Early_Blight,Tomato_Early_Blight,0.9955,True,16.92
+43,b93a6cfa5c0a4b78b5228c9aa76c18b2c1d4763d241c7dc23f2f1ed90edd296e,553d53a5-19f3-433e-9805-d3bf5a3804b1___RS_Erly.B 7580.JPG,Tomato_Early_Blight,Tomato_Early_Blight,0.996,True,16.04
+44,07c8c1b6fee215f3ec31e265e3c6dd9710cdc88859d651f869946159cbfc93b9,070679a9-27e1-4e6e-8072-29f3750d525b___RS_Erly.B 6439.JPG,Tomato_Early_Blight,Tomato_Early_Blight,0.943,True,17.65
+45,31b621ac351e847acdf4fe563f5af44e08a1a47e26ae2ab4fdfd588860011a23,45d27217-fbb3-4b74-93e7-d84f70b784f8___RS_Erly.B 7713.JPG,Tomato_Early_Blight,Tomato_Early_Blight,0.9753,True,16.7
+46,105c2d902ad1b2f17520ed17ed1982be1f12144c8790e9aed16e28b991b86a7f,3592b22c-09cd-4005-97c4-cdd11318cce0___RS_Erly.B 9391.JPG,Tomato_Early_Blight,Potato_Late_Blight,0.6687,False,21.92
+47,63838fe62972b386c2f1043f4826a6acafb0dee661d1aceaaf8a13005aac8ef0,angular_leaf_spot_test.10.jpg,Bean_Angular_Leaf_Spot,Bean_Rust,0.5028,False,18.63
+48,bb85322977b1d5b1eb987bb526dc12140e451d1474e4576abbd07c664cfe2b0b,angular_leaf_spot_test.12.jpg,Bean_Angular_Leaf_Spot,Bean_Rust,0.5092,False,15.96
+49,e7ac409cda99b323fa9d70f07902f2d88ceee90f3e2a920de0cccb931598cae1,angular_leaf_spot_test.0.jpg,Bean_Angular_Leaf_Spot,Bean_Angular_Leaf_Spot,0.964,True,18.36
+50,8aac55976e458ef9f56303f6bed77b1c53d39b1fb5556feb7c9c64b7af1ec46d,angular_leaf_spot_test.4.jpg,Bean_Angular_Leaf_Spot,Bean_Rust,0.7269,False,27.77
+51,11a927e61af13cc57e8fdb4c3361b8dc129d43b56b0765b6548d8fe44c8f28ac,angular_leaf_spot_test.15.jpg,Bean_Angular_Leaf_Spot,Bean_Angular_Leaf_Spot,0.6454,True,17.94
+52,0cc53c9466451364cd190934222da30143d3d743cdd4c3df8e5c3b3373020b3e,angular_leaf_spot_test.30.jpg,Bean_Angular_Leaf_Spot,Bean_Rust,0.8888,False,17.08
+53,9e95062c50af38a8256598f26d079b1b01d5850e4265267c3157db2f14d4026d,angular_leaf_spot_test.1.jpg,Bean_Angular_Leaf_Spot,Bean_Angular_Leaf_Spot,0.9451,True,17.37
+54,1a88004e4b3523795c5dbc6dbd05497098eca6dc6ff1e294ce100b42e01aa1ba,bean_rust_test.13.jpg,Bean_Rust,Bean_Rust,0.6869,True,18.22
+55,cd427bda664c213bab11f9be7889edf7c00f193a44020288a875c75c964337ac,bean_rust_test.40.jpg,Bean_Rust,Bean_Rust,0.7001,True,17.38
+56,f12134d51942f7e56a877ee005552fa0e3dfc6ed30a1b18260327ca8a0cb0da0,bean_rust_test.4.jpg,Bean_Rust,Bean_Rust,0.7274,True,18.42
+57,5f98eabbb4293cc7b3e4c8026a7a52461e07a39881850c510f61f55f40fd6ac8,bean_rust_test.31.jpg,Bean_Rust,Bean_Angular_Leaf_Spot,0.9556,False,16.84
+58,c3b2b97b6ab9af8a0fc4569bac68e11052a2ec1d2f697340a71b46a6482292b3,bean_rust_test.5.jpg,Bean_Rust,Bean_Rust,0.5455,True,18.67
+59,a9f7280449bf29c2ab4ab9fa999f51f63d1d50aef26064d0ff7555e8b3109d29,bean_rust_test.41.jpg,Bean_Rust,Bean_Rust,0.745,True,17.29
+60,794e13ecedb37190014ef48a69c601d66dc7b5bea7198d70c9122a78aaa1ed08,bean_rust_test.0.jpg,Bean_Rust,Bean_Rust,0.9714,True,18.86
+61,f173cb87ee95414c297fd34bfeddfc425513559f0e9e0acac5d7fa6292d49078,b8b8bef0-e86c-47ae-ba47-7912b10beffe___GH_HL Leaf 302.JPG,Healthy_Foliage,Healthy_Foliage,0.9995,True,17.07
+62,081328b5e520f5606bf763771d08a7085f040ecad789f5d422b2f48db14fd21a,0b3e5032-8ae8-49ac-8157-a1cac3df01dd___RS_HL 1817.JPG,Healthy_Foliage,Potato_Late_Blight,0.7454,False,15.65
+63,eaf097bddc53edcaf5d2d05e62070d4cbe795fdd154105e28dcfee466d0ff142,5216e02b-891f-4b00-9768-73f13e6d8ebf___GH_HL Leaf 433.1.JPG,Healthy_Foliage,Healthy_Foliage,0.999,True,17.98
+64,ab70a37acbd179db411b841439d1b03676c32a86ef9bbd1f66091993739dd847,5df79085-2c00-41d6-ac0f-33a831a16d89___RS_HL 9634.JPG,Healthy_Foliage,Healthy_Foliage,1.0,True,16.85
+65,1caab80c8df6d946137934ca5c6481110fe1d95ef8cf558b72b299da3b813cac,1bfeed83-f119-46cd-b806-0e17e1dae136___RS_HL 0017.JPG,Healthy_Foliage,Healthy_Foliage,1.0,True,14.71
+66,deccbbbd918c533c3a2df435507f6c61699f30d4daea72ac13031abb17226d99,482383a3-26f3-468c-807d-91f653941e23___R.S_HL 8323 copy.jpg,Healthy_Foliage,Healthy_Foliage,1.0,True,17.16
+67,69b554694bcd5c0c23bf5cece01d8e59751a5edccbfa8f421086a4cb324b756e,d0ed7e16-a6f5-403e-9b26-d0d9d74e1a32___R.S_HL 8004 copy.jpg,Healthy_Foliage,Healthy_Foliage,1.0,True,17.56
+68,d5422370aac99081b8c6d21f8fc5736a1be39bac96d52388aeb5421c5fe05414,4e8e1275-37a2-48fa-84cb-96ffa0824571___RS_HL 0574.JPG,Healthy_Foliage,Healthy_Foliage,1.0,True,16.07
+69,417dd8a928200e4be4ce35e440e7679d9ab773e49e4363b7ce92e741c738f414,06d3fe74-beca-4722-ae07-eeb671b82780___RS_HL 9701.JPG,Healthy_Foliage,Healthy_Foliage,0.9999,True,18.95
+70,ff6ec8306d2e0dbb7fd0c0b4a50eb37eea8007b1e2a7686e9e186ed699d45370,9397ecfe-6f1f-47cf-8549-43711ec0e734___GH_HL Leaf 213.JPG,Healthy_Foliage,Healthy_Foliage,0.9997,True,16.96
+71,572067bca94783dc8675131c5dc58f3d4e7be46867adff12b8e11ca43d8a1744,d382d5de-6608-4492-a1eb-e4c525f8b3e4___GH_HL Leaf 461.JPG,Healthy_Foliage,Healthy_Foliage,0.9996,True,17.31
+72,b3b0cab7a998eff729baf7780a06f6c24e581c70cc288d9f6f619b2a64e9f36d,1ad550a2-113e-440c-919d-85dff2f4de38___RS_HL 0331.JPG,Healthy_Foliage,Healthy_Foliage,1.0,True,18.93
+73,fe33b57f621c24dfefa2d86418873b6db8d42f056fff7990f85cab6ae2198cf3,0f9d8b9a-a49d-4641-b956-dc0963d7b6da___R.S_HL 8148 copy 2.jpg,Healthy_Foliage,Healthy_Foliage,1.0,True,16.67
+74,62e447cb273c969ef54f4ffc066646eeae133592f1f4d557ce8f5dcfc2941321,94203353-1fc1-4092-95d1-c8672077776c___R.S_HL 0635 copy.jpg,Healthy_Foliage,Healthy_Foliage,0.9994,True,27.98
+75,fe6de53239c9391821f9008a817927e9f857c2fec9a6489b3a5e7102b6b6912c,993fce59-927c-405d-9761-784d15d8c799___R.S_HL 8064 copy 2.jpg,Healthy_Foliage,Healthy_Foliage,0.9987,True,31.88
+76,a70cbe9835f93396fe3044bf413e2113fbaefe6a1d97cb16d7b3d5112fd2907d,7948ada9-eabc-4cb7-a579-b73e938eb716___RS_HL 4185.JPG,Healthy_Foliage,Potato_Late_Blight,0.5203,False,17.34
+77,856d74cd84e27c2aa8d431f8b8b41fb684d2407ebd0d90d71503b89a92391bfc,5cb360dd-5c17-4c57-b31d-97cd8dd8d0bd___RS_HL 1797.JPG,Healthy_Foliage,Healthy_Foliage,0.7403,True,18.13
+78,fcaa73312f2065a0e810f840d4c94942afc9f5641c82019b4a0f77d8fe81306a,ab0fc79a-bd95-406c-a008-21985ddcb71a___R.S_HL 7985 copy 2.jpg,Healthy_Foliage,Healthy_Foliage,1.0,True,18.23
+79,e36f2aa015c1170497523cfef6fb9ea2d3f163feac02620d5f3b6cc91edf4a59,1006c73b-19f8-4771-9fe5-3fc4908e8da3___RS_HL 0557.JPG,Healthy_Foliage,Healthy_Foliage,1.0,True,14.36
+80,8d607fe3a5a845fab9cbd1dcccbe34c057a4dc9383567a3dd136769655773aca,058ade43-2361-4039-bbe5-0ac661828c01___GH_HL Leaf 325.1.JPG,Healthy_Foliage,Healthy_Foliage,1.0,True,16.93
+81,fcb1ea0479055abc5495c9e2126160933fd00a4dad7116f03dd1c3ae3325e554,8db2e3c6-c5d9-41ec-9977-7b1a71964f24___GH_HL Leaf 501.2.JPG,Healthy_Foliage,Healthy_Foliage,0.9999,True,19.33
+82,d20038b041729c1c046bda67821b4a6344bd7f417cc1b7e9264a72fbc5124bf7,c3dcca18-f12f-4a4d-a90c-563ded6c7df8___RS_HL 9691.JPG,Healthy_Foliage,Healthy_Foliage,1.0,True,15.43
+83,1ef67c035b390e85bbcd63b5daac7cab87c564e3d8f0250390a792dfebc35bb1,15e8fdce-816e-4a57-ae54-10ba5638fb0a___R.S_HL 0618 copy.jpg,Healthy_Foliage,Healthy_Foliage,0.9996,True,20.84

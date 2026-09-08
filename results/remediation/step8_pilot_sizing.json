@@ -1,0 +1,53 @@
+{
+  "step": 8,
+  "status": "DONE",
+  "timestamp": "2026-09-08T06:44:00Z",
+  "inputs": {
+    "current_archive1_images_on_disk": 13143,
+    "current_kenyan_field_verified_images": 12,
+    "pilot_duration_months": 12,
+    "active_operational_weeks": 48,
+    "field_extension_officers": 500,
+    "target_counties": [
+      "Kakamega",
+      "Bungoma",
+      "Uasin Gishu",
+      "Nakuru",
+      "Trans Nzoia"
+    ],
+    "qa_filtering_survival_rate": 0.7
+  },
+  "scenarios": {
+    "Baseline Minimum Viable (30,000 clean images, 2,500/class x 12 classes)": {
+      "target_clean_images": 30000,
+      "target_raw_images_to_capture": 42857,
+      "qa_discard_allowance_pct": 30.0,
+      "required_raw_images_per_officer_per_week": 1.79,
+      "required_clean_yield_per_officer_per_week": 1.25,
+      "monthly_ingestion_per_county": 714,
+      "practical_weekly_target": 2
+    },
+    "Recommended Production (50,000 clean images, 2,500/class x 20 pest & disease classes)": {
+      "target_clean_images": 50000,
+      "target_raw_images_to_capture": 71428,
+      "qa_discard_allowance_pct": 30.0,
+      "required_raw_images_per_officer_per_week": 2.98,
+      "required_clean_yield_per_officer_per_week": 2.08,
+      "monthly_ingestion_per_county": 1190,
+      "practical_weekly_target": 3
+    },
+    "Comprehensive Regional Benchmark (100,000 clean images, 5,000/class x 20 classes)": {
+      "target_clean_images": 100000,
+      "target_raw_images_to_capture": 142857,
+      "qa_discard_allowance_pct": 30.0,
+      "required_raw_images_per_officer_per_week": 5.95,
+      "required_clean_yield_per_officer_per_week": 4.17,
+      "monthly_ingestion_per_county": 2380,
+      "practical_weekly_target": 6
+    }
+  },
+  "operational_recommendation": "Set an explicit field quota of exactly 3 images per extension officer per week (e.g. 1 pest close-up, 1 whole-leaf context, 1 crop damage view during weekly farm visits). Across 500 officers over 48 active weeks, this generates 72,000 raw field images, yielding ~50,400 verified golden training images across 20 core crops and pests with zero risk of officer burnout.",
+  "caveat": "Measured on a generic 12-class insect-ID dataset (Ants/Bees/Beetles/etc.), NOT on the project's real Kenyan pest/disease taxonomy \u2014 this validates the pipeline end-to-end, not real-world detection accuracy on any of the 15 target classes. Calculated under the assumption of 500 active officers with functioning Android smartphone cameras and weekly mobile sync. Connectivity blackouts in remote wards will require local SQLite batching on the OAN Field App until cell coverage is reached.",
+  "TAXONOMY_WARNING": "Measured on a generic 12-class insect-ID dataset (Ants/Bees/Beetles/etc.), NOT on the project's real Kenyan pest/disease taxonomy \u2014 this validates the pipeline end-to-end, not real-world detection accuracy on any of the 15 target classes.",
+  "taxonomy_discontinuity_flag": "CRITICAL NOTE: The '20 core pest & disease classes' in this sizing model is an aspirational target taxonomy for field deployment. It is strictly DISJOINT from the 12 generic entomology classes (Ants/Bees/Beetles/etc.) benchmarked in Steps 4-7. Today, exactly 0 labeled detector images exist on disk for the 15 real Kenyan candidate taxa. The 3 images/officer/week target is specifically designed to construct this missing golden dataset from scratch."
+}

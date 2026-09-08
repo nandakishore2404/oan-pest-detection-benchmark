@@ -1,0 +1,157 @@
+{
+  "timestamp": "2026-09-08T05:04:09.964491+00:00",
+  "hardware": {
+    "os": "Windows 11",
+    "python_version": "3.13.5",
+    "cpu_count": 8,
+    "cuda_available": false,
+    "gpu_device_name": null,
+    "gpu_memory_mb": 0
+  },
+  "datasets": [
+    {
+      "dataset": "Makerere African Cassava Leaf Disease",
+      "sample_count": 4,
+      "metrics": [
+        {
+          "model_id": "yolov8s_pest",
+          "accuracy_pct": 0.0,
+          "abstention_rate_pct": 0.0,
+          "avg_latency_ms": 847.7
+        },
+        {
+          "model_id": "efficientnet_b4_agri",
+          "accuracy_pct": 0.0,
+          "abstention_rate_pct": 0.0,
+          "avg_latency_ms": 39.5
+        },
+        {
+          "model_id": "mobilenetv4_conv_large",
+          "accuracy_pct": 0.0,
+          "abstention_rate_pct": 0.0,
+          "avg_latency_ms": 35.3
+        },
+        {
+          "model_id": "bioclip_treeoflife",
+          "accuracy_pct": 0.0,
+          "abstention_rate_pct": 0.0,
+          "avg_latency_ms": 36.6
+        },
+        {
+          "model_id": "cereal_pestaid",
+          "accuracy_pct": 0.0,
+          "abstention_rate_pct": 0.0,
+          "avg_latency_ms": 33.4
+        },
+        {
+          "model_id": "florence2_large_agri",
+          "accuracy_pct": 0.0,
+          "abstention_rate_pct": 0.0,
+          "avg_latency_ms": 36.2
+        },
+        {
+          "model_id": "ibean_classifier",
+          "accuracy_pct": 0.0,
+          "abstention_rate_pct": 0.0,
+          "avg_latency_ms": 29.3
+        }
+      ]
+    },
+    {
+      "dataset": "IIT Bombay PlantDoc Real Field Clutter",
+      "sample_count": 12,
+      "metrics": [
+        {
+          "model_id": "yolov8s_pest",
+          "accuracy_pct": 0.0,
+          "abstention_rate_pct": 0.0,
+          "avg_latency_ms": 164.6
+        },
+        {
+          "model_id": "efficientnet_b4_agri",
+          "accuracy_pct": 0.0,
+          "abstention_rate_pct": 0.0,
+          "avg_latency_ms": 34.1
+        },
+        {
+          "model_id": "mobilenetv4_conv_large",
+          "accuracy_pct": 0.0,
+          "abstention_rate_pct": 0.0,
+          "avg_latency_ms": 33.4
+        },
+        {
+          "model_id": "bioclip_treeoflife",
+          "accuracy_pct": 0.0,
+          "abstention_rate_pct": 0.0,
+          "avg_latency_ms": 34.3
+        },
+        {
+          "model_id": "cereal_pestaid",
+          "accuracy_pct": 0.0,
+          "abstention_rate_pct": 0.0,
+          "avg_latency_ms": 33.7
+        },
+        {
+          "model_id": "florence2_large_agri",
+          "accuracy_pct": 0.0,
+          "abstention_rate_pct": 0.0,
+          "avg_latency_ms": 32.5
+        },
+        {
+          "model_id": "ibean_classifier",
+          "accuracy_pct": 0.0,
+          "abstention_rate_pct": 0.0,
+          "avg_latency_ms": 36.5
+        }
+      ]
+    },
+    {
+      "dataset": "IP102 African Priority Agricultural Pests",
+      "sample_count": 10,
+      "metrics": [
+        {
+          "model_id": "yolov8s_pest",
+          "accuracy_pct": 50.0,
+          "abstention_rate_pct": 0.0,
+          "avg_latency_ms": 180.5
+        },
+        {
+          "model_id": "efficientnet_b4_agri",
+          "accuracy_pct": 0.0,
+          "abstention_rate_pct": 0.0,
+          "avg_latency_ms": 32.8
+        },
+        {
+          "model_id": "mobilenetv4_conv_large",
+          "accuracy_pct": 0.0,
+          "abstention_rate_pct": 0.0,
+          "avg_latency_ms": 34.9
+        },
+        {
+          "model_id": "bioclip_treeoflife",
+          "accuracy_pct": 0.0,
+          "abstention_rate_pct": 0.0,
+          "avg_latency_ms": 32.3
+        },
+        {
+          "model_id": "cereal_pestaid",
+          "accuracy_pct": 0.0,
+          "abstention_rate_pct": 0.0,
+          "avg_latency_ms": 33.7
+        },
+        {
+          "model_id": "florence2_large_agri",
+          "accuracy_pct": 0.0,
+          "abstention_rate_pct": 0.0,
+          "avg_latency_ms": 35.0
+        },
+        {
+          "model_id": "ibean_classifier",
+          "accuracy_pct": 0.0,
+          "abstention_rate_pct": 0.0,
+          "avg_latency_ms": 31.8
+        }
+      ]
+    }
+  ]
+}

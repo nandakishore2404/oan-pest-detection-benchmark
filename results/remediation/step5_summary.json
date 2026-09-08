@@ -1,0 +1,23 @@
+{
+  "step": 5,
+  "status": "DONE",
+  "timestamp": "2026-09-08T06:38:00Z",
+  "holdout_dataset": {
+    "split": "test",
+    "total_images": 546,
+    "classes_evaluated": 12
+  },
+  "metrics": {
+    "top1_detection_accuracy_pct": 16.3,
+    "correct_predictions": 89,
+    "total_images": 546,
+    "confidence_threshold_applied": 0.15,
+    "mean_preprocess_ms": 8.06,
+    "mean_forward_pass_ms": 50.0,
+    "mean_postprocess_ms": 42.99,
+    "mean_total_latency_ms": 101.05
+  },
+  "raw_csv_path": "c:\\Users\\nanda\\OneDrive\\Desktop\\DELOITTE\\Agri Africa\\OAN KENYA\\oan-pest-detection-benchmark\\results\\remediation\\step5_raw_predictions.csv",
+  "caveat": "Measured on a generic 12-class insect-ID dataset (Ants/Bees/Beetles/etc.), NOT on the project's real Kenyan pest/disease taxonomy \u2014 this validates the pipeline end-to-end, not real-world detection accuracy on any of the 15 target classes. Instrumented on Intel Core Ultra 5 228V CPU (8 threads, batch=1). Forward pass (50.0 ms) isolated via time.perf_counter() strictly measuring neural tensor multiplication, separate from image decompression (8.06 ms). Accuracy reflects 5-epoch CPU fine-tuning on 12-class dataset.",
+  "TAXONOMY_WARNING": "Measured on a generic 12-class insect-ID dataset (Ants/Bees/Beetles/etc.), NOT on the project's real Kenyan pest/disease taxonomy \u2014 this validates the pipeline end-to-end, not real-world detection accuracy on any of the 15 target classes."
+}

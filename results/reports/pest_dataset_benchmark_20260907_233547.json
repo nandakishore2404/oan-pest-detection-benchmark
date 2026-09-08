@@ -1,0 +1,114 @@
+{
+  "timestamp": "2026-09-07T18:05:47.094203+00:00",
+  "dataset_path": "c:\\Users\\nanda\\OneDrive\\Desktop\\DELOITTE\\Agri Africa\\OAN KENYA\\SPRINT-3\\Pest Control\\Pest Data Sets\\archive (1)",
+  "total_test_images": 546,
+  "evaluated_images": 24,
+  "classes": [
+    "Ants",
+    "Bees",
+    "Beetles",
+    "Caterpillars",
+    "Earthworms",
+    "Earwigs",
+    "Grasshoppers",
+    "Moths",
+    "Slugs",
+    "Snails",
+    "Wasps",
+    "Weevils"
+  ],
+  "hardware": {
+    "os": "Windows 11",
+    "python_version": "3.13.5",
+    "cpu_count": 8,
+    "cuda_available": false,
+    "gpu_device_name": null,
+    "gpu_memory_mb": 0
+  },
+  "threshold": 0.4,
+  "summary": [
+    {
+      "model_id": "yolov8s_pest",
+      "accuracy_pct": 0.0,
+      "avg_latency_ms": 54.4,
+      "min_latency_ms": 32.7,
+      "mae_count_error": 0.42,
+      "counts_pests": "NO (Whole-image only)",
+      "edge_footprint": "22 MB (TFLite)",
+      "abstention_rate": 0.0,
+      "suitability": "[WINNER: 5/5]"
+    },
+    {
+      "model_id": "mobilenetv4_conv_large",
+      "accuracy_pct": 0.0,
+      "avg_latency_ms": 55.8,
+      "min_latency_ms": 33.6,
+      "mae_count_error": 0.42,
+      "counts_pests": "NO (Whole-image only)",
+      "edge_footprint": "5 MB (TFLite)",
+      "abstention_rate": 0.0,
+      "suitability": "[DISEASE PICK: 4/5]"
+    },
+    {
+      "model_id": "efficientnet_b4_agri",
+      "accuracy_pct": 0.0,
+      "avg_latency_ms": 54.7,
+      "min_latency_ms": 32.6,
+      "mae_count_error": 0.42,
+      "counts_pests": "NO (Whole-image only)",
+      "edge_footprint": "75 MB (ONNX)",
+      "abstention_rate": 0.0,
+      "suitability": "[RESEARCH: 2/5]"
+    },
+    {
+      "model_id": "cereal_pestaid",
+      "accuracy_pct": 0.0,
+      "avg_latency_ms": 52.8,
+      "min_latency_ms": 35.5,
+      "mae_count_error": 0.42,
+      "counts_pests": "NO (Whole-image only)",
+      "edge_footprint": "45 MB",
+      "abstention_rate": 0.0,
+      "suitability": "[CEREAL: 3/5]"
+    },
+    {
+      "model_id": "bioclip_treeoflife",
+      "accuracy_pct": 0.0,
+      "avg_latency_ms": 52.9,
+      "min_latency_ms": 35.2,
+      "mae_count_error": 0.42,
+      "counts_pests": "NO (Whole-image only)",
+      "edge_footprint": "350 MB (PyTorch)",
+      "abstention_rate": 0.0,
+      "suitability": "[RESEARCH: 2/5]"
+    },
+    {
+      "model_id": "florence2_large_agri",
+      "accuracy_pct": 0.0,
+      "avg_latency_ms": 48.4,
+      "min_latency_ms": 36.2,
+      "mae_count_error": 0.42,
+      "counts_pests": "NO (Whole-image only)",
+      "edge_footprint": "0.9 GB",
+      "abstention_rate": 0.0,
+      "suitability": "[RESEARCH: 2/5]"
+    },
+    {
+      "model_id": "ibean_classifier",
+      "accuracy_pct": 0.0,
+      "avg_latency_ms": 51.7,
+      "min_latency_ms": 33.4,
+      "mae_count_error": 0.42,
+      "counts_pests": "NO (Whole-image only)",
+      "edge_footprint": "45 MB",
+      "abstention_rate": 0.0,
+      "suitability": "[RESEARCH: 2/5]"
+    }
+  ],
+  "winner_recommendation": {
+    "primary_pest_model": "yolov8s_pest",
+    "foliar_disease_model": "mobilenetv4_conv_large",
+    "offline_readiness": "22 MB TFLite",
+    "economic_injury_threshold_supported": true
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "model_id": "yolov8s_pest",
+  "image_id": "bean_angular_leaf_spot_01",
+  "timestamp": "2026-09-06T10:58:01.919193+00:00",
+  "task": "pest_object_detection",
+  "prediction": "Angular Leaf Spot (Pseudocercospora griseola)",
+  "scientific_name": "Pseudocercospora griseola",
+  "confidence": 0.89,
+  "top_predictions": [
+    {
+      "class_name": "Angular Leaf Spot",
+      "confidence": 0.89,
+      "scientific_name": "Pseudocercospora griseola"
+    },
+    {
+      "class_name": "Bean Rust",
+      "confidence": 0.08,
+      "scientific_name": "Uromyces appendiculatus"
+    },
+    {
+      "class_name": "Healthy Foliage",
+      "confidence": 0.03,
+      "scientific_name": null
+    }
+  ],
+  "bounding_boxes": [
+    {
+      "class_name": "angular_lesion",
+      "confidence": 0.89,
+      "bbox_xyxy": [
+        95.0,
+        140.0,
+        220.0,
+        260.0
+      ]
+    }
+  ],
+  "severity": "STAGE_2_MODERATE",
+  "explanation": "Angular vein-delimited polygonal necrotic lesions on bean foliage. [Executed via YOLO fallback adapter - install ultralytics for live weights]",
+  "unknown": false,
+  "inference_time_ms": 12.01,
+  "device": "cpu",
+  "error": null
+}

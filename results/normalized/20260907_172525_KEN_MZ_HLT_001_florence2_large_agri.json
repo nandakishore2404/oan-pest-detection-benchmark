@@ -1,0 +1,33 @@
+{
+  "model_id": "florence2_large_agri",
+  "image_id": "KEN_MZ_HLT_001",
+  "timestamp": "2026-09-07T17:25:25.426237+00:00",
+  "task": "multimodal_visual_grounding_and_captioning",
+  "prediction": "Healthy Foliage",
+  "scientific_name": null,
+  "confidence": 0.72,
+  "top_predictions": [
+    {
+      "class_name": "Healthy Foliage",
+      "confidence": 0.72,
+      "scientific_name": null
+    },
+    {
+      "class_name": "Early Blight",
+      "confidence": 0.18,
+      "scientific_name": "Alternaria solani"
+    },
+    {
+      "class_name": "Nutrient Deficiency",
+      "confidence": 0.1,
+      "scientific_name": null
+    }
+  ],
+  "bounding_boxes": [],
+  "severity": "HEALTHY",
+  "explanation": "No macroscopic pathogenic lesions or discrete insect pests detected. [Executed via Florence-2 fallback - install transformers & torch]",
+  "unknown": false,
+  "inference_time_ms": 12.0,
+  "device": "cpu",
+  "error": null
+}
