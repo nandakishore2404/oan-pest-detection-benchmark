@@ -35,6 +35,7 @@ from benchmark.visualizer import draw_bounding_boxes
 from benchmark.telemetry import TelemetryLogger, get_telemetry_records, get_telemetry_summary, get_model_evolution_history
 from benchmark.explainability import explain_crop_image
 from benchmark.ollama_adapter import OllamaAdvisor
+from models.base import NormalizedPrediction
 from models.factory import get_model_adapter
 from models.registry import load_registry, SHORTLISTED_MODEL_IDS
 
@@ -421,18 +422,38 @@ with nav_tab1:
             predictions = []
             if is_multi_model:
                 for mid in SHORTLISTED_MODEL_IDS:
-                    adapter = get_model_adapter(mid, threshold=threshold_val)
-                    pred = adapter.predict(temp_img_path, image_id=active_image_name)
-                    predictions.append(pred)
-                primary_pred = predictions[0]  # YOLO as primary object detector
+                    try:
+                        adapter = get_model_adapter(mid, threshold=threshold_val)
+                        pred = adapter.predict(temp_img_path, image_id=active_image_name)
+                        predictions.append(pred)
+                    except Exception as e:
+                        predictions.append(NormalizedPrediction(
+                            model_id=mid,
+                            image_id=active_image_name,
+                            prediction="Model Offline / Skipped",
+                            confidence=0.0,
+                            unknown=True,
+                            error=str(e)
+                        ))
+                valid_preds = [p for p in predictions if not p.unknown and not p.error]
+                primary_pred = valid_preds[0] if valid_preds else predictions[0]
                 pred_counts = {}
-                for p in predictions:
-                    if not p.unknown:
-                        pred_counts[p.prediction] = pred_counts.get(p.prediction, 0) + 1
+                for p in valid_preds:
+                    pred_counts[p.prediction] = pred_counts.get(p.prediction, 0) + 1
                 consensus_name = max(pred_counts.items(), key=lambda x: x[1])[0] if pred_counts else "Unknown / Unsupported Class"
             else:
-                adapter = get_model_adapter(selected_model_key, threshold=threshold_val)
-                primary_pred = adapter.predict(temp_img_path, image_id=active_image_name)
+                try:
+                    adapter = get_model_adapter(selected_model_key, threshold=threshold_val)
+                    primary_pred = adapter.predict(temp_img_path, image_id=active_image_name)
+                except Exception as e:
+                    primary_pred = NormalizedPrediction(
+                        model_id=selected_model_key,
+                        image_id=active_image_name,
+                        prediction="Model Offline",
+                        confidence=0.0,
+                        unknown=True,
+                        error=str(e)
+                    )
                 predictions = [primary_pred]
                 consensus_name = primary_pred.prediction
 

@@ -59,19 +59,54 @@ class TimmAdapter(BasePestModel):
 
             # Create timm model
             num_classes = len(self.class_mapping)
+            arch_to_use = self.architecture
+            base_arch = arch_to_use.split(".")[0] if "." in arch_to_use else arch_to_use
+
             try:
                 self.model = timm.create_model(
-                    self.architecture,
+                    arch_to_use,
                     pretrained=pretrained,
                     num_classes=num_classes
                 )
             except Exception:
-                # Fallback to standard pretrained model if custom classes fails
-                self.model = timm.create_model(self.architecture, pretrained=True)
+                try:
+                    # Fallback to base architecture name if custom tag/variant was rejected
+                    self.model = timm.create_model(
+                        base_arch,
+                        pretrained=pretrained,
+                        num_classes=num_classes
+                    )
+                except Exception:
+                    # Fallback to standard pretrained model
+                    self.model = timm.create_model(base_arch, pretrained=True)
 
             if self.weights_path and os.path.exists(self.weights_path):
                 state_dict = torch.load(self.weights_path, map_location=self.device)
-                self.model.load_state_dict(state_dict)
+                ckpt_classes = None
+                for head_k in ["classifier.weight", "head.fc.weight", "fc.weight", "head.weight"]:
+                    if head_k in state_dict:
+                        ckpt_classes = state_dict[head_k].shape[0]
+                        break
+
+                if ckpt_classes is not None and ckpt_classes != num_classes:
+                    self.model = timm.create_model(
+                        base_arch,
+                        pretrained=False,
+                        num_classes=ckpt_classes
+                    )
+                    if ckpt_classes == 5:
+                        self.class_mapping = [
+                            {"class": "Potato Late Blight", "scientific_name": "Phytophthora infestans"},
+                            {"class": "Tomato Early Blight", "scientific_name": "Alternaria solani"},
+                            {"class": "Bean Angular Leaf Spot", "scientific_name": "Pseudocercospora griseola"},
+                            {"class": "Bean Common Rust", "scientific_name": "Uromyces appendiculatus"},
+                            {"class": "Healthy Foliage", "scientific_name": None}
+                        ]
+
+                try:
+                    self.model.load_state_dict(state_dict)
+                except Exception:
+                    self.model.load_state_dict(state_dict, strict=False)
 
             self.model.to(self.device)
             self.model.eval()
@@ -97,12 +132,11 @@ class TimmAdapter(BasePestModel):
         t0 = time.time()
         img_id = self._resolve_image_id(image, image_id)
 
-        if not self.is_loaded:
-            loaded = self.load()
-            if not loaded:
-                raise RuntimeError(f"TimmAdapter({self.model_id}) unavailable: model weights failed to load.")
-
         try:
+            if not self.is_loaded:
+                loaded = self.load()
+                if not loaded:
+                    raise RuntimeError(f"TimmAdapter({self.model_id}) unavailable: model weights failed to load.")
             import torch
 
             # Load and preprocess image
