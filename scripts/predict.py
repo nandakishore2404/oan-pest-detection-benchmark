@@ -48,14 +48,20 @@ def main():
     parser = argparse.ArgumentParser(description="OAN Kenya Foliar Disease Diagnostic CLI")
     parser.add_argument("--image", required=True, help="Path to leaf image file")
     parser.add_argument("--model", default="models/trained/mobilenetv4_kenya_finetuned.onnx", help="Path to ONNX model")
+    parser.add_argument("--explain", action="store_true", help="Generate Grad-CAM visual attention heatmap card")
     args = parser.parse_args()
 
     if not os.path.exists(args.image):
         print(f"Error: Image not found at {args.image}")
         sys.exit(1)
+    repo_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     if not os.path.exists(args.model):
-        print(f"Error: Model not found at {args.model}")
-        sys.exit(1)
+        fallback = os.path.join(repo_root, args.model)
+        if os.path.exists(fallback):
+            args.model = fallback
+        else:
+            print(f"Error: Model not found at {args.model}")
+            sys.exit(1)
 
     session = ort.InferenceSession(args.model, providers=["CPUExecutionProvider"])
     inp_name = session.get_inputs()[0].name
@@ -92,6 +98,28 @@ def main():
     print("-" * 60)
     print("AGRONOMIC ADVISORY (PCPB KENYA):")
     print(f"  {ADVISORIES.get(pred_class, 'Consult local extension officer.')}")
+    
+    if args.explain:
+        try:
+            if repo_root not in sys.path:
+                sys.path.insert(0, repo_root)
+            from benchmark.explainability import explain_crop_image
+            print("-" * 60)
+            print("🔍 GENERATING GRAD-CAM VISUAL EXPLAINABILITY (XAI)...")
+            xai_res = explain_crop_image(args.image)
+            
+            # Save to Drive D: if available, otherwise local results
+            out_dir = r"D:\OAN_Data" if os.path.exists("D:\\") else "results"
+            os.makedirs(out_dir, exist_ok=True)
+            base_name = os.path.splitext(os.path.basename(args.image))[0]
+            out_path = os.path.join(out_dir, f"xai_card_{base_name}.jpg")
+            
+            xai_res["comparison_card"].save(out_path)
+            print(f"  Lesion Focus Score: {xai_res['lesion_focus_pct']:.1f}%")
+            print(f"  Visual Attention Card saved to: {out_path}")
+        except Exception as e:
+            print(f"  Notice: Could not compute Grad-CAM overlay ({e})")
+            
     print("=" * 60 + "\n")
 
 if __name__ == "__main__":
