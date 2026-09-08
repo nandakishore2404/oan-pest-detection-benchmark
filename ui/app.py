@@ -38,6 +38,8 @@ from benchmark.ollama_adapter import OllamaAdvisor
 from models.base import NormalizedPrediction
 from models.factory import get_model_adapter
 from models.registry import load_registry, SHORTLISTED_MODEL_IDS
+from models.sahi_inference import SahiInferenceEngine
+from models.cdfa_thresholds import evaluate_cdfa_threshold
 
 # Page Configuration
 st.set_page_config(
@@ -398,6 +400,31 @@ with nav_tab1:
             key="sample_selector"
         )
 
+    st.markdown("##### 🔬 Field Scouting & Slicing Controls (CDFA Protocol / SAHI Mode)")
+    scout_c1, scout_c2, scout_c3 = st.columns(3)
+    with scout_c1:
+        enable_sahi = st.checkbox(
+            "🔬 Enable SAHI Slicing (Micro-Pest Detection)",
+            value=True,
+            help="Slices high-res images into overlapping tiles to prevent tiny pests (aphids, mites) from vanishing during downsampling."
+        )
+    with scout_c2:
+        crop_stage = st.selectbox(
+            "🌱 Crop Phenological Growth Stage:",
+            ["Early Vegetative / Seedling", "Mid to Late Whorl", "Tasseling / Silking / Flowering", "Grain Filling / Maturity"],
+            index=1,
+            help="CDFA economic thresholds dynamically adapt based on crop vulnerability."
+        )
+    with scout_c3:
+        plants_sampled = st.number_input(
+            "🌿 Plants Sampled at Station (CDFA W-Grid):",
+            min_value=1,
+            max_value=100,
+            value=10,
+            step=1,
+            help="Standard CDFA scouting grid uses 10 plants per station across 5 field stations."
+        )
+
     # Determine active image
     active_image = None
     active_image_name = ""
@@ -452,7 +479,19 @@ with nav_tab1:
             else:
                 try:
                     adapter = get_model_adapter(selected_model_key, threshold=threshold_val)
-                    primary_pred = adapter.predict(temp_img_path, image_id=active_image_name)
+                    if enable_sahi and "yolo" in selected_model_key.lower():
+                        adapter.load()
+                        sahi_engine = SahiInferenceEngine(confidence_threshold=threshold_val)
+                        sahi_res = sahi_engine.predict_sahi(adapter.model, temp_img_path, image_id=active_image_name)
+                        primary_pred = adapter.predict(temp_img_path, image_id=active_image_name)
+                        if sahi_res["merged_boxes"]:
+                            primary_pred.bounding_boxes = sahi_res["merged_boxes"]
+                            primary_pred.prediction = sahi_res["primary_class"]
+                            primary_pred.confidence = sahi_res["max_confidence"]
+                            primary_pred.inference_time_ms = sahi_res["latency_ms"]
+                            primary_pred.explanation = f"SAHI Multi-Scale Slicing: Analyzed {sahi_res['slice_count']} high-res patches. Identified {len(sahi_res['merged_boxes'])} pests ({sahi_res['small_target_count']} micro-targets < 2% frame area)."
+                    else:
+                        primary_pred = adapter.predict(temp_img_path, image_id=active_image_name)
                 except Exception as e:
                     primary_pred = NormalizedPrediction(
                         model_id=selected_model_key,
@@ -543,6 +582,48 @@ with nav_tab1:
                 f"To protect farmers from expensive or toxic pesticide mistakes, all chemical recommendations are deliberately withheld. "
                 f"Physical inspection by a local Ward Agricultural Officer is advised."
             )
+
+        # CDFA / KALRO Economic Injury Level (EIL) Assessment
+        cdfa_eil = evaluate_cdfa_threshold(
+            pest_name=primary_pred.prediction,
+            pest_count=len(primary_pred.bounding_boxes),
+            crop_stage=crop_stage,
+            total_plants_sampled=plants_sampled
+        )
+
+        st.markdown("#### 🌾 CDFA / KALRO Economic Injury Level (EIL) Assessment")
+        if cdfa_eil["evaluated"]:
+            if cdfa_eil["threshold_exceeded"]:
+                st.markdown(f"""
+                <div style="background-color: #fff3e0; border-left: 5px solid #e65100; padding: 16px; border-radius: 8px; margin-bottom: 16px;">
+                    <h4 style="color: #bf360c; margin: 0 0 6px 0;">🚨 Action Threshold Exceeded: {cdfa_eil['action_level']}</h4>
+                    <p style="color: #424242; margin: 0 0 6px 0; font-size: 0.95rem;">
+                        <strong>Target Pest:</strong> {cdfa_eil['pest_common_name']} | 
+                        <strong>Observed Density:</strong> {cdfa_eil['observed_density']} pests on {plants_sampled} sampled plants | 
+                        <strong>Regulatory Action Bar:</strong> {cdfa_eil['action_threshold_value']}% ({cdfa_eil['threshold_unit']})
+                    </p>
+                    <p style="color: #212121; margin: 0 0 8px 0; font-weight: 500; font-size: 1rem;">
+                        📋 <strong>Field Prescription:</strong> {cdfa_eil['regulatory_guidance']}
+                    </p>
+                    <small style="color: #757575;">Protocol: {cdfa_eil['sampling_protocol']} · Quarantine Threat Level: {cdfa_eil['quarantine_level']}</small>
+                </div>
+                """, unsafe_allow_html=True)
+            else:
+                st.markdown(f"""
+                <div style="background-color: #e8f5e9; border-left: 5px solid #2e7d32; padding: 16px; border-radius: 8px; margin-bottom: 16px;">
+                    <h4 style="color: #1b5e20; margin: 0 0 6px 0;">🛡️ Below Economic Injury Level: {cdfa_eil['action_level']}</h4>
+                    <p style="color: #2e7d32; margin: 0 0 6px 0; font-size: 0.95rem;">
+                        <strong>Target Pest:</strong> {cdfa_eil['pest_common_name']} | 
+                        <strong>Observed Density:</strong> {cdfa_eil['observed_density']} pests (Action Bar: {cdfa_eil['action_threshold_value']}% in {crop_stage})
+                    </p>
+                    <p style="color: #1b5e20; margin: 0 0 8px 0; font-weight: 500; font-size: 1rem;">
+                        ✅ <strong>Biological Preservation:</strong> {cdfa_eil['regulatory_guidance']}
+                    </p>
+                    <small style="color: #388e3c;">Cultural IPM Strategy: {cdfa_eil['cultural_ipm']}</small>
+                </div>
+                """, unsafe_allow_html=True)
+        else:
+            st.info(f"ℹ️ {cdfa_eil['message']}")
 
         # Candidate Distribution Bar Chart
         if primary_pred.top_predictions and len(primary_pred.top_predictions) > 1:
@@ -724,6 +805,11 @@ KALRO Helpline: 0800 721 741
                         diag_payload = {
                             "foliar_disease": primary_pred.prediction,
                             "disease_confidence": round(primary_pred.confidence, 3),
+                            "crop_phenology_stage": crop_stage,
+                            "pest_count": len(primary_pred.bounding_boxes),
+                            "cdfa_action_threshold_exceeded": cdfa_eil.get("threshold_exceeded", False),
+                            "cdfa_action_level": cdfa_eil.get("action_level", "STANDARD"),
+                            "cdfa_prescribed_guidance": cdfa_eil.get("regulatory_guidance", ""),
                             "county": "Western Kenya Agricultural Hub"
                         }
                         adv_text = advisor.generate_advisory(diag_payload, language=lang_sel)
