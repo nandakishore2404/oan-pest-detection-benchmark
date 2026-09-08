@@ -4,7 +4,7 @@
 [![Framework: PyTorch](https://img.shields.io/badge/Framework-PyTorch%20%7C%20ONNX%20%7C%20Ultralytics-orange.svg)](https://pytorch.org/)
 [![DPI: Beckn Protocol](https://img.shields.io/badge/Protocol-Beckn%20ONIX-blue.svg)](https://docs.openagrinet.global/)
 [![Edge: ONNX Runtime](https://img.shields.io/badge/Edge%20Inference-1.99ms%20CPU-brightgreen.svg)](https://onnxruntime.ai/)
-[![Author: Nanda Kishore Kakulla](https://img.shields.io/badge/Program%20Manager%20turned%20Architect-building%20with%20AI-10574e.svg)](https://github.com/nandakishore2404)
+[![Author: Nanda Kishore Kakulla](https://img.shields.io/badge/Program%20Manager%20%E2%86%92%20AI%20Enthusiast-Turning%20Ideas%20into%20AI--Powered%20Solutions-10574e.svg)](https://github.com/nandakishore2404)
 
 An open-source, edge-optimized computer-vision engine and benchmarking laboratory for automated agricultural pest and foliar disease diagnosis, engineered specifically for the **OpenAgriNet (OAN) Kenya Digital Public Infrastructure (DPI)** under the **Beckn Protocol**.
 
@@ -200,22 +200,33 @@ To prevent misapplication of costly agrochemicals, the model applies temperature
 
 ### 👋 Hi, I'm Nanda Kishore Kakulla
 
-**Program Manager turned Architect — building with AI.**
+**Program Manager → AI Enthusiast | Turning Ideas into AI-Powered Solutions**
 
-I bridge business, product, architecture, and engineering to turn ideas into working digital solutions. I increasingly use AI-assisted development, GenAI, agentic workflows, and modern engineering tools to prototype faster, solve complex problems, and take concepts from **idea → architecture → implementation**.
+I’m a Program Manager with a passion for technology, AI, and solving real-world problems. My journey has increasingly moved from managing programs and products to building, experimenting, and learning hands-on with AI and modern engineering tools.
 
-#### What I work on
-* 🤖 **AI / GenAI & Agentic Systems**
-* 🏗️ **Solution & Enterprise Architecture**
-* 🌐 **Digital Public Infrastructure (DPI & Beckn Protocol)**
-* ☁️ **Cloud & Distributed Platforms**
-* 🔬 **AI experimentation & model evaluation**
-* 🧩 **APIs, integrations & ecosystems**
-* 🚀 **Rapid prototyping & AI-assisted engineering**
+I enjoy taking an idea or business problem and exploring how technology can turn it into something tangible — from concept and architecture to prototypes, experiments, and working solutions.
 
-> *My philosophy*: You don't have to be a traditional developer to build with technology anymore — AI can turn strong problem-solving, architecture, and domain knowledge into working software.
+#### 🚀 What I'm Exploring & Building
+* 🤖 **Generative AI & Agentic AI**
+* 🧠 **AI-powered applications and workflows**
+* 🔬 **AI/ML experimentation and model evaluation**
+* 🏗️ **Solution architecture & digital platforms**
+* 🌐 **Digital Public Infrastructure & Open Networks**
+* ☁️ **Cloud technologies and scalable solutions**
+* 🧩 **APIs, integrations & distributed systems**
+* ⚡ **AI-assisted software development and rapid prototyping**
 
-📫 **Let's build**: [nandakishore.kakulla9@gmail.com](mailto:nandakishore.kakulla9@gmail.com) | **GitHub**: [@nandakishore2404](https://github.com/nandakishore2404)
+#### 💡 How I Approach Technology
+> **Start with the problem → understand the user → explore what AI can do → prototype quickly → validate with data → build what's worth scaling.**
+
+I'm particularly interested in the evolving intersection of business, technology and AI, and in using AI not just as a productivity tool, but as a way to think, experiment, build and solve problems differently.
+
+#### 📌 What you'll find here
+This GitHub is a collection of my experiments, prototypes, projects, research and learnings as I continue my journey into AI-powered technology.
+
+*Learning. Experimenting. Building. Sharing.*
+
+📫 **Connect with me**: [nandakishore.kakulla9@gmail.com](mailto:nandakishore.kakulla9@gmail.com) | **GitHub**: [@nandakishore2404](https://github.com/nandakishore2404)
 
 ---
 

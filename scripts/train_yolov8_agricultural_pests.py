@@ -2,7 +2,7 @@
 """
 Enhanced Agricultural Pest YOLOv8 Fine-Tuning & Benchmarking Pipeline
 =====================================================================
-Program Manager turned Architect — building with AI: Nanda Kishore Kakulla <nandakishore.kakulla9@gmail.com>
+Program Manager → AI Enthusiast | Turning Ideas into AI-Powered Solutions: Nanda Kishore Kakulla <nandakishore.kakulla9@gmail.com>
 Repository: https://github.com/nandakishore2404/oan-pest-detection-benchmark
 
 Integrates Auto-ML hyperparameter profiles from Qwen 2.5 Coder,
@@ -68,7 +68,7 @@ def run_enhanced_yolo_pipeline():
 
     print("=" * 70)
     print("🌾 OAN KENYA: ENHANCED YOLOV8 AGRICULTURAL PEST FINE-TUNING")
-    print("Program Manager turned Architect — building with AI: Nanda Kishore Kakulla <nandakishore.kakulla9@gmail.com>")
+    print("Program Manager → AI Enthusiast | Turning Ideas into AI-Powered Solutions: Nanda Kishore Kakulla <nandakishore.kakulla9@gmail.com>")
     print(f"Dataset YAML  : {data_yaml}")
     print(f"Run Directory : {project_dir}")
     print(f"Epochs: {cfg['epochs']}, Optimizer: {cfg['optimizer']}, Cosine LR: {cfg['cos_lr']}")

@@ -2,7 +2,7 @@
 """
 CDFA-Inspired Economic Injury Level (EIL) & Action Threshold Engine
 ===================================================================
-Program Manager turned Architect — building with AI: Nanda Kishore Kakulla <nandakishore.kakulla9@gmail.com>
+Program Manager → AI Enthusiast | Turning Ideas into AI-Powered Solutions: Nanda Kishore Kakulla <nandakishore.kakulla9@gmail.com>
 Repository: https://github.com/nandakishore2404/oan-pest-detection-benchmark
 
 Synthesizes regulatory scouting methodologies from:

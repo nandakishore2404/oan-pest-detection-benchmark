@@ -2,7 +2,7 @@
 """
 Foliage Contrast & Insect Cuticle Enhancement Module
 ====================================================
-Program Manager turned Architect — building with AI: Nanda Kishore Kakulla <nandakishore.kakulla9@gmail.com>
+Program Manager → AI Enthusiast | Turning Ideas into AI-Powered Solutions: Nanda Kishore Kakulla <nandakishore.kakulla9@gmail.com>
 Repository: https://github.com/nandakishore2404/oan-pest-detection-benchmark
 
 Extracts the best color-space filtering techniques from agricultural vision literature:

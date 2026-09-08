@@ -1,6 +1,6 @@
 """
 Agricultural Pest Object Detection & Field Advisory CLI Tool
-Program Manager turned Architect — building with AI: Nanda Kishore Kakulla <nandakishore.kakulla9@gmail.com>
+Program Manager → AI Enthusiast | Turning Ideas into AI-Powered Solutions: Nanda Kishore Kakulla <nandakishore.kakulla9@gmail.com>
 Repository: https://github.com/nandakishore2404/oan-pest-detection-benchmark
 
 Performs bounding-box localization, pest counting, species identification,
@@ -88,7 +88,7 @@ def detect_pests(image_path: str, model_path: str = None, conf: float = 0.25):
         
     print("=" * 70)
     print("OAN KENYA: FIELD PEST OBJECT DETECTION & AGRONOMIC ADVISORY")
-    print(f"Program Manager turned Architect — building with AI: Nanda Kishore Kakulla")
+    print(f"Program Manager → AI Enthusiast | Turning Ideas into AI-Powered Solutions: Nanda Kishore Kakulla")
     print(f"Input Image   : {image_path}")
     print(f"Model Weights : {model_path}")
     print("=" * 70)
