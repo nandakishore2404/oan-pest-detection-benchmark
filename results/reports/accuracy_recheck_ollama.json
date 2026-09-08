@@ -1,0 +1,64 @@
+{
+  "timestamp": "2026-09-08T18:18:53Z",
+  "audit_summary": {
+    "samples_audited": 4,
+    "baseline_boxes_detected": 19,
+    "sahi_boxes_detected": 23,
+    "micro_pests_recovered": 16,
+    "recall_gain_pct": "+21.1%",
+    "total_local_tokens_generated": 322,
+    "cloud_tokens_consumed": 0,
+    "cloud_api_cost_usd": 0.0,
+    "cost_saved_usd": 0.18
+  },
+  "details": [
+    {
+      "sample": "Caterpillar Feeding Foliage",
+      "image": "archive_caterpillar_field_01.jpg",
+      "baseline_count": 5,
+      "sahi_count": 7,
+      "recovered_micro_pests": 6,
+      "cdfa_action_level": null,
+      "cdfa_threshold_exceeded": null,
+      "ollama_latency_ms": 3148.52,
+      "ollama_tokens_sec": 31.1,
+      "ollama_verdict": "The detection recall gain for this field diagnosis is 0.75, indicating that the system was able to detect 75% of the pests in the sample. The CDFA action recommendation is agronomically sound, as it suggests that no action is needed based on the threshold exceeded and action recommendations."
+    },
+    {
+      "sample": "Maize Beetle Infestation",
+      "image": "archive_beetle_field_01.jpg",
+      "baseline_count": 9,
+      "sahi_count": 7,
+      "recovered_micro_pests": 3,
+      "cdfa_action_level": null,
+      "cdfa_threshold_exceeded": null,
+      "ollama_latency_ms": 3807.37,
+      "ollama_tokens_sec": 30.1,
+      "ollama_verdict": "The detection recall gain for this sample is 7 pests detected (3 micro-targets recovered) in 250.39ms compared to the baseline YOLO detection of 9 pests in 89.5ms. The CDFA assessment indicates that the threshold was exceeded, but no action was recommended. This suggests that the CDFA action recommendation may not be agronomically sound for this sample."
+    },
+    {
+      "sample": "Grasshopper Foliage Damage",
+      "image": "archive_grasshopper_field_01.jpg",
+      "baseline_count": 1,
+      "sahi_count": 6,
+      "recovered_micro_pests": 5,
+      "cdfa_action_level": null,
+      "cdfa_threshold_exceeded": null,
+      "ollama_latency_ms": 2935.36,
+      "ollama_tokens_sec": 30.4,
+      "ollama_verdict": "The detection recall gain for this field diagnosis is 89.07%, indicating that the system accurately detected 89.07% of the pests. The CDFA action recommendation is agronomically sound as it suggests no action is needed based on the threshold exceeded and action recommendations."
+    },
+    {
+      "sample": "Weevil Kernel Infestation",
+      "image": "archive_weevil_field_01.jpg",
+      "baseline_count": 4,
+      "sahi_count": 3,
+      "recovered_micro_pests": 2,
+      "cdfa_action_level": null,
+      "cdfa_threshold_exceeded": null,
+      "ollama_latency_ms": 4818.35,
+      "ollama_tokens_sec": 29.4,
+      "ollama_verdict": "The detection recall gain for the Weevil Kernel Infestation sample is 313.61ms / 78.79ms = 4.05x, indicating a significant improvement in detection speed. The CDFA assessment shows that the threshold was exceeded but no action was recommended, which suggests that the current detection method may not be sensitive enough to detect all weevil kernel infestations. However, the recall gain suggests that the current method is still effective in detecting a significant portion of the infestations, which is a positive outcome."
+    }
+  ]
+}
