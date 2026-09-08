@@ -23,10 +23,14 @@ class YOLOAdapter(BasePestModel):
         self,
         model_id: str = "yolov8s_pest",
         weights_path: Optional[str] = None,
-        threshold: float = 0.25
+        threshold: float = 0.25,
+        augment: bool = False,
+        iou: float = 0.45
     ):
         super().__init__(model_id=model_id, threshold=threshold)
         self.weights_path = weights_path or ("yolo11s.pt" if "11" in model_id else "yolov8s.pt")
+        self.augment = augment
+        self.iou = iou
         self.model = None
 
     def load(self) -> bool:
@@ -47,10 +51,12 @@ class YOLOAdapter(BasePestModel):
     def predict(
         self,
         image: Union[str, Image.Image],
-        image_id: Optional[str] = None
+        image_id: Optional[str] = None,
+        augment: Optional[bool] = None
     ) -> NormalizedPrediction:
         t0 = time.time()
         img_id = self._resolve_image_id(image, image_id)
+        use_augment = self.augment if augment is None else augment
 
         try:
             if not self.is_loaded:
@@ -61,6 +67,8 @@ class YOLOAdapter(BasePestModel):
             results = self.model.predict(
                 image,
                 conf=self.threshold,
+                iou=self.iou,
+                augment=use_augment,
                 device=self.device,
                 verbose=False
             )
