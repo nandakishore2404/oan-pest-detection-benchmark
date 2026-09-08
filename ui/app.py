@@ -148,7 +148,7 @@ if "shamba_messages" not in st.session_state:
 # ==============================================================================
 # TOP BAR & AUDIENCE SWITCHER
 # ==============================================================================
-top_col1, top_col2, top_col3 = st.columns([1.2, 2.4, 1.2])
+top_col1, top_col2, top_col3 = st.columns([1, 4.2, 1])
 
 with top_col1:
     st.markdown(f"""
@@ -166,10 +166,12 @@ with top_col2:
         "Farmer Home": "Farmer View",
         "Farmer Result": "Farmer View",
         "Lab View": "Lab View",
-        "Telemetry": "Telemetry & Observability",
-        "Components": "Design System Specs"
+        "Telemetry": "Telemetry",
+        "Components": "Design Specs"
     }
-    view_options = ["Farmer View", "Lab View", "Telemetry & Observability", "Design System Specs"]
+    # Short labels so all 4 segments stay visible instead of wrapping/overflowing
+    # out of top_col2 at ordinary window widths.
+    view_options = ["Farmer View", "Lab View", "Telemetry", "Design Specs"]
     current_label = reverse_map.get(st.session_state.active_view, "Farmer View")
     chosen_view = st.segmented_control(
         "Navigation",
@@ -182,9 +184,9 @@ with top_col2:
             st.session_state.active_view = "Farmer Home"
         elif chosen_view == "Lab View":
             st.session_state.active_view = "Lab View"
-        elif chosen_view == "Telemetry & Observability":
+        elif chosen_view == "Telemetry":
             st.session_state.active_view = "Telemetry"
-        elif chosen_view == "Design System Specs":
+        elif chosen_view == "Design Specs":
             st.session_state.active_view = "Components"
         st.rerun()
 
@@ -311,280 +313,260 @@ def execute_lab_inference(
 # SCREEN 1: FARMER HOME (MOBILE 390x844)
 # ==============================================================================
 def render_screen_farmer_home():
-    # Outer mobile device shell
-    st.markdown('<div class="mobile-device-shell">', unsafe_allow_html=True)
-    
-    # 1. Top Bar inside Mobile
-    m_head1, m_head2 = st.columns([3, 1])
-    with m_head1:
+    # Outer mobile device shell - a real container so this style actually
+    # wraps the widgets below (a raw unsafe_allow_html div does not).
+    mobile_shell_home = st.container(key="mobile_shell_home")
+    with mobile_shell_home:
+        # 2. Greeting & Supporting Copy
         st.markdown(f"""
-        <div style="display: flex; align-items: center; gap: 8px;">
-            {svg_leaf(COLOR_ACCENT, 20)}
-            <span style="font-family: var(--font-display); font-weight: 800; font-size: 13px; letter-spacing: 0.04em;">OAN KENYA</span>
-            <span style="font-size: 11px; color: {COLOR_MUTED}; font-weight: 500;">/ PEST LAB</span>
+        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
+            {svg_sun(COLOR_CAUTION, 18)}
+            <span style="font-size: 13px; font-weight: 600; color: {COLOR_CAUTION};">Hujambo, Wanjiru</span>
+        </div>
+        <div style="font-family: var(--font-display); font-weight: 800; font-size: 24px; color: {COLOR_TEXT}; line-height: 1.2; margin-bottom: 8px;">
+            Let's check on your crop
+        </div>
+        <div style="font-size: 13px; color: {COLOR_MUTED}; line-height: 1.45; margin-bottom: 18px;">
+            Get a confidence-scored field diagnosis with PCPB-registered agronomic guidance in under a minute.
         </div>
         """, unsafe_allow_html=True)
-    with m_head2:
+    
+        # 3. Primary CTA: Upload/Camera Card
         st.markdown(f"""
-        <div style="display: flex; align-items: center; justify-content: flex-end; gap: 8px;">
-            <span class="trust-pill" style="padding: 3px 8px; font-weight: 700;">EN</span>
-            <span>{svg_settings(COLOR_MUTED, 18)}</span>
-        </div>
-        """, unsafe_allow_html=True)
-        
-    st.markdown("<div style='height: 16px;'></div>", unsafe_allow_html=True)
-    
-    # 2. Greeting & Supporting Copy
-    st.markdown(f"""
-    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
-        {svg_sun(COLOR_CAUTION, 18)}
-        <span style="font-size: 13px; font-weight: 600; color: {COLOR_CAUTION};">Hujambo, Wanjiru</span>
-    </div>
-    <div style="font-family: var(--font-display); font-weight: 800; font-size: 24px; color: {COLOR_TEXT}; line-height: 1.2; margin-bottom: 8px;">
-        Let's check on your crop
-    </div>
-    <div style="font-size: 13px; color: {COLOR_MUTED}; line-height: 1.45; margin-bottom: 18px;">
-        Get a confidence-scored field diagnosis with PCPB-registered agronomic guidance in under a minute.
-    </div>
-    """, unsafe_allow_html=True)
-    
-    # 3. Primary CTA: Upload/Camera Card
-    st.markdown(f"""
-    <div style="border: 2px dashed {COLOR_BORDER_FOCUS}; background: var(--surface); border-radius: 18px; padding: 22px 16px; text-align: center; margin-bottom: 18px;">
-        <div style="width: 52px; height: 52px; background: {COLOR_ACCENT}; border-radius: 16px; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 12px;">
-            {svg_camera(COLOR_GROUND, 26)}
-        </div>
-        <div style="font-family: var(--font-display); font-weight: 700; font-size: 16px; color: {COLOR_TEXT}; margin-bottom: 4px;">
-            Take or upload a photo
-        </div>
-        <div style="font-size: 12px; color: {COLOR_MUTED}; margin-bottom: 12px;">
-            JPG or PNG · clear daylight shot works best
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
-    
-    # Streamlit file upload handle
-    uploaded = st.file_uploader(
-        "Upload a photo from your farm",
-        type=["jpg", "jpeg", "png"],
-        label_visibility="collapsed",
-        key="farmer_file_uploader"
-    )
-    if uploaded is not None:
-        st.session_state.farmer_uploaded_file = uploaded
-        st.session_state.selected_sample_id = None
-        st.session_state.active_view = "Farmer Result"
-        st.rerun()
-
-    # 4. Verified Sample Chips
-    st.markdown("""
-    <div style="font-family: var(--font-display); font-weight: 700; font-size: 13px; color: var(--text-primary); margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.04em;">
-        Or try a verified sample
-    </div>
-    """, unsafe_allow_html=True)
-    
-    # Display sample options as interactive clickable cards
-    for sid, sinfo in list(GOLDEN_SAMPLES.items())[:4]:
-        c1, c2 = st.columns([3.5, 1.2])
-        with c1:
-            st.markdown(f"""
-            <div style="background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 10px 14px; margin-bottom: 8px;">
-                <div style="font-family: var(--font-display); font-weight: 700; font-size: 13px; color: {COLOR_TEXT};">{sinfo['title']}</div>
-                <div style="font-size: 11px; color: {COLOR_MUTED}; font-style: italic;">{sinfo['scientific']} · {sinfo['stage']}</div>
+        <div style="border: 2px dashed {COLOR_BORDER_FOCUS}; background: var(--surface); border-radius: 18px; padding: 22px 16px; text-align: center; margin-bottom: 18px;">
+            <div style="width: 52px; height: 52px; background: {COLOR_ACCENT}; border-radius: 16px; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 12px;">
+                {svg_camera(COLOR_GROUND, 26)}
             </div>
-            """, unsafe_allow_html=True)
-        with c2:
-            if st.button("Diagnose", key=f"chip_btn_{sid}", use_container_width=True):
-                st.session_state.selected_sample_id = sid
-                st.session_state.farmer_uploaded_file = None
-                st.session_state.active_view = "Farmer Result"
-                st.rerun()
-
-    # 5. Trust Strip near Bottom
-    st.markdown(f"""
-    <div style="display: flex; flex-wrap: wrap; gap: 6px; margin: 18px 0 14px 0; justify-content: center;">
-        <span class="trust-pill">{svg_shield(COLOR_ACCENT, 14)} KALRO & PCPB aligned</span>
-        <span class="trust-pill">{svg_zap(COLOR_CAUTION, 14)} Works fully offline</span>
-        <span class="trust-pill">{svg_checkmark(COLOR_ACCENT, 14)} Free for farmers</span>
-    </div>
-    """, unsafe_allow_html=True)
-    
-    # 6. Sticky Bottom Bar: Ask Shamba AI
-    st.markdown(f"""
-    <div class="sticky-shamba-bar">
-        <div style="display: flex; align-items: center; gap: 10px;">
-            {svg_chat_bubble(COLOR_ACCENT, 20)}
-            <span style="font-family: var(--font-display); font-size: 13px; font-weight: 700; color: {COLOR_TEXT};">Ask Shamba AI a question instead</span>
+            <div style="font-family: var(--font-display); font-weight: 700; font-size: 16px; color: {COLOR_TEXT}; margin-bottom: 4px;">
+                Take or upload a photo
+            </div>
+            <div style="font-size: 12px; color: {COLOR_MUTED}; margin-bottom: 12px;">
+                JPG or PNG · clear daylight shot works best
+            </div>
         </div>
-        <div>{svg_chevron_right(COLOR_MUTED, 18)}</div>
-    </div>
-    """, unsafe_allow_html=True)
+        """, unsafe_allow_html=True)
     
-    if st.checkbox("Open Shamba AI Chatbot Assistant", key="toggle_shamba_home", value=False):
-        render_shamba_chat_modal()
+        # Streamlit file upload handle
+        uploaded = st.file_uploader(
+            "Upload a photo from your farm",
+            type=["jpg", "jpeg", "png"],
+            label_visibility="collapsed",
+            key="farmer_file_uploader"
+        )
+        if uploaded is not None:
+            st.session_state.farmer_uploaded_file = uploaded
+            st.session_state.selected_sample_id = None
+            st.session_state.active_view = "Farmer Result"
+            st.rerun()
 
-    st.markdown('</div>', unsafe_allow_html=True)
+        # 4. Verified Sample Chips
+        st.markdown("""
+        <div style="font-family: var(--font-display); font-weight: 700; font-size: 13px; color: var(--text-primary); margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.04em;">
+            Or try a verified sample
+        </div>
+        """, unsafe_allow_html=True)
+    
+        # Display sample options as interactive clickable cards
+        for sid, sinfo in list(GOLDEN_SAMPLES.items())[:4]:
+            c1, c2 = st.columns([3.5, 1.2])
+            with c1:
+                st.markdown(f"""
+                <div style="background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 10px 14px; margin-bottom: 8px;">
+                    <div style="font-family: var(--font-display); font-weight: 700; font-size: 13px; color: {COLOR_TEXT};">{sinfo['title']}</div>
+                    <div style="font-size: 11px; color: {COLOR_MUTED}; font-style: italic;">{sinfo['scientific']} · {sinfo['stage']}</div>
+                </div>
+                """, unsafe_allow_html=True)
+            with c2:
+                if st.button("Diagnose", key=f"chip_btn_{sid}", use_container_width=True):
+                    st.session_state.selected_sample_id = sid
+                    st.session_state.farmer_uploaded_file = None
+                    st.session_state.active_view = "Farmer Result"
+                    st.rerun()
+
+        # 5. Trust Strip near Bottom
+        st.markdown(f"""
+        <div style="display: flex; flex-wrap: wrap; gap: 6px; margin: 18px 0 14px 0; justify-content: center;">
+            <span class="trust-pill">{svg_shield(COLOR_ACCENT, 14)} KALRO & PCPB aligned</span>
+            <span class="trust-pill">{svg_zap(COLOR_CAUTION, 14)} Works fully offline</span>
+            <span class="trust-pill">{svg_checkmark(COLOR_ACCENT, 14)} Free for farmers</span>
+        </div>
+        """, unsafe_allow_html=True)
+    
+        # 6. Sticky Bottom Bar: Ask Shamba AI
+        st.markdown(f"""
+        <div class="sticky-shamba-bar">
+            <div style="display: flex; align-items: center; gap: 10px;">
+                {svg_chat_bubble(COLOR_ACCENT, 20)}
+                <span style="font-family: var(--font-display); font-size: 13px; font-weight: 700; color: {COLOR_TEXT};">Ask Shamba AI a question instead</span>
+            </div>
+            <div>{svg_chevron_right(COLOR_MUTED, 18)}</div>
+        </div>
+        """, unsafe_allow_html=True)
+    
+        if st.checkbox("Open Shamba AI Chatbot Assistant", key="toggle_shamba_home", value=False):
+            render_shamba_chat_modal()
+
 
 
 # ==============================================================================
 # SCREEN 2: FARMER RESULT (MOBILE 390x844)
 # ==============================================================================
 def render_screen_farmer_result():
-    st.markdown('<div class="mobile-device-shell">', unsafe_allow_html=True)
+    mobile_shell_result = st.container(key="mobile_shell_result")
+    with mobile_shell_result:
     
-    # 1. Back Chevron + "Your Result" Header
-    back_c1, back_c2 = st.columns([1, 4])
-    with back_c1:
-        if st.button("← Back", key="btn_back_home", use_container_width=True):
-            st.session_state.active_view = "Farmer Home"
-            st.rerun()
-    with back_c2:
+        # 1. Back Chevron + "Your Result" Header
+        back_c1, back_c2 = st.columns([1, 4])
+        with back_c1:
+            if st.button("← Back", key="btn_back_home", use_container_width=True):
+                st.session_state.active_view = "Farmer Home"
+                st.rerun()
+        with back_c2:
+            st.markdown(f"""
+            <div style="font-family: var(--font-display); font-weight: 800; font-size: 18px; color: {COLOR_TEXT}; padding-top: 6px;">
+                Your Result
+            </div>
+            """, unsafe_allow_html=True)
+        
+        st.markdown("<div style='height: 10px;'></div>", unsafe_allow_html=True)
+
+        # Determine Active Image
+        active_img_path = None
+        if st.session_state.farmer_uploaded_file is not None:
+            active_img_path = os.path.join(REPO_ROOT, "results", "current_upload.jpg")
+            os.makedirs(os.path.dirname(active_img_path), exist_ok=True)
+            try:
+                st.session_state.farmer_uploaded_file.seek(0)
+            except Exception:
+                pass
+            img = Image.open(st.session_state.farmer_uploaded_file).convert("RGB")
+            img.save(active_img_path)
+        else:
+            sample_meta = GOLDEN_SAMPLES.get(st.session_state.selected_sample_id, GOLDEN_SAMPLES["fall_armyworm"])
+            active_img_path = sample_meta["path"]
+        
+        # Run Inference
+        with st.spinner("Analyzing crop foliage..."):
+            res = execute_lab_inference(
+                active_img_path,
+                model_id="yolov8s_pest",
+                threshold=0.35,
+                enable_sahi=True,
+                enable_tta=False,
+                crop_stage="mid_to_late_whorl",
+                county="rift_valley_trans_nzoia",
+                plants_sampled=10
+            )
+        
+        pred = res["prediction"]
+        conf = pred.confidence
+        boxes = pred.bounding_boxes
+    
+        # 2. Photo Preview with Overlaid Detection
+        pil_img = Image.open(active_img_path).convert("RGB")
+        annotated_img = draw_bounding_boxes(
+            pil_img,
+            boxes,
+            diagnosis_label=pred.prediction,
+            confidence=conf
+        )
+        # Thumbnail limit for crisp mobile sizing
+        disp_img = annotated_img.copy()
+        disp_img.thumbnail((640, 640), Image.Resampling.LANCZOS)
+        st.image(disp_img, use_container_width=True, caption=f"Analyzed Field Photo · Found {len(boxes)} regions of interest")
+    
+        # 3. Diagnosis Card
+        conf_badge_html = render_confidence_badge(conf)
         st.markdown(f"""
-        <div style="font-family: var(--font-display); font-weight: 800; font-size: 18px; color: {COLOR_TEXT}; padding-top: 6px;">
-            Your Result
+        <div class="oan-card" style="margin-top: 8px;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px;">
+                <div>
+                    <div style="font-size: 11px; font-weight: 700; color: {COLOR_MUTED}; text-transform: uppercase; letter-spacing: 0.05em;">DIAGNOSED CONDITION</div>
+                    <div style="font-family: var(--font-display); font-weight: 800; font-size: 20px; color: {COLOR_TEXT}; line-height: 1.2;">{pred.prediction}</div>
+                    <div style="font-size: 12px; color: {COLOR_ACCENT}; font-style: italic; margin-top: 2px;">{pred.scientific_name or 'Field-level agronomic pest'}</div>
+                </div>
+                <div>{conf_badge_html}</div>
+            </div>
         </div>
         """, unsafe_allow_html=True)
-        
-    st.markdown("<div style='height: 10px;'></div>", unsafe_allow_html=True)
+    
+        # Check Safety Brake
+        is_abstained = conf < 0.35 or pred.unknown
+        if is_abstained:
+            st.markdown(render_safety_brake_banner(threshold=0.35, current_conf=conf), unsafe_allow_html=True)
 
-    # Determine Active Image
-    active_img_path = None
-    if st.session_state.farmer_uploaded_file is not None:
-        active_img_path = os.path.join(REPO_ROOT, "results", "current_upload.jpg")
-        os.makedirs(os.path.dirname(active_img_path), exist_ok=True)
-        try:
-            st.session_state.farmer_uploaded_file.seek(0)
-        except Exception:
-            pass
-        img = Image.open(st.session_state.farmer_uploaded_file).convert("RGB")
-        img.save(active_img_path)
-    else:
-        sample_meta = GOLDEN_SAMPLES.get(st.session_state.selected_sample_id, GOLDEN_SAMPLES["fall_armyworm"])
-        active_img_path = sample_meta["path"]
+        # Severity & Yield Risk Stat Tiles
+        st_c1, st_c2 = st.columns(2)
+        with st_c1:
+            sev_label = pred.severity or "STAGE_2_MODERATE"
+            sev_color = COLOR_CAUTION if "MODERATE" in sev_label or "STAGE_2" in sev_label else (COLOR_ALERT if "SEVERE" in sev_label else COLOR_ACCENT)
+            st.markdown(render_stat_tile("Severity", sev_label.replace("STAGE_2_", ""), subtext="Whorl feeding level", color=sev_color), unsafe_allow_html=True)
+        with st_c2:
+            risk_txt = "15-30%" if "MODERATE" in sev_label else ("40-60%" if "SEVERE" in sev_label else "< 10%")
+            st.markdown(render_stat_tile("Yield Risk", risk_txt, subtext="If left unmanaged", color=COLOR_CAUTION), unsafe_allow_html=True)
         
-    # Run Inference
-    with st.spinner("Analyzing crop foliage..."):
-        res = execute_lab_inference(
-            active_img_path,
-            model_id="yolov8s_pest",
-            threshold=0.35,
-            enable_sahi=True,
-            enable_tta=False,
-            crop_stage="mid_to_late_whorl",
-            county="rift_valley_trans_nzoia",
-            plants_sampled=10
-        )
-        
-    pred = res["prediction"]
-    conf = pred.confidence
-    boxes = pred.bounding_boxes
+        st.markdown("<div style='height: 12px;'></div>", unsafe_allow_html=True)
     
-    # 2. Photo Preview with Overlaid Detection
-    pil_img = Image.open(active_img_path).convert("RGB")
-    annotated_img = draw_bounding_boxes(
-        pil_img,
-        boxes,
-        diagnosis_label=pred.prediction,
-        confidence=conf
-    )
-    # Thumbnail limit for crisp mobile sizing
-    disp_img = annotated_img.copy()
-    disp_img.thumbnail((640, 640), Image.Resampling.LANCZOS)
-    st.image(disp_img, use_container_width=True, caption=f"Analyzed Field Photo · Found {len(boxes)} regions of interest")
+        # 4. What To Do Next — Action Steps
+        st.markdown(f"""
+        <div style="font-family: var(--font-display); font-weight: 700; font-size: 13px; color: {COLOR_TEXT}; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.04em;">
+            What to do next · Recommended steps
+        </div>
+        """, unsafe_allow_html=True)
     
-    # 3. Diagnosis Card
-    conf_badge_html = render_confidence_badge(conf)
-    st.markdown(f"""
-    <div class="oan-card" style="margin-top: 8px;">
-        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px;">
-            <div>
-                <div style="font-size: 11px; font-weight: 700; color: {COLOR_MUTED}; text-transform: uppercase; letter-spacing: 0.05em;">DIAGNOSED CONDITION</div>
-                <div style="font-family: var(--font-display); font-weight: 800; font-size: 20px; color: {COLOR_TEXT}; line-height: 1.2;">{pred.prediction}</div>
-                <div style="font-size: 12px; color: {COLOR_ACCENT}; font-style: italic; margin-top: 2px;">{pred.scientific_name or 'Field-level agronomic pest'}</div>
+        adv = res["advisory"]
+        cultural_actions = adv.get('cultural_actions') or ["Scout 10 plants in a W-pattern across 5 stations."]
+        bio_controls = adv.get('biological_controls') or ["Preserve natural ladybird predators and apply Neem extracts."]
+        chem_interventions = adv.get('chemical_interventions') or []
+    
+        st.markdown(render_action_step(1, "Handpick & Contain Early", cultural_actions[0]), unsafe_allow_html=True)
+        st.markdown(render_action_step(2, "Biological Management", bio_controls[0]), unsafe_allow_html=True)
+    
+        if not is_abstained and chem_interventions:
+            first_chem = chem_interventions[0]
+            if isinstance(first_chem, dict):
+                c_title = f"Targeted Spray: {first_chem.get('active_ingredient', 'PCPB Registered')}"
+                c_desc = f"{first_chem.get('application_timing', 'Apply into whorls early morning')}. PHI: {first_chem.get('phi_days', '14 days')}."
+            else:
+                c_title = "PCPB Chemical Control"
+                c_desc = str(first_chem)
+            st.markdown(render_action_step(3, c_title, c_desc), unsafe_allow_html=True)
+        elif is_abstained:
+            st.markdown(render_action_step(3, "Consult County Extension Officer", "Confidence is below the certified safety brake. Do not apply synthetic pesticides without physical verification."), unsafe_allow_html=True)
+
+        # 5. Dual Pill Action Buttons
+        st.markdown("<div style='height: 10px;'></div>", unsafe_allow_html=True)
+        btn_c1, btn_c2 = st.columns(2)
+        with btn_c1:
+            if st.button("Save Result", key="btn_save_res", use_container_width=True):
+                st.toast("✅ Diagnostic result saved to offline field ledger!", icon="💾")
+        with btn_c2:
+            if st.button("Find Agrovet", key="btn_find_agrovet", use_container_width=True):
+                st.toast("📍 Connecting to 3 nearby PCPB-certified agro-dealers...", icon="🌾")
+
+        # 6. Trust Strip
+        st.markdown(f"""
+        <div style="display: flex; flex-wrap: wrap; gap: 6px; margin: 18px 0 10px 0; justify-content: center;">
+            <span class="trust-pill">{svg_shield(COLOR_ACCENT, 14)} KALRO & PCPB aligned</span>
+            <span class="trust-pill">{svg_zap(COLOR_CAUTION, 14)} 100% offline edge</span>
+            <span class="trust-pill">{svg_checkmark(COLOR_ACCENT, 14)} Sovereign diagnostic</span>
+        </div>
+        """, unsafe_allow_html=True)
+    
+        # 7. Sticky Bottom Bar: Ask Shamba AI
+        st.markdown(f"""
+        <div class="sticky-shamba-bar">
+            <div style="display: flex; align-items: center; gap: 10px;">
+                {svg_chat_bubble(COLOR_ACCENT, 20)}
+                <span style="font-family: var(--font-display); font-size: 13px; font-weight: 700; color: {COLOR_TEXT};">Ask Shamba AI about this result</span>
             </div>
-            <div>{conf_badge_html}</div>
+            <div>{svg_chevron_right(COLOR_MUTED, 18)}</div>
         </div>
-    </div>
-    """, unsafe_allow_html=True)
+        """, unsafe_allow_html=True)
     
-    # Check Safety Brake
-    is_abstained = conf < 0.35 or pred.unknown
-    if is_abstained:
-        st.markdown(render_safety_brake_banner(threshold=0.35, current_conf=conf), unsafe_allow_html=True)
+        if st.checkbox("Open Shamba AI Discussion", key="toggle_shamba_result", value=False):
+            render_shamba_chat_modal()
 
-    # Severity & Yield Risk Stat Tiles
-    st_c1, st_c2 = st.columns(2)
-    with st_c1:
-        sev_label = pred.severity or "STAGE_2_MODERATE"
-        sev_color = COLOR_CAUTION if "MODERATE" in sev_label or "STAGE_2" in sev_label else (COLOR_ALERT if "SEVERE" in sev_label else COLOR_ACCENT)
-        st.markdown(render_stat_tile("Severity", sev_label.replace("STAGE_2_", ""), subtext="Whorl feeding level", color=sev_color), unsafe_allow_html=True)
-    with st_c2:
-        risk_txt = "15-30%" if "MODERATE" in sev_label else ("40-60%" if "SEVERE" in sev_label else "< 10%")
-        st.markdown(render_stat_tile("Yield Risk", risk_txt, subtext="If left unmanaged", color=COLOR_CAUTION), unsafe_allow_html=True)
-        
-    st.markdown("<div style='height: 12px;'></div>", unsafe_allow_html=True)
-    
-    # 4. What To Do Next — Action Steps
-    st.markdown(f"""
-    <div style="font-family: var(--font-display); font-weight: 700; font-size: 13px; color: {COLOR_TEXT}; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.04em;">
-        What to do next · Recommended steps
-    </div>
-    """, unsafe_allow_html=True)
-    
-    adv = res["advisory"]
-    cultural_actions = adv.get('cultural_actions') or ["Scout 10 plants in a W-pattern across 5 stations."]
-    bio_controls = adv.get('biological_controls') or ["Preserve natural ladybird predators and apply Neem extracts."]
-    chem_interventions = adv.get('chemical_interventions') or []
-    
-    st.markdown(render_action_step(1, "Handpick & Contain Early", cultural_actions[0]), unsafe_allow_html=True)
-    st.markdown(render_action_step(2, "Biological Management", bio_controls[0]), unsafe_allow_html=True)
-    
-    if not is_abstained and chem_interventions:
-        first_chem = chem_interventions[0]
-        if isinstance(first_chem, dict):
-            c_title = f"Targeted Spray: {first_chem.get('active_ingredient', 'PCPB Registered')}"
-            c_desc = f"{first_chem.get('application_timing', 'Apply into whorls early morning')}. PHI: {first_chem.get('phi_days', '14 days')}."
-        else:
-            c_title = "PCPB Chemical Control"
-            c_desc = str(first_chem)
-        st.markdown(render_action_step(3, c_title, c_desc), unsafe_allow_html=True)
-    elif is_abstained:
-        st.markdown(render_action_step(3, "Consult County Extension Officer", "Confidence is below the certified safety brake. Do not apply synthetic pesticides without physical verification."), unsafe_allow_html=True)
-
-    # 5. Dual Pill Action Buttons
-    st.markdown("<div style='height: 10px;'></div>", unsafe_allow_html=True)
-    btn_c1, btn_c2 = st.columns(2)
-    with btn_c1:
-        if st.button("Save Result", key="btn_save_res", use_container_width=True):
-            st.toast("✅ Diagnostic result saved to offline field ledger!", icon="💾")
-    with btn_c2:
-        if st.button("Find Agrovet", key="btn_find_agrovet", use_container_width=True):
-            st.toast("📍 Connecting to 3 nearby PCPB-certified agro-dealers...", icon="🌾")
-
-    # 6. Trust Strip
-    st.markdown(f"""
-    <div style="display: flex; flex-wrap: wrap; gap: 6px; margin: 18px 0 10px 0; justify-content: center;">
-        <span class="trust-pill">{svg_shield(COLOR_ACCENT, 14)} KALRO & PCPB aligned</span>
-        <span class="trust-pill">{svg_zap(COLOR_CAUTION, 14)} 100% offline edge</span>
-        <span class="trust-pill">{svg_checkmark(COLOR_ACCENT, 14)} Sovereign diagnostic</span>
-    </div>
-    """, unsafe_allow_html=True)
-    
-    # 7. Sticky Bottom Bar: Ask Shamba AI
-    st.markdown(f"""
-    <div class="sticky-shamba-bar">
-        <div style="display: flex; align-items: center; gap: 10px;">
-            {svg_chat_bubble(COLOR_ACCENT, 20)}
-            <span style="font-family: var(--font-display); font-size: 13px; font-weight: 700; color: {COLOR_TEXT};">Ask Shamba AI about this result</span>
-        </div>
-        <div>{svg_chevron_right(COLOR_MUTED, 18)}</div>
-    </div>
-    """, unsafe_allow_html=True)
-    
-    if st.checkbox("Open Shamba AI Discussion", key="toggle_shamba_result", value=False):
-        render_shamba_chat_modal()
-
-    st.markdown('</div>', unsafe_allow_html=True)
 
 
 # ==============================================================================
@@ -872,14 +854,6 @@ def render_screen_lab_view():
 # SCREEN: TELEMETRY & OBSERVABILITY DASHBOARD
 # ==============================================================================
 def render_screen_telemetry(is_subtab: bool = False):
-    DARK_PLOT_LAYOUT = dict(
-        paper_bgcolor="#0d1712",
-        plot_bgcolor="#0d1712",
-        font=dict(color="#eef3ef", family="Manrope, sans-serif"),
-        xaxis=dict(gridcolor="#1c2620", zerolinecolor="#1c2620"),
-        yaxis=dict(gridcolor="#1c2620", zerolinecolor="#1c2620"),
-        margin=dict(l=20, r=20, t=36, b=20)
-    )
 
     if not is_subtab:
         st.markdown(f"""
@@ -967,10 +941,15 @@ def render_screen_telemetry(is_subtab: bool = False):
         ])
         fig_lat.add_hline(y=50.0, line_dash="dash", line_color="#e2847a", annotation_text="50ms Real-Time SLA", annotation_position="top right", annotation_font_color="#e2847a")
         fig_lat.update_layout(
+            paper_bgcolor="#0d1712",
+            plot_bgcolor="#0d1712",
+            font=dict(color="#eef3ef", family="Manrope, sans-serif"),
             yaxis_title="Milliseconds (ms)",
             height=280,
-            **DARK_PLOT_LAYOUT
+            margin=dict(l=20, r=20, t=36, b=20)
         )
+        fig_lat.update_xaxes(gridcolor="#1c2620", zerolinecolor="#1c2620")
+        fig_lat.update_yaxes(gridcolor="#1c2620", zerolinecolor="#1c2620")
         st.plotly_chart(fig_lat, use_container_width=True)
 
     with c2:
@@ -989,12 +968,16 @@ def render_screen_telemetry(is_subtab: bool = False):
         fig_evo.add_trace(go.Bar(x=ver_names, y=pest_precs, name="YOLO Precision (%)", marker_color="#e7b458"))
         fig_evo.update_layout(
             barmode="group",
+            paper_bgcolor="#0d1712",
+            plot_bgcolor="#0d1712",
+            font=dict(color="#eef3ef", family="Manrope, sans-serif"),
             yaxis_title="Accuracy / Precision (%)",
-            yaxis=dict(range=[40, 75], gridcolor="#1c2620"),
             height=280,
-            legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1, font=dict(size=10)),
-            **DARK_PLOT_LAYOUT
+            margin=dict(l=20, r=20, t=36, b=20),
+            legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1, font=dict(size=10))
         )
+        fig_evo.update_xaxes(gridcolor="#1c2620", zerolinecolor="#1c2620")
+        fig_evo.update_yaxes(gridcolor="#1c2620", zerolinecolor="#1c2620", range=[40, 75])
         st.plotly_chart(fig_evo, use_container_width=True)
 
     st.markdown("<div style='height: 14px;'></div>", unsafe_allow_html=True)
@@ -1017,7 +1000,15 @@ def render_screen_telemetry(is_subtab: bool = False):
                 color_discrete_sequence=["#22c08a"]
             )
             fig_conf.add_vline(x=40.0, line_dash="dash", line_color="#e2847a", annotation_text="Safety Brake (40%)", annotation_font_color="#e2847a")
-            fig_conf.update_layout(height=260, **DARK_PLOT_LAYOUT)
+            fig_conf.update_layout(
+                paper_bgcolor="#0d1712",
+                plot_bgcolor="#0d1712",
+                font=dict(color="#eef3ef", family="Manrope, sans-serif"),
+                height=260,
+                margin=dict(l=20, r=20, t=36, b=20)
+            )
+            fig_conf.update_xaxes(gridcolor="#1c2620", zerolinecolor="#1c2620")
+            fig_conf.update_yaxes(gridcolor="#1c2620", zerolinecolor="#1c2620")
             st.plotly_chart(fig_conf, use_container_width=True)
         else:
             st.info("No confidence records logged yet.")
@@ -1036,7 +1027,15 @@ def render_screen_telemetry(is_subtab: bool = False):
                 labels={"y": "Lesion Footprint (% of leaf area)"},
                 color_discrete_sequence=["#e7b458"]
             )
-            fig_focus.update_layout(height=260, **DARK_PLOT_LAYOUT)
+            fig_focus.update_layout(
+                paper_bgcolor="#0d1712",
+                plot_bgcolor="#0d1712",
+                font=dict(color="#eef3ef", family="Manrope, sans-serif"),
+                height=260,
+                margin=dict(l=20, r=20, t=36, b=20)
+            )
+            fig_focus.update_xaxes(gridcolor="#1c2620", zerolinecolor="#1c2620")
+            fig_focus.update_yaxes(gridcolor="#1c2620", zerolinecolor="#1c2620")
             st.plotly_chart(fig_focus, use_container_width=True)
         else:
             st.info("No Grad-CAM records logged yet.")
