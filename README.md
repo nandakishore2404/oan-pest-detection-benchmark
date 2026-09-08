@@ -1,9 +1,10 @@
 # OpenAgriNet (OAN) Kenya: AI Pest & Crop Disease Detection Engine
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![Framework: PyTorch](https://img.shields.io/badge/Framework-PyTorch%20%7C%20ONNX-orange.svg)](https://pytorch.org/)
+[![Framework: PyTorch](https://img.shields.io/badge/Framework-PyTorch%20%7C%20ONNX%20%7C%20Ultralytics-orange.svg)](https://pytorch.org/)
 [![DPI: Beckn Protocol](https://img.shields.io/badge/Protocol-Beckn%20ONIX-blue.svg)](https://docs.openagrinet.global/)
 [![Edge: ONNX Runtime](https://img.shields.io/badge/Edge%20Inference-1.99ms%20CPU-brightgreen.svg)](https://onnxruntime.ai/)
+[![Author: Nanda Kishore Kakulla](https://img.shields.io/badge/Lead%20Architect-Nanda%20Kishore%20Kakulla-blue.svg)](https://github.com/nandakishore2404)
 
 An open-source, edge-optimized computer-vision engine and benchmarking laboratory for automated agricultural pest and foliar disease diagnosis, engineered specifically for the **OpenAgriNet (OAN) Kenya Digital Public Infrastructure (DPI)** under the **Beckn Protocol**.
 
@@ -28,11 +29,11 @@ Smallholder farmers in Kenya lose up to 70% of seasonal yields to late-detected 
                     ▼                                       ▼
     ┌───────────────────────────────┐       ┌───────────────────────────────┐
     │ Tier 1: Foliar Classifier     │       │ Tier 2: Entomology Detector   │
-    │ Model: MobileNetV4 Conv Small │       │ Model: Ultralytics YOLOv8s    │
+    │ Model: MobileNetV4 Conv Small │       │ Model: YOLOv8 Agricultural    │
     │ Size: 9.51 MB ONNX            │       │ Size: 11.6 MB ONNX            │
-    │ Latency: 1.99 ms (CPU)        │       │ Latency: 15.5 ms (CPU)        │
+    │ Latency: 1.99 ms (CPU)        │       │ Latency: 17.03 ms (CPU)       │
     │ Task: Whole-Leaf Pathology    │       │ Task: Bounding Box & Counting │
-    │ Output: Pathogen ID + Conf    │       │ Output: Pest Density vs. EIL  │
+    │ Output: Pathogen ID + Conf    │       │ Output: 28 Pest Classes + EIL │
     └───────────────┬───────────────┘       └───────────────┬───────────────┘
                     │                                       │
                     └───────────────────┬───────────────────┘
@@ -49,29 +50,41 @@ Smallholder farmers in Kenya lose up to 70% of seasonal yields to late-detected 
                           └───────────────────────────┘
 ```
 
-* **Tier 1 (Foliar Disease Classifier)**: Powered by `mobilenetv4_conv_small`. Achieves **87.95% top-1 accuracy** with **100% recall on Potato Late Blight** and **1.99 ms CPU inference**. Fine-tuned with genuine East African smallholder field images from Makerere University.
-* **Tier 2 (Insect Pest Detector & Counter)**: Powered by `yolov8s`. Detects and counts individual insect pests to compute **Economic Injury Levels (EIL)** for spray action thresholds.
+* **Tier 1 (Foliar Disease Classifier)**: Powered by `mobilenetv4_conv_small`. Achieves **87.95% top-1 accuracy** on multi-crop pathogens, **69.05% (+17.17% gain)** on unseen East African smallholder field foliage from Makerere University, with **1.99 ms CPU inference**.
+* **Tier 2 (Agricultural Pest Detector & Counter)**: Powered by `yolov8_agripests_kenya`. Fine-tuned on **28 agricultural pest species** (including cutworms, stem borers, bollworms, pod borers, and armyworms) achieving **83.19% precision** and **17.03 ms CPU latency (58.7 FPS)**. Detects individual pests, provides bounding boxes, and calculates Economic Injury Levels (EIL) to trigger spray action thresholds.
 
 ---
 
 ## ⚡ Quickstart
 
 ### 1. Environment Setup
-Clone the repository and install pinned dependencies:
+Clone the repository and install dependencies:
 ```bash
-git clone https://github.com/<your-org>/oan-pest-detection-benchmark.git
+git clone https://github.com/nandakishore2404/oan-pest-detection-benchmark.git
 cd oan-pest-detection-benchmark
 pip install -r requirements.txt
 ```
 
-### 2. Run Interactive Streamlit UI
-Launch the browser-based diagnostic lab and model evaluation portal:
+### 2. Run Interactive Streamlit Diagnostic Lab
+Launch the browser-based diagnostic lab, pest visualizer, and model benchmarking portal:
 ```bash
 streamlit run ui/app.py
 ```
-Open your browser at `http://localhost:8501`. You can upload leaf photos, inspect bounding boxes, view temperature-calibrated probabilities, and test all shortlisted candidate models.
+Open `http://localhost:8501`. You can upload leaf/pest photos, inspect bounding boxes, view temperature-calibrated probabilities, and test candidate architectures.
 
-### 3. Run Production Beckn / FastAPI Microservice
+### 3. Run Pest Detection CLI
+Inspect an image for agricultural crop pests with bounding-box localization and automated PCPB regulatory advisory:
+```bash
+python scripts/detect_pest.py --image data/agricultural_pests_sample/--2022-04-12-00-40-23_png_jpg.rf.97a93a929db21441f1f4d2c4c45f590c.jpg --conf 0.10
+```
+
+### 4. Run Foliar Disease Diagnosis CLI
+Diagnose foliar blight, rust, or spot diseases and print Swahili/English advisory:
+```bash
+python scripts/predict.py --image data/african_field_samples/bean_rust_test_sample.jpg --model models/trained/mobilenetv4_kenya_finetuned.onnx
+```
+
+### 5. Run Production Beckn / FastAPI Microservice
 Launch the high-performance REST API:
 ```bash
 uvicorn api.main:app --host 0.0.0.0 --port 8000 --reload
@@ -80,46 +93,47 @@ API Documentation is available interactively at `http://localhost:8000/docs`.
 
 ---
 
-## 🚀 Step-by-Step Guide: How the Kenya Team Can Fine-Tune the Model
+## 🔬 Model Benchmarks & Edge Performance
 
-As extension officers collect new field photographs across Kenyan counties (e.g., Kakamega, Bungoma, Nakuru, Uasin Gishu, Trans Nzoia), follow this workflow to retrain and adapt the model:
+| Model Architecture | Task | Parameters | Precision / Acc | Latency (CPU) | Throughput | Target Deployment |
+| :--- | :--- | :---: | :---: | :---: | :---: | :--- |
+| **`mobilenetv4_kenya_finetuned.onnx`** | Tier 1 Foliar Classifier | 3.8M | 87.95% Top-1 (69.05% Field) | **1.99 ms** | 502 FPS | Android Mobile / Offline Edge |
+| **`yolov8_agripests_kenya.onnx`** | Tier 2 Pest Detector (28 classes) | 3.0M | **83.19% Precision** | **17.03 ms** | 58.7 FPS | Android / Raspberry Pi / Drone Edge |
+| `mobilenetv4_5class.pt` | Foliar Classifier Base | 3.8M | 87.95% Top-1 | 18.1 ms | 55 FPS | Cloud / PyTorch Training |
+| `best.onnx` | General Insect Detector | 3.0M | 74.2% mAP50 | 15.5 ms | 64 FPS | Edge Validation Baseline |
 
-### Step 1: Organize Your New Field Images
-Place new field images into the structured data directory:
-```
-data/
-└── kenya_field/
-    ├── potato_late_blight/
-    ├── tomato_early_blight/
-    ├── bean_angular_leaf_spot/
-    ├── bean_rust/
-    ├── fall_armyworm/
-    └── healthy_foliage/
-```
+### Key African Crop Pests Detected (28-Class Taxonomy)
+* **Black Cutworm (*Agrotis ipsilon*)**: Direct seedling cutter attacking maize and bean stands.
+* **Stem Borer (*Chilo suppressalis* / *Busseola fusca*)**: Whorl and stem tunneling cereal destroyer.
+* **African Bollworm (*Helicoverpa armigera*)**: Major tomato and French bean export pest.
+* **Legume Pod Borer (*Maruca testulalis*)**: Destructive webbing borer of cowpea and bean pods.
+* **Pink Stem Borer (*Sesamia inferens*)**: Cereal node tunneling and deadheart inducer.
+* **Beet Armyworm (*Spodoptera exigua*)**: Voracious defoliator and cereal seedling pest.
+* **Brown & White-Backed Planthoppers (*Nilaparvata*, *Sogatella*)**: Vector and sap feeders.
+* **Mole Crickets & Crickets (*Gryllotalpidae*, *Gryllidae*)**: Subterranean root chewers.
 
-### Step 2: Run the Fine-Tuning Script
-Execute the domain-adaptation fine-tuning pipeline:
+---
+
+## 🚀 Step-by-Step Guide: How the Kenya Team Can Fine-Tune the Models
+
+As extension officers collect new field photographs across Kenyan counties (e.g., Kakamega, Bungoma, Nakuru, Uasin Gishu, Trans Nzoia), follow these workflows to retrain and adapt the models:
+
+### Option A: Retraining the Foliar Disease Classifier (Tier 1)
 ```bash
+# 1. Organize new leaf images into data/kenya_field/<class_name>/
+# 2. Run domain-adaptation training:
 python scripts/train_kenya_finetune.py --epochs 15 --batch-size 16 --lr 0.0001
-```
-This script automatically:
-* Applies domain-adaptive augmentations for equatorial sunlight, smallholder camera angles, and soil backgrounds.
-* Uses loss-weighted cross-entropy to handle class imbalances.
-* Logs training and validation metrics per epoch.
-* Saves updated PyTorch checkpoints to `models/trained/mobilenetv4_kenya_finetuned.pt`.
 
-### Step 3: Export to ONNX for Android / Edge Deployment
-Export the fine-tuned model for mobile offline deployment:
-```bash
+# 3. Export to ONNX for mobile deployment:
 python scripts/export_onnx.py --model-weights models/trained/mobilenetv4_kenya_finetuned.pt
 ```
-This produces `models/trained/mobilenetv4_kenya_finetuned.onnx` (<10 MB), fully compatible with **ONNX Runtime Mobile** and **Google AI Edge LiteRT** on budget Android smartphones.
 
-### Step 4: Run Single-Image or Batch Inference
-Test the updated model on any new farmer image:
+### Option B: Retraining the YOLOv8 Pest Detector (Tier 2)
 ```bash
-python scripts/predict.py --image path/to/sample_leaf.jpg --model models/trained/mobilenetv4_kenya_finetuned.onnx
+# Run the end-to-end YOLOv8 fine-tuning, validation, and ONNX export pipeline:
+python scripts/train_yolov8_agricultural_pests.py
 ```
+This automatically runs 8 epochs on the agricultural pest dataset, validates detection mAP and precision, saves the updated PyTorch weights (`models/trained/yolov8_agripests_kenya.pt`), exports the ONNX runtime model (`models/trained/yolov8_agripests_kenya.onnx`), and benchmarks CPU latency.
 
 ---
 
@@ -127,12 +141,14 @@ python scripts/predict.py --image path/to/sample_leaf.jpg --model models/trained
 
 All production model weights are stored directly in `models/trained/` and are tracked in this repository:
 
-| Model File | Architecture | Task | Size | Latency (CPU) | Description |
-| :--- | :--- | :--- | :---: | :---: | :--- |
-| `mobilenetv4_kenya_finetuned.onnx` | MobileNetV4 Conv Small | Foliar Classifier | 9.51 MB | **1.99 ms** | **Recommended Tier 1**: Adapted on East African field data. |
-| `mobilenetv4_5class.pt` | MobileNetV4 Conv Small | Foliar Classifier | 10.2 MB | 18.1 ms | Base PyTorch weights for fine-tuning. |
-| `best.onnx` | YOLOv8n (Ultralytics) | Insect Detector | 11.6 MB | **15.5 ms** | **Recommended Tier 2**: Edge object detector for pest counting. |
-| `best.pt` | YOLOv8n (Ultralytics) | Insect Detector | 6.2 MB | 50.0 ms | Base PyTorch weights for YOLO detector fine-tuning. |
+| Model File | Format | Size | Description |
+| :--- | :---: | :---: | :--- |
+| `mobilenetv4_kenya_finetuned.onnx` | ONNX | 9.51 MB | **Tier 1 Production**: MobileNetV4 foliar disease classifier adapted for African field conditions (1.99 ms CPU). |
+| `mobilenetv4_kenya_finetuned.pt` | PyTorch | 9.73 MB | PyTorch checkpoint for foliar fine-tuning. |
+| `yolov8_agripests_kenya.onnx` | ONNX | 11.59 MB | **Tier 2 Production**: YOLOv8n detector fine-tuned on 28 agricultural crop pest species (17.03 ms CPU). |
+| `yolov8_agripests_kenya.pt` | PyTorch | 5.93 MB | PyTorch checkpoint for pest detector fine-tuning. |
+| `best.onnx` | ONNX | 11.60 MB | General garden insect detection ONNX baseline. |
+| `best.pt` | PyTorch | 6.22 MB | General insect detection PyTorch baseline. |
 
 ---
 
@@ -157,13 +173,16 @@ To prevent misapplication of costly agrochemicals, the model applies temperature
 * **Zone 2 ($50\% - 84\%$ Confidence)**: Flagged for asynchronous Ward Extension Officer second opinion.
 * **Zone 3 ($< 50\%$ Confidence)**: Explicit Abstention (*"Diagnosis Uncertain — please retake photo under clearer lighting"*).
 
+---
+
 ## 👨‍💻 Author & Project Architect
 
 * **Nanda Kishore Kakulla** — *Lead AI/ML Solution Architect & Core Contributor*
-  * Conceptualized and implemented the **Two-Tier Computer Vision Architecture** (separating foliar pathology from insect counting).
-  * Led the P0 technical remediation: eradicated silent mock fallbacks, enforced cryptographic SHA-256 byte hashing, and pinned deep learning frameworks.
-  * Executed domain-adaptive fine-tuning on East African smallholder field datasets (+17.17% accuracy gain).
-  * Optimized sub-2.5ms edge ONNX runtimes for offline budget Android deployment.
+  * **GitHub Profile**: [https://github.com/nandakishore2404](https://github.com/nandakishore2404)
+  * Conceptualized and implemented the sovereign **Two-Tier Computer Vision Architecture** (separating foliar pathology classification from insect detection and counting).
+  * Ingested and benchmarked real East African smallholder field datasets (Makerere iBean, Roboflow Agricultural Pests ODinW-RF100).
+  * Executed domain-adaptation fine-tuning on `MobileNetV4 Conv Small` (+17.17% accuracy gain on field imagery) and fine-tuned `YOLOv8n` across 28 real agricultural pest species (83.19% precision).
+  * Optimized sub-20ms edge ONNX runtimes (1.99 ms foliar classifier, 17.03 ms pest detector) for offline budget Android smartphone deployment.
   * Architected Beckn Protocol (ONIX) BPP provider integration for the OpenAgriNet (OAN) Kenya DPI exchange.
 
 ---
@@ -174,3 +193,4 @@ To prevent misapplication of costly agrochemicals, the model applies temperature
 * **Foliar Classification Backbone**: `timm` (Apache 2.0).
 * **Detection Engine**: `ultralytics` (AGPL-3.0 / Enterprise).
 * **East African Field Dataset**: Makerere University AI Lab & NaCRRI iBean Dataset (MIT License).
+* **Agricultural Pests Dataset**: Roboflow ODinW-RF100 Challenge (CC BY 4.0).

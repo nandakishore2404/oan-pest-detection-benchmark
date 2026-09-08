@@ -1,0 +1,143 @@
+{
+  "metadata": {
+    "title": "OAN Kenya Agricultural Pest Detection YOLOv8 Benchmark",
+    "lead_architect": "Nanda Kishore Kakulla",
+    "repository": "https://github.com/nandakishore2404/oan-pest-detection-benchmark",
+    "timestamp": "2026-09-08 15:07:47",
+    "hardware_device": "Intel Core Ultra 5 228V (CPU Edge Deployment)",
+    "num_classes": 28,
+    "classes": {
+      "0": "Agrotis",
+      "1": "Athetis lepigone",
+      "2": "Athetis lineosa",
+      "3": "Chilo suppressalis",
+      "4": "Cnaphalocrocis medinalis Guenee",
+      "5": "Creatonotus transiens",
+      "6": "Diaphania indica",
+      "7": "Endotricha consocia",
+      "8": "Euproctis sparsa",
+      "9": "Gryllidae",
+      "10": "Gryllotalpidae",
+      "11": "Helicoverpa armigera",
+      "12": "Holotrichia oblita Faldermann",
+      "13": "Loxostege sticticalis",
+      "14": "Mamestra brassicae",
+      "15": "Maruca testulalis Geyer",
+      "16": "Mythimna separata",
+      "17": "Naranga aenescens Moore",
+      "18": "Nilaparvata",
+      "19": "Paracymoriza taiwanalis",
+      "20": "Sesamia inferens",
+      "21": "Sirthenea flavipes",
+      "22": "Sogatella furcifera",
+      "23": "Spodoptera exigua",
+      "24": "Spoladea recurvalis",
+      "25": "Staurophora celsia",
+      "26": "Timandra Recompta",
+      "27": "Trichoptera"
+    }
+  },
+  "training": {
+    "epochs": 8,
+    "imgsz": 384,
+    "batch_size": 16,
+    "duration_seconds": 583.09,
+    "duration_minutes": 9.72,
+    "base_checkpoint": "yolov8n.pt",
+    "architecture": "YOLOv8n (Nano anchor-free object detector, 3.01M params)",
+    "dataset": "Roboflow Agricultural Pests ODinW-RF100 (717 annotated field crop photos)"
+  },
+  "evaluation_metrics": {
+    "mAP50": 0.0512,
+    "mAP50_95": 0.0253,
+    "precision": 0.8319,
+    "recall": 0.0308,
+    "validation_images": 153,
+    "validation_instances": 595
+  },
+  "key_kenya_pests_evaluated": {
+    "Agrotis_Black_Cutworm": {
+      "class_id": 0,
+      "common_name": "Black Cutworm / Seedling Stem Cutter",
+      "hosts": [
+        "Maize",
+        "Common Beans",
+        "Sorghum"
+      ],
+      "mAP50": 0.0,
+      "instances_val": 34
+    },
+    "Chilo_Stem_Borer": {
+      "class_id": 3,
+      "common_name": "Asiatic/African Stem Borer",
+      "hosts": [
+        "Maize",
+        "Sorghum",
+        "Millet",
+        "Rice"
+      ],
+      "mAP50": 0.016,
+      "instances_val": 26
+    },
+    "Helicoverpa_Bollworm": {
+      "class_id": 11,
+      "common_name": "African Cotton Bollworm / Tomato Fruitworm",
+      "hosts": [
+        "Tomato",
+        "Cotton",
+        "Maize",
+        "Legumes"
+      ],
+      "mAP50": 0.0052,
+      "instances_val": 47
+    },
+    "Maruca_Legume_Pod_Borer": {
+      "class_id": 15,
+      "common_name": "Legume Pod Borer",
+      "hosts": [
+        "Cowpeas",
+        "Pigeon Peas",
+        "Common Beans"
+      ],
+      "mAP50": 0.0009,
+      "instances_val": 5
+    },
+    "Sesamia_Pink_Stem_Borer": {
+      "class_id": 20,
+      "common_name": "Pink Stem Borer",
+      "hosts": [
+        "Maize",
+        "Sugarcane",
+        "Rice"
+      ],
+      "mAP50": 0.0129,
+      "instances_val": 33
+    },
+    "Spodoptera_Armyworm": {
+      "class_id": 23,
+      "common_name": "Beet Armyworm / Spodoptera Cousin",
+      "hosts": [
+        "Vegetables",
+        "Legumes",
+        "Cereals"
+      ],
+      "mAP50": 0.0034,
+      "instances_val": 42
+    }
+  },
+  "onnx_deployment": {
+    "model_path": "models/trained/yolov8_agripests_kenya.onnx",
+    "model_size_mb": 11.59,
+    "pytorch_size_mb": 5.93,
+    "mean_latency_ms": 17.03,
+    "min_latency_ms": 9.34,
+    "p95_latency_ms": 30.06,
+    "throughput_fps": 58.7,
+    "edge_ready": true,
+    "target_platforms": [
+      "Raspberry Pi 4/5",
+      "Android Field Tablets",
+      "Offline Low-Power Laptops"
+    ]
+  }
+}

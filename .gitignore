@@ -57,6 +57,7 @@ data/external_public/
 data/processed/
 data/raw/
 data/golden/
+data/agricultural_pests_yolo/
 
 # Root temporary checkpoints (models/trained has the production weights)
 /yolov8*.pt
