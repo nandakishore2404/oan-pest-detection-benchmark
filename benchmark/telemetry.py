@@ -165,129 +165,126 @@ def get_telemetry_summary() -> Dict[str, Any]:
         }
     }
 
-def get_model_evolution_history() -> List[Dict[str, Any]]:
+def get_verified_accuracy_evidence():
     """
-    Returns the audited 0-to-1 initiative progression across all development milestones (T0 to T6),
-    tracking incremental accuracy gains, latency reductions, small-pest recall, and spray reduction.
+    Every accuracy figure that has actually been independently re-derived
+    from primary data (raw images + raw model files) this engagement.
+    There is NO verified single accuracy trend across the full project
+    history: no comparable before/after numbers exist for "Day 0" through
+    "Sprint 2" on one consistent dataset and methodology. A previous
+    "T0 -> T6" 41.5% -> 89.2% trend (with matching 320ms -> 38.2ms latency,
+    34% -> 85.1% recall, 72% -> 12.6% spray-reduction figures) was traced to
+    a hardcoded literal array with no model run behind any of the numbers,
+    and was removed. This function replaces it with only what survives
+    independent re-derivation.
     """
     return [
         {
-            "milestone": "T0",
-            "version": "T0: Inception Baseline",
-            "initiative": "Off-the-shelf ResNet/COCO Baseline",
-            "stage": "Day 1 (Baseline)",
-            "date": "2026-09-01",
-            "foliar_accuracy_pct": 41.5,
-            "accuracy_delta_pct": 0.0,
-            "pest_precision_pct": 32.4,
-            "small_pest_recall_pct": 34.0,
-            "latency_ms": 320.0,
-            "latency_delta_ms": 0.0,
-            "cloud_cost_usd": 0.060,
-            "false_sprays_pct": 72.0,
-            "key_mechanism": "Standard PyTorch CPU inference on generic Western/studio datasets with standard 224x224 downsampling.",
-            "notes": "Off-the-shelf pre-trained weights failed on variable African sunlight and missed early-instar larvae."
+            "model": "Foliar disease classifier (5-class)",
+            "test_set": "Lab-condition images (PlantVillage-style)",
+            "n": 83,
+            "accuracy_pct": 87.95,
+            "status": "VERIFIED",
+            "note": "Reproduced twice, exact TP/FP/FN match."
         },
         {
-            "milestone": "T1",
-            "version": "T1: African Field Data",
-            "initiative": "African Field Dataset Onboarding",
-            "stage": "Sprint 1",
-            "date": "2026-09-03",
-            "foliar_accuracy_pct": 58.4,
-            "accuracy_delta_pct": 16.9,
-            "pest_precision_pct": 42.1,
-            "small_pest_recall_pct": 48.0,
-            "latency_ms": 180.0,
-            "latency_delta_ms": -140.0,
-            "cloud_cost_usd": 0.060,
-            "false_sprays_pct": 56.0,
-            "key_mechanism": "Ingested Makerere University (iBean) and African field images with stratified K-fold cross-validation.",
-            "notes": "Domain-relevant training data reduced studio background bias and improved common African bean/foliage recognition."
+            "model": "Foliar disease classifier (5-class)",
+            "test_set": "Real field images (2 independent sets, 0% overlap)",
+            "n": 261,
+            "accuracy_pct": 51.7,
+            "status": "VERIFIED",
+            "note": "The honest field number: 36 points below the lab result."
         },
         {
-            "milestone": "T2",
-            "version": "T2: Domain Retraining",
-            "initiative": "Deep Transfer Learning & Unfreezing",
-            "stage": "Sprint 2",
-            "date": "2026-09-05",
-            "foliar_accuracy_pct": 72.1,
-            "accuracy_delta_pct": 13.7,
-            "pest_precision_pct": 52.4,
-            "small_pest_recall_pct": 64.0,
-            "latency_ms": 45.0,
-            "latency_delta_ms": -135.0,
-            "cloud_cost_usd": 0.060,
-            "false_sprays_pct": 44.0,
-            "key_mechanism": "12-epoch transfer learning on MobileNetV4 with deep unfrozen blocks + YOLOv8s AdamW Cosine Annealing.",
-            "notes": "Sub-50ms CPU latency achieved on edge hardware (3.2ms T1, 33.5ms T2); held-out field accuracy reached 59.5%."
+            "model": "Foliar disease classifier, fine-tuned variant",
+            "test_set": "Clean held-out field split (no training overlap)",
+            "n": 42,
+            "accuracy_pct": 59.52,
+            "status": "VERIFIED",
+            "note": "From african_finetuned_evaluation.json, re-checked."
         },
         {
-            "milestone": "T3",
-            "version": "T3: Neural Grad-CAM",
-            "initiative": "Explainable AI (Grad-CAM)",
-            "stage": "Sprint 2.5",
-            "date": "2026-09-06",
-            "foliar_accuracy_pct": 79.8,
-            "accuracy_delta_pct": 7.7,
-            "pest_precision_pct": 58.6,
-            "small_pest_recall_pct": 66.0,
-            "latency_ms": 65.0,
-            "latency_delta_ms": 20.0,
-            "cloud_cost_usd": 0.060,
-            "false_sprays_pct": 36.0,
-            "key_mechanism": "Gradient-weighted Class Activation Mapping (Grad-CAM) verifying 19.4% targeted lesion footprint vs soil/background.",
-            "notes": "Visual heatmaps confirmed that network weights attend directly to foliar lesions rather than background clutter."
+            "model": "Generic 12-class insect detector",
+            "test_set": "Original test split",
+            "n": 546,
+            "accuracy_pct": 16.3,
+            "status": "VERIFIED",
+            "note": "Only 3 of 12 classes (Ants, Bees, Earthworms) are ever predicted correctly."
         },
         {
-            "milestone": "T4",
-            "version": "T4: Zero-Token LLM",
-            "initiative": "Local Sovereign Ollama Copilot",
-            "stage": "Sprint 3 Start",
-            "date": "2026-09-07",
-            "foliar_accuracy_pct": 84.6,
-            "accuracy_delta_pct": 4.8,
-            "pest_precision_pct": 62.4,
-            "small_pest_recall_pct": 66.0,
-            "latency_ms": 50.0,
-            "latency_delta_ms": -15.0,
-            "cloud_cost_usd": 0.000,
-            "false_sprays_pct": 28.0,
-            "key_mechanism": "Local Ollama daemon on 127.0.0.1:11434 with Qwen 2.5 Coder on secondary storage (D:\\OllamaModels).",
-            "notes": "100% Zero-Token cloud spend: eliminates $6,000/100k queries cloud billings while serving PCPB registered guidance."
+            "model": "Generic 12-class insect detector",
+            "test_set": "New, non-overlapping validation split",
+            "n": 1095,
+            "accuracy_pct": 17.6,
+            "status": "VERIFIED",
+            "note": "Reproduces the 16.3% claim at 2x scale."
         },
         {
-            "milestone": "T5",
-            "version": "T5: SAHI Patch Slicing",
-            "initiative": "Slicing-Aided Hyper Inference (SAHI)",
-            "stage": "Sprint 3 Mid",
-            "date": "2026-09-08",
-            "foliar_accuracy_pct": 89.2,
-            "accuracy_delta_pct": 4.6,
-            "pest_precision_pct": 66.07,
-            "small_pest_recall_pct": 85.1,
-            "latency_ms": 255.0,
-            "latency_delta_ms": 205.0,
-            "cloud_cost_usd": 0.000,
-            "false_sprays_pct": 18.0,
-            "key_mechanism": "Partitioned 1080p images into overlapping 384x384 slices with global context fusion & torchvision NMS.",
-            "notes": "Small-pest recall jumped from 34% to 85.1% (+51.1% leap), detecting tiny chewing neonates missed by resizing."
+            "model": "Kenya 28-class priority pest detector",
+            "test_set": "Wild field photos (benchmark_test_15)",
+            "n": 15,
+            "accuracy_pct": 0.0,
+            "status": "VERIFIED",
+            "note": "Reproduced twice; matches the model's own audit-trail note (0 of 15)."
+        },
+    ]
+
+
+def get_initiative_evidence():
+    """
+    Real, traceable before/after status for every remediation initiative
+    completed this engagement, tagged by evidence status. Replaces the
+    fabricated "Initiative-Wise Accuracy & Response Time Evolution" (T0 to T6)
+    section that was committed to this file and to ui/app.py, README.md and
+    two new report files on 2026-09-08 -- that section reproduced the exact
+    same unsourced 41.5% to 89.2% / 320ms to 38.2ms / 34% to 85.1% / 72% to
+    12.6% figures already identified as fabricated and removed earlier the
+    same session.
+    """
+    return [
+        {
+            "initiative": "Kenya 28-class label mapping",
+            "before": "NOT VERIFIED -- class-to-index mapping lived only on a developer's local drive; model could not be independently audited.",
+            "after": "FIXED -- mapping recovered directly from the ONNX file's own embedded metadata, documented in models/yolov8_agripests_taxonomy.md, independently re-derived and matched exactly."
         },
         {
-            "milestone": "T6",
-            "version": "T6: CDFA Regulatory Matrix",
-            "initiative": "CDFA Economic Injury Level (EIL) & Bayesian Gate",
-            "stage": "Sprint 3 Final",
-            "date": "2026-09-08",
-            "foliar_accuracy_pct": 89.2,
-            "accuracy_delta_pct": 0.0,
-            "pest_precision_pct": 66.07,
-            "small_pest_recall_pct": 85.1,
-            "latency_ms": 38.2,
-            "latency_delta_ms": -216.8,
-            "cloud_cost_usd": 0.000,
-            "false_sprays_pct": 12.6,
-            "key_mechanism": "CDFA/KALRO phenology thresholds (vegetative 20% vs silking 10%) + 40% Safety Brake abstention.",
-            "notes": "Empirically validated via 1,000 Monte Carlo simulations: prevented 83.2% of unnecessary toxic chemical sprays."
-        }
+            "initiative": "Telemetry log integrity",
+            "before": "Seeded/synthetic entries and real measurements mixed in results/telemetry.jsonl with no field distinguishing them.",
+            "after": "FIXED -- every entry now carries is_synthetic: true/false."
+        },
+        {
+            "initiative": "Ollama latency reporting",
+            "before": "Hardcoded literal ollama_latency_ms=3800.0 regardless of actual call time.",
+            "after": "FIXED -- measured with time.perf_counter() per call."
+        },
+        {
+            "initiative": "Fabricated Decision Precision figures (94.2% / 98.4%)",
+            "before": "Hardcoded literals in ui/app.py and narrative reports, no model behind either.",
+            "after": "FIXED -- zero references remain anywhere in the codebase."
+        },
+        {
+            "initiative": "Grad-CAM / Lab View crash",
+            "before": "AttributeError crashed Lab View mid-render on every sample.",
+            "after": "FIXED -- root cause was an isinstance() check breaking under an ultralytics monkey-patch; switched to duck-typing."
+        },
+        {
+            "initiative": "Farmer view layout / oversized images",
+            "before": "Duplicate header, mobile frame not constraining width, uploaded photos rendering oversized.",
+            "after": "FIXED -- switched from a raw HTML div (which Streamlit does not nest widgets inside) to st.container(key=...)."
+        },
+        {
+            "initiative": "Telemetry tab invisible",
+            "before": "Tab existed in code and routing but the segmented control overflowed its column at normal widths.",
+            "after": "FIXED -- widened the nav column, shortened labels."
+        },
+        {
+            "initiative": "CLAHE contrast correction",
+            "before": "Implemented correctly, never called -- dead code, zero effect on any prediction.",
+            "after": "FIXED, IMPACT NOT YET RE-MEASURED -- wired into both the classification and detection adapters; runs error-free end-to-end, but the field-accuracy figures above were measured before CLAHE was active."
+        },
+        {
+            "initiative": "Fabricated T0-to-T6 'Initiative-Wise Accuracy & Response Time Evolution' section",
+            "before": "Pushed to this file, ui/app.py, README.md, and two new report files on 2026-09-08, presenting a 7-milestone accuracy/latency/recall/spray-reduction narrative labeled 'Independently Audited' that reproduced numbers already found fabricated and removed earlier the same session.",
+            "after": "FIXED -- replaced with this function's evidence-tagged data; no single project-wide accuracy trend is claimed, because none has been verified."
+        },
     ]

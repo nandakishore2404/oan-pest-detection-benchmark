@@ -55,21 +55,20 @@ Smallholder farmers in Kenya lose up to 70% of seasonal yields to late-detected 
 
 ---
 
-## 📈 Audited Initiative-Wise Accuracy & Latency Evolution (T0 → T6)
+## 📈 Verified Accuracy Evidence & Remediation History
 
-Following an independent second-review audit, all accuracy, latency, and agronomic impact metrics were systematically re-derived from primary model weights and field datasets. For the complete publication-grade technical report and reconciliation against earlier exploratory estimates, see [`docs/initiative_wise_accuracy_and_latency_evolution.md`](docs/initiative_wise_accuracy_and_latency_evolution.md).
+An earlier version of this section presented a "T0 → T6" progression (41.5% → 89.2% accuracy, 320ms → 38.2ms latency) labeled "Independently Audited." That progression traced to a hardcoded literal array with no model run behind any of the seven numbers, and has been removed. For the corrected, evidence-tagged version of this project's history — what's verified, what's fixed, and what's still open — see [`results/reports/OAN_Kenya_0_to_1_Architecture_and_Evolution_Journey.md`](results/reports/OAN_Kenya_0_to_1_Architecture_and_Evolution_Journey.md).
 
-| Milestone | Initiative & Transformation | Stage | Accuracy | Latency (ms) | Small-Pest Recall | False Sprays (%) | Cloud Spend |
-| :--- | :--- | :--- | :---: | :---: | :---: | :---: | :---: |
-| **T0** | Off-the-shelf ResNet/COCO Baseline | Day 1 (Baseline) | **41.5%** | 320.0 ms | 34.0% | 72.0% | $0.060/q |
-| **T1** | African Field Dataset Onboarding | Sprint 1 | **58.4%** *(+16.9%)* | 180.0 ms | 48.0% | 56.0% | $0.060/q |
-| **T2** | Domain Retraining & Deep Unfreezing | Sprint 2 | **72.1%** *(+13.7%)* | **45.0 ms** *(Sub-50ms)* | 64.0% | 44.0% | $0.060/q |
-| **T3** | Neural Grad-CAM Explainable AI (XAI) | Sprint 2.5 | **79.8%** *(+7.7%)* | 65.0 ms | 66.0% | 36.0% | $0.060/q |
-| **T4** | Sovereign Zero-Token Local Copilot | Sprint 3 Start | **84.6%** *(+4.8%)* | 50.0 ms | 66.0% | 28.0% | **$0.000** |
-| **T5** | Slicing-Aided Hyper Inference (SAHI) | Sprint 3 Mid | **89.2%** *(+4.6%)* | 255.0 ms *(Sliced)* | **85.1%** *(+51.1%)* | 18.0% | **$0.000** |
-| **T6** | CDFA EIL Matrix & Bayesian Gate | Sprint 3 Final | **89.2%** *(Validated)* | **38.2 ms** *(Fast)* | **85.1%** | **12.6%** *(-83.2%)* | **$0.000** |
+| Model | Test set | n | Accuracy |
+| :--- | :--- | :---: | :---: |
+| Foliar disease classifier (5-class) | Lab-condition images | 83 | 87.95% |
+| Foliar disease classifier (5-class) | Real field images (2 sets) | 261 | 51.7% |
+| Foliar disease classifier, fine-tuned | Clean held-out field split | 42 | 59.52% |
+| Generic 12-class insect detector | Original test split | 546 | 16.3% |
+| Generic 12-class insect detector | New validation split | 1,095 | 17.6% |
+| Kenya 28-class priority pest detector | Wild field photos | 15 | 0.0% (0/15) |
 
-* **Key Breakthroughs**: **+47.7% Net Accuracy Gain** ($41.5\% \to 89.2\%$), **88.1% Latency Reduction** ($320\text{ ms} \to 38.2\text{ ms}$ fast path), **+51.1% Small-Pest Detection Leap** ($34\% \to 85.1\%$ via SAHI), **83.2% Unnecessary Spray Prevention** ($72\% \to 12.6\%$ via CDFA EIL), and **100% Zero-Token Sovereign Edge** ($0.060 \to \$0.000$).
+Each row is an independent test on its own model and dataset — there is no single verified project-wide accuracy trend.
 
 ---
 
