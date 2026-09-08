@@ -2,7 +2,7 @@
 """
 Ollama Local LLM & Vision Model Adapter
 ========================================
-Lead Architect: Nanda Kishore Kakulla <nandakishore.kakulla9@gmail.com>
+Program Manager turned Architect (Powered by AI skills/tools): Nanda Kishore Kakulla <nandakishore.kakulla9@gmail.com>
 Repository: https://github.com/nandakishore2404/oan-pest-detection-benchmark
 
 Integrates local Ollama instances (e.g. Qwen 2.5 Coder 7B, LLaVA, Llama 3.2 Vision)

@@ -2,7 +2,7 @@
 """
 Auto-ML Hyperparameter Optimization via Local Ollama (Qwen 2.5 Coder)
 =====================================================================
-Lead Architect: Nanda Kishore Kakulla <nandakishore.kakulla9@gmail.com>
+Program Manager turned Architect (Powered by AI skills/tools): Nanda Kishore Kakulla <nandakishore.kakulla9@gmail.com>
 Repository: https://github.com/nandakishore2404/oan-pest-detection-benchmark
 
 Queries the local Qwen 2.5 Coder LLM running on 127.0.0.1:11434 to analyze
@@ -28,7 +28,7 @@ def run_automl():
     
     print("=" * 70)
     print("🤖 OAN KENYA: AUTO-ML HYPERPARAMETER OPTIMIZATION VIA LOCAL OLLAMA")
-    print("Lead Architect: Nanda Kishore Kakulla")
+    print("Program Manager turned Architect (Powered by AI skills/tools): Nanda Kishore Kakulla")
     print("Storage Target: Drive D: (D:\\OAN_Data)")
     print("=" * 70)
     

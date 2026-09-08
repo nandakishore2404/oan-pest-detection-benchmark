@@ -1,6 +1,6 @@
 # 🔬 Empirical Accuracy Evaluation & Local Ollama Agronomic Audit on New Datasets
 **Project**: OpenAgriNet (OAN) Kenya — AI Agronomic Diagnostic & Surveillance Platform  
-**Lead AI Systems Architect**: Nanda Kishore Kakulla (`nandakishore.kakulla9@gmail.com`)  
+**Program Manager turned Architect (Powered by AI skills/tools)**: Nanda Kishore Kakulla (`nandakishore.kakulla9@gmail.com`)  
 **Repository**: [github.com/nandakishore2404/oan-pest-detection-benchmark](https://github.com/nandakishore2404/oan-pest-detection-benchmark)  
 **Date**: September 2026 | **Auditor**: Local Ollama (`qwen2.5-coder:1.5b` on `127.0.0.1:11434`, $0 Cloud Spend)  
 **Dataset Evaluated**: `D:\OAN_Data\agricultural_pests_yolo\dataset` (28-Class Real Agricultural Pests)

@@ -2,7 +2,7 @@
 """
 IP102 Agricultural Pest Benchmark Ingestion & Kenyan Class Alignment
 ====================================================================
-Lead Architect: Nanda Kishore Kakulla <nandakishore.kakulla9@gmail.com>
+Program Manager turned Architect (Powered by AI skills/tools): Nanda Kishore Kakulla <nandakishore.kakulla9@gmail.com>
 Repository: https://github.com/nandakishore2404/oan-pest-detection-benchmark
 
 Curates and maps the 102-class CVPR benchmark dataset (Wu et al.) to the specific

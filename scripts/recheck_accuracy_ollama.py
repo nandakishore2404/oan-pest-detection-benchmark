@@ -2,7 +2,7 @@
 """
 Empirical Accuracy & Response Re-Check Pipeline via Local Ollama
 ================================================================
-Lead Architect: Nanda Kishore Kakulla <nandakishore.kakulla9@gmail.com>
+Program Manager turned Architect (Powered by AI skills/tools): Nanda Kishore Kakulla <nandakishore.kakulla9@gmail.com>
 Repository: https://github.com/nandakishore2404/oan-pest-detection-benchmark
 """
 

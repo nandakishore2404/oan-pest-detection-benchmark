@@ -1,6 +1,6 @@
 """
 Autonomous Continuous Fine-Tuning Orchestrator powered by Ollama (Qwen 2.5 Coder)
-Lead Architect: Nanda Kishore Kakulla <nandakishore.kakulla9@gmail.com>
+Program Manager turned Architect (Powered by AI skills/tools): Nanda Kishore Kakulla <nandakishore.kakulla9@gmail.com>
 Repository: https://github.com/nandakishore2404/oan-pest-detection-benchmark
 
 This script acts as an Auto-ML Agent that:
@@ -89,7 +89,7 @@ def run_continuous_tuning(task_type: str = "all"):
     
     print("=" * 70)
     print("OAN KENYA: AUTONOMOUS CONTINUOUS FINE-TUNING ORCHESTRATOR")
-    print("Lead Architect: Nanda Kishore Kakulla")
+    print("Program Manager turned Architect (Powered by AI skills/tools): Nanda Kishore Kakulla")
     print(f"Ollama Endpoint: {OLLAMA_URL} | Agent Model: {MODEL_NAME}")
     print("=" * 70)
     

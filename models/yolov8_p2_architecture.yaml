@@ -1,6 +1,6 @@
 # Ultralytics YOLOv8 P2-Head Architecture for Micro-Pest Detection (OAN Kenya)
 # ==============================================================================
-# Lead Architect: Nanda Kishore Kakulla <nandakishore.kakulla9@gmail.com>
+# Program Manager turned Architect (Powered by AI skills/tools): Nanda Kishore Kakulla <nandakishore.kakulla9@gmail.com>
 #
 # Adds a 4th detection head at Stride 4 (P2: 160x160 resolution for 640x640 input)
 # Specifically designed for micro-arthropods (Aphids, Spider Mites, Thrips, Whiteflies)
