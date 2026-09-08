@@ -305,7 +305,7 @@ def run_benchmark(max_images: int = 20) -> Dict[str, Any]:
     print("=" * 75, flush=True)
 
     ollama_prompt = f"""
-You are an expert Agronomic AI Systems Auditor reviewing the diagnostic accuracy of the One Acre Fund (OAN) Kenya Pest Detection Platform.
+You are an expert Agronomic AI Systems Auditor reviewing the diagnostic accuracy of the OpenAgriNet (OAN) Kenya Pest Detection Platform.
 We just completed a rigorous empirical evaluation on 20 real agricultural test images from the 28-class pest dataset (containing Stem Borers, Cutworms, Armyworms, Bollworms, Pod Borers).
 
 Here are the verified quantitative benchmark metrics:

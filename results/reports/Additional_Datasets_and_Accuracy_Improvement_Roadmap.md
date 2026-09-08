@@ -1,5 +1,5 @@
 # 🌾 Additional Datasets & Advanced Interventions to Maximize Pest Detection Accuracy
-**Project**: One Acre Fund (OAN) Kenya — AI Agronomic Diagnostic & Surveillance Platform  
+**Project**: OpenAgriNet (OAN) Kenya — AI Agronomic Diagnostic & Surveillance Platform  
 **Lead AI Systems Architect**: Nanda Kishore Kakulla (`nandakishore.kakulla9@gmail.com`)  
 **Repository**: [github.com/nandakishore2404/oan-pest-detection-benchmark](https://github.com/nandakishore2404/oan-pest-detection-benchmark)  
 **Date**: September 2026 | **Execution Environment**: Sovereign Local CPU / Drive `D:\` (Zero Cloud Token Spend)
