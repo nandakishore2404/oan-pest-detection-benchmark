@@ -136,7 +136,13 @@ def explain_crop_image(
     End-to-end function to compute Grad-CAM on a leaf image and return XAI artifacts.
     """
     if class_names is None:
-        class_names = ["angular_leaf_spot", "bean_rust", "healthy", "late_blight", "early_blight"]
+        class_names = [
+            "Potato_Late_Blight",
+            "Tomato_Early_Blight",
+            "Bean_Angular_Leaf_Spot",
+            "Bean_Rust",
+            "Healthy_Foliage"
+        ]
         
     repo_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     if weights_path is None:
@@ -193,6 +199,7 @@ def explain_crop_image(
     return {
         "predicted_class": pred_class,
         "confidence": round(confidence, 4),
+        "confidence_pct": round(confidence * 100.0, 2),
         "lesion_focus_pct": round(focus_pct, 2),
         "overlay_image": overlay_img,
         "comparison_card": comparison_card,

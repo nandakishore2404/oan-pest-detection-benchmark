@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""
+r"""
 OAN Kenya: Unified Multi-Tier Diagnostic & Local Ollama Advisory Engine
 ======================================================================
 Lead Architect: Nanda Kishore Kakulla <nandakishore.kakulla9@gmail.com>

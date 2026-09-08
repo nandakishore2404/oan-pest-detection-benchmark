@@ -1,0 +1,106 @@
+{
+  "audited_images_count": 12,
+  "mean_lesion_focus_pct": 19.39,
+  "median_lesion_focus_pct": 16.33,
+  "min_focus_pct": 6.12,
+  "max_focus_pct": 40.82,
+  "passed_threshold": false,
+  "records": [
+    {
+      "image": "bean_rust_val.0.jpg",
+      "ground_truth_category": "bean_rust",
+      "predicted_class": "Bean_Rust",
+      "confidence_pct": 88.4,
+      "lesion_focus_pct": 20.41,
+      "card_path": "D:\\OAN_Data\\xai_audit_cards\\audit_card_bean_rust_bean_rust_val.0.jpg"
+    },
+    {
+      "image": "bean_rust_val.1.jpg",
+      "ground_truth_category": "bean_rust",
+      "predicted_class": "Healthy_Foliage",
+      "confidence_pct": 59.59,
+      "lesion_focus_pct": 22.45,
+      "card_path": "D:\\OAN_Data\\xai_audit_cards\\audit_card_bean_rust_bean_rust_val.1.jpg"
+    },
+    {
+      "image": "bean_rust_val.10.jpg",
+      "ground_truth_category": "bean_rust",
+      "predicted_class": "Healthy_Foliage",
+      "confidence_pct": 85.66,
+      "lesion_focus_pct": 14.29,
+      "card_path": "D:\\OAN_Data\\xai_audit_cards\\audit_card_bean_rust_bean_rust_val.10.jpg"
+    },
+    {
+      "image": "bean_rust_val.11.jpg",
+      "ground_truth_category": "bean_rust",
+      "predicted_class": "Bean_Rust",
+      "confidence_pct": 66.34,
+      "lesion_focus_pct": 18.37,
+      "card_path": "D:\\OAN_Data\\xai_audit_cards\\audit_card_bean_rust_bean_rust_val.11.jpg"
+    },
+    {
+      "image": "angular_leaf_spot_val.0.jpg",
+      "ground_truth_category": "angular_leaf_spot",
+      "predicted_class": "Bean_Rust",
+      "confidence_pct": 69.57,
+      "lesion_focus_pct": 14.29,
+      "card_path": "D:\\OAN_Data\\xai_audit_cards\\audit_card_angular_leaf_spot_angular_leaf_spot_val.0.jpg"
+    },
+    {
+      "image": "angular_leaf_spot_val.1.jpg",
+      "ground_truth_category": "angular_leaf_spot",
+      "predicted_class": "Bean_Angular_Leaf_Spot",
+      "confidence_pct": 77.19,
+      "lesion_focus_pct": 40.82,
+      "card_path": "D:\\OAN_Data\\xai_audit_cards\\audit_card_angular_leaf_spot_angular_leaf_spot_val.1.jpg"
+    },
+    {
+      "image": "angular_leaf_spot_val.10.jpg",
+      "ground_truth_category": "angular_leaf_spot",
+      "predicted_class": "Bean_Angular_Leaf_Spot",
+      "confidence_pct": 52.53,
+      "lesion_focus_pct": 10.2,
+      "card_path": "D:\\OAN_Data\\xai_audit_cards\\audit_card_angular_leaf_spot_angular_leaf_spot_val.10.jpg"
+    },
+    {
+      "image": "angular_leaf_spot_val.11.jpg",
+      "ground_truth_category": "angular_leaf_spot",
+      "predicted_class": "Healthy_Foliage",
+      "confidence_pct": 40.51,
+      "lesion_focus_pct": 28.57,
+      "card_path": "D:\\OAN_Data\\xai_audit_cards\\audit_card_angular_leaf_spot_angular_leaf_spot_val.11.jpg"
+    },
+    {
+      "image": "healthy_val.0.jpg",
+      "ground_truth_category": "healthy",
+      "predicted_class": "Bean_Rust",
+      "confidence_pct": 57.26,
+      "lesion_focus_pct": 10.2,
+      "card_path": "D:\\OAN_Data\\xai_audit_cards\\audit_card_healthy_healthy_val.0.jpg"
+    },
+    {
+      "image": "healthy_val.1.jpg",
+      "ground_truth_category": "healthy",
+      "predicted_class": "Bean_Rust",
+      "confidence_pct": 59.52,
+      "lesion_focus_pct": 6.12,
+      "card_path": "D:\\OAN_Data\\xai_audit_cards\\audit_card_healthy_healthy_val.1.jpg"
+    },
+    {
+      "image": "healthy_val.10.jpg",
+      "ground_truth_category": "healthy",
+      "predicted_class": "Bean_Rust",
+      "confidence_pct": 73.67,
+      "lesion_focus_pct": 12.24,
+      "card_path": "D:\\OAN_Data\\xai_audit_cards\\audit_card_healthy_healthy_val.10.jpg"
+    },
+    {
+      "image": "healthy_val.11.jpg",
+      "ground_truth_category": "healthy",
+      "predicted_class": "Healthy_Foliage",
+      "confidence_pct": 99.89,
+      "lesion_focus_pct": 34.69,
+      "card_path": "D:\\OAN_Data\\xai_audit_cards\\audit_card_healthy_healthy_val.11.jpg"
+    }
+  ]
+}

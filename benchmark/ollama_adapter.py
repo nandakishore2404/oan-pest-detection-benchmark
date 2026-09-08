@@ -30,7 +30,7 @@ class OllamaAdvisor:
         self,
         base_url: str = OLLAMA_DEFAULT_URL,
         model_name: str = "qwen2.5-coder:7b",
-        timeout: int = 60
+        timeout: int = 180
     ):
         self.base_url = base_url.rstrip("/")
         self.model_name = model_name

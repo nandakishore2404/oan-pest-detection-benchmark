@@ -84,19 +84,25 @@ streamlit run ui/app.py
 ```
 Open `http://localhost:8501`. You can upload leaf/pest photos, inspect bounding boxes, view temperature-calibrated probabilities, and test candidate architectures.
 
-### 3. Run Pest Detection CLI
-Inspect an image for agricultural crop pests with bounding-box localization and automated PCPB regulatory advisory:
+### 3. Run Unified Multi-Tier Diagnostic & Local Advisory Engine (Recommended)
+Diagnose foliar diseases (Tier 1), detect agricultural pests (Tier 2), generate Grad-CAM lesion heatmaps, and synthesize PCPB regulatory treatment advice via local Ollama in a single terminal command (**Zero API Tokens**):
 ```bash
-python scripts/detect_pest.py --image data/agricultural_pests_sample/--2022-04-12-00-40-23_png_jpg.rf.97a93a929db21441f1f4d2c4c45f590c.jpg --conf 0.10
+python scripts/diagnose_and_advise.py --image data/african_beans_field/validation/bean_rust/bean_rust_val.0.jpg --model qwen2.5-coder:1.5b
 ```
 
-### 4. Run Foliar Disease Diagnosis CLI
-Diagnose foliar blight, rust, or spot diseases and print Swahili/English advisory:
+### 4. Run Auto-ML Hyperparameter Optimization (Local Ollama)
+Automatically analyze field dataset constraints and determine the optimal training schedules and learning rates without cloud tokens:
 ```bash
-python scripts/predict.py --image data/african_field_samples/bean_rust_test_sample.jpg --model models/trained/mobilenetv4_kenya_finetuned.onnx
+python scripts/run_automl_tuning.py
 ```
 
-### 5. Run Production Beckn / FastAPI Microservice
+### 5. Run Grad-CAM Model Quality & Attention Focus Audit
+Quantify neural attention concentration on genuine pathology across field validation images:
+```bash
+python scripts/audit_model_quality.py
+```
+
+### 6. Run Production Beckn / FastAPI Microservice
 Launch the high-performance REST API:
 ```bash
 uvicorn api.main:app --host 0.0.0.0 --port 8000 --reload
