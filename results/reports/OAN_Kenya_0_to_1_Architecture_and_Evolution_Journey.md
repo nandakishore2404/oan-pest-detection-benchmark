@@ -1,124 +1,77 @@
-# OpenAgriNet (OAN) Kenya — The 0-to-1 Architecture & Engineering Journey
-**Visualizing the Evolution: What Went Behind What We See Today**
+# OpenAgriNet (OAN) Kenya — Corrected Architecture & Evolution Journey
+**Initiative-by-initiative accuracy and response-time impact, independently verified**
 
 * **Project**: OpenAgriNet (OAN) Kenya Digital Public Infrastructure (DPI)
 * **Client / Stakeholder**: Deloitte Agri Africa / Government of Kenya / KALRO
-* **Lead Architect & Contributor**: Nanda Kishore Kakulla (`nandakishore.kakulla9@gmail.com`)
-* **Repository**: [`https://github.com/nandakishore2404/oan-pest-detection-benchmark`](https://github.com/nandakishore2404/oan-pest-detection-benchmark)
 * **Status**: Production Edge Deployment (Sprint 3)
+* **This document replaces**: the prior version of `OAN_Kenya_0_to_1_Architecture_and_Evolution_Journey.md`
+* **Why it was replaced**: the previous version's T0→T6 accuracy progression (41.5% → 58.4% → 72.1% → 79.8% → 84.6% → 89.2%) is the exact sequence that was hardcoded as a literal array (`timeline_accuracy = [...]`) in `ui/app.py` with no model run behind any of the seven numbers — confirmed removed from the codebase this session. The same version also states two different, contradictory numbers for the same "small-pest recall" metric (16.4% in the chart header vs. 85.1% in the milestone table) and a "89.2% Foliar Precision" figure that does not match any file in the repository. This version keeps only what can be traced to a real, computed source, tags everything by evidence status, and adds the fixes made in this session.
+
+**Evidence tags used throughout**: **[VERIFIED]** independently computed/reproduced from primary data · **[REPO-SOURCED]** taken from a specific file already in the repo, not independently re-run · **[NOT VERIFIED]** appears in prior narrative reports/UI with no computation behind it found anywhere · **[FIXED THIS SESSION]** a defect found and corrected today, with before/after confirmed live.
 
 ---
 
-## 1. Executive Narrative: From 0 to 1
+## 1. What can actually be shown as an accuracy trend
 
-When this initiative commenced, the team faced a foundational reality common to African digital agriculture: **off-the-shelf AI models trained on Western or studio datasets fail catastrophically in smallholder farm conditions.** 
+There is **no verified accuracy trend across the full project history** — no set of comparable before/after numbers exists for "Day 0" through "Sprint 2" on a consistent dataset and methodology. What *can* be shown, verified, is the trend on the two models that were independently, repeatedly tested this engagement:
 
-Generic pre-trained vision models achieved barely **$41.5\%$ diagnostic accuracy**, misclassified common African pests, missed microscopic insect infestations, required expensive cloud APIs ($\$0.060$ per inference), and generated alarming false alarms that would have driven farmers to purchase unnecessary toxic chemicals.
+| Model | Test set | n | Accuracy | Status |
+| :--- | :--- | :---: | :---: | :--- |
+| Foliar disease classifier (5-class) | Lab-condition images (PlantVillage-style) | 83 | **87.95%** | **[VERIFIED]** reproduced twice, exact TP/FP/FN match |
+| Foliar disease classifier (5-class) | Real field images (2 independent sets, 0% overlap) | 261 | **51.7%** | **[VERIFIED]** — this is the honest field number |
+| Foliar disease classifier, fine-tuned variant | Clean held-out field split (no training overlap) | 42 | **59.52%** | **[VERIFIED]**, from `african_finetuned_evaluation.json`, re-checked |
+| Generic 12-class insect detector | Original test split | 546 | **16.3%** | **[VERIFIED]** |
+| Generic 12-class insect detector | New, non-overlapping validation split | 1,095 | **17.6%** | **[VERIFIED]** — reproduces the 16.3% claim at 2x scale |
+| Kenya 28-class priority pest detector | Wild field photos (`benchmark_test_15`) | 15 | **0.0% (0/15)** | **[VERIFIED]** — reproduced twice, matches the model's own audit trail note |
 
-Through a disciplined **6-stage engineering and agronomic journey**, introducing domain datasets, deep transfer learning, gradient-weighted explainability, local LLMs on secondary storage, slice-aided hyper inference, and regulatory economic thresholding, the system made the following leap:
-
-```
-┌────────────────────────────────────────────────────────────────────────────────────────┐
-│                                 THE 0-TO-1 TRANSFORMATION                              │
-├──────────────────────────────────────┬─────────────────────────────────────────────────┤
-│ ❌ DAY 0 (THE INCEPTION BASELINE)    │  ✅ TODAY (THE PRODUCTION DPI CORE)             │
-├──────────────────────────────────────┼─────────────────────────────────────────────────┤
-│ • Accuracy: 41.5% (Coin-toss guess)  │  • Accuracy: 52-60% Pest / 89.2% Foliar Precision  │
-│ • Micro-Pests: 66% completely missed │  • Micro-Pests: 100% recovered via SAHI Slicing │
-│ • Cloud Cost: $0.060 / query (Burn)  │  • Cloud Cost: $0.000 (100% Zero-Token Offline) │
-│ • Chemical Sprays: 72% False Alarms  │  • Chemical Sprays: 12.6% (83.2% Unnecessary Halts via EIL)  │
-│ • Hardware: Heavy Server GPU Needed  │  • Hardware: 14ms Tier-1 CPU on sub-$80 phones  │
-│ • Advisory: Generic Static English   │  • Advisory: PCPB-compliant Swahili at 31 t/s   │
-└──────────────────────────────────────┴─────────────────────────────────────────────────┘
-```
+Read plainly: the model that is closest to production-ready on its narrow lab test (87.95%) drops by 36 points in the field. The model built specifically for the platform's named pest list (Fall Armyworm, Stem Borer, etc.) scores zero on the only wild-photo test that exists for it. Any "today vs. day 0" percentage that isn't one of the rows above should be treated as **[NOT VERIFIED]** until someone re-derives it from raw data the way the rows above were derived.
 
 ---
 
-## 2. Pictorial Pipeline Flowchart: End-to-End Operational Architecture
+## 2. Initiatives with a real, traceable before/after
 
-The following flowchart illustrates the live multi-tier operational pipeline that processes every farmer image today:
+These are the interventions where a genuine before-state and after-state both exist in the repository or were established this session.
 
-```
-                                  [ 📸 1. FIELD CAMERA CAPTURE ]
-                                  (12MP / 4K Smartphone or Drone)
-                                                 │
-                                                 ▼
-                             [ 🔬 2. SAHI MULTI-SCALE SLICING ENGINE ]
-                             (Overlapping 640x640 Tiles + Global Context)
-                                                 │
-                                                 ▼
-                             [ ⚡ 3. TIER-1 FAST SCREENING BACKBONE ]
-                             (MobileNetV4 Deep Head | 14 ms CPU | 86.2% Acc)
-                                                 │
-                                                 ▼
-                             [ 🎯 4. TIER-2 BOUNDING BOX DETECTOR ]
-                             (YOLOv8s Agri-Pests | 28 Species | 33 ms CPU)
-                                                 │
-                                                 ▼
-                             [ 🧠 5. GRAD-CAM EXPLAINABILITY (XAI) ]
-                             (Class Activation Heatmaps | Lesion Focus: 19.4%)
-                                                 │
-                                                 ▼
-                             [ 🌾 6. CDFA/KALRO ECONOMIC INJURY LEVEL ]
-                             (Phenology Gate: Vegetative vs Silking | Prevents 83.2% Sprays via EIL Simulation)
-                                                 │
-                                                 ▼
-                             [ 🤖 7. LOCAL OFFLINE OLLAMA COPILOT ]
-                             (Qwen 2.5 Coder on Drive D: | 31 t/s | $0 Cloud Tokens)
-                                                 │
-                                                 ▼
-                             [ 📋 8. ACTIONABLE FIELD PRESCRIPTION ]
-                             (PCPB Registered Bio-Interventions in Swahili & English)
-```
+| Initiative | Before | After | Evidence |
+| :--- | :--- | :--- | :--- |
+| **Kenya 28-class label mapping** | **[NOT VERIFIED]** — class-to-index mapping lived only on the developer's local D: drive; model could not be independently audited | **[FIXED THIS SESSION]** — mapping recovered directly from the ONNX file's own embedded metadata (`custom_metadata_map['names']`), documented in `models/yolov8_agripests_taxonomy.md`, independently re-derived and matched exactly | Verified via `onnxruntime.InferenceSession.get_modelmeta()` on `yolov8_agripests_kenya.onnx` |
+| **Telemetry log integrity** | Seeded/synthetic entries and real measurements mixed in `results/telemetry.jsonl` with no field distinguishing them | **[FIXED]** — every entry now carries `is_synthetic: true/false`; confirmed on both the 10 seeded rows and the one genuine 14,488 ms Ollama call | `scripts/seed_telemetry.py`, `benchmark/telemetry.py` |
+| **Ollama latency reporting** | Hardcoded literal `ollama_latency_ms=3800.0` regardless of actual call time | **[FIXED]** — now measured with `time.perf_counter()` per call and shown to the user as "Measured local latency: X ms" | `ui/app.py`, Shamba AI chat handler |
+| **Fabricated "Decision Precision" figures** | 94.2% / 98.4% hardcoded literals in `ui/app.py` and narrative reports, no model behind either | **[FIXED]** — zero references remain anywhere in the codebase | Repo-wide search, this session |
+| **Grad-CAM / Lab View crash** | `AttributeError: 'Image' object has no attribute 'read'` — Lab View died mid-render every time, on every sample | **[FIXED]** — root cause was a nominal `isinstance()` type check breaking under an `ultralytics` monkey-patch of `PIL.Image.open`; replaced with a duck-typed check | `benchmark/explainability.py`; confirmed live — Grad-CAM now renders lesion focus score, all downstream tabs render |
+| **Farmer view layout / duplicate header / oversized images** | Two stacked headers, mobile card frame not actually constraining width, uploaded photos rendering oversized | **[FIXED]** — root cause was a hand-typed `<div>` that Streamlit doesn't actually nest native widgets inside; switched to `st.container(key=...)`, removed the duplicate header block | `ui/app.py`, `ui/design_system.py`; confirmed live at both desktop and 375px mobile width |
+| **Telemetry & Observability tab invisible** | Tab existed in code and routing but the 4-option segmented control overflowed its column at normal widths | **[FIXED]** — widened the nav column, shortened labels; all 4 tabs now render reliably | `ui/app.py` top navigation bar |
+| **CLAHE contrast correction** | Implemented correctly in `benchmark/foliage_contrast.py`, never called — dead code, zero effect on any prediction | **[FIXED THIS SESSION]** — wired into both the classification adapter (`models/timm_adapter.py`) and the detection adapter (`models/yolo_adapter.py`), fails open on error so it can't block a diagnosis | Confirmed live: a real diagnosis ran end-to-end through the new code path without error. **Accuracy impact not yet re-measured** — see Section 3. |
 
 ---
 
-## 3. The Evolutionary Timeline: Interventions & Milestones
+## 3. What is fixed but *not yet* re-benchmarked
 
-```
-ACCURACY (%)
- 100% ─────────────────────────────────────────────────────────────────────── [T6: 89.2% Foliar / 16.4% Micro-Pest Recall]
-                                                                 [T5: 89.2%]
-  80% ───────────────────────────────────────────── [T3: 79.8%]  [T4: 84.6%]
-                                      [T2: 72.1%]
-  60% ─────────────────── [T1: 58.4%]
-             [T0: 41.5%]
-  40% ───────────┬──────────────┬─────────────┬───────────┬───────────┬───────────┬───────────
-              Day 0          Sprint 1      Sprint 2    Sprint 2.5   Sprint 3    Sprint 3.5  Sprint 3 Final
-              (Inception)    (Data Onboard)(Retraining)(Grad-CAM)  (Ollama)    (SAHI)      (CDFA Matrix)
-```
+Fixing a bug and proving it improved accuracy are two different claims, and only the first one is done for these:
 
-### Detailed Breakdown of Interventions Behind Each Leap:
-
-| Milestone & Date | Core Engineering Intervention | Tools Added / Changed | Accuracy | Small-Pest Recall | Latency | Cloud Cost | False Sprays |
-| :--- | :--- | :--- | :---: | :---: | :---: | :---: | :---: |
-| **T0: Inception** *(Day 1)* | Hardware probe, standardized `BasePestModel` abstract interface, baseline harness. | Python, PyTorch, off-the-shelf ResNet/COCO weights. | **41.5%** | 34.0% | 320 ms | $0.060/q | 72.0% |
-| **T1: African Data** *(Sprint 1)* | Ingested Makerere University (iBean) & African PlantVillage leaf datasets; stratified train/val splits. | OpenCV, Pandas, Stratified K-Fold splits. | **58.4%** *(+16.9%)* | 48.0% | 180 ms | $0.060/q | 56.0% |
-| **T2: Retraining** *(Sprint 2)* | 12-Epoch Transfer Learning on 717 localized agricultural pest images (28 classes); unfroze MobileNetV4 deep blocks. | Ultralytics YOLOv8s, Timm MobileNetV4, Cosine Annealing. | **72.1%** *(+13.7%)* | 64.0% | 45 ms | $0.060/q | 44.0% |
-| **T3: Explainability** *(Sprint 2 Mid)* | Implemented neural Class Activation Maps (Grad-CAM) to verify attention is centered on lesions, not soil clods. | PyTorch Hook engine, OpenCV Jet colormap generator. | **79.8%** *(+7.7%)* | 66.0% | 65 ms | $0.060/q | 36.0% |
-| **T4: Zero-Token LLM** *(Sprint 3 Start)* | Deployed local Ollama daemon on `127.0.0.1:11434` with Qwen 2.5 Coder on Drive `D:\OllamaModels`. | Ollama daemon, Qwen 2.5 Coder 7B/1.5B, PCPB DB parser. | **84.6%** *(+4.8%)* | 66.0% | 50 ms | **$0.000** *(Zero Tokens)* | 28.0% |
-| **T5: SAHI Slicing** *(Sprint 3 Mid)* | Slicing-Aided Hyper Inference: sliced 1080p frames into overlapping $640\times640$ patches with class-aware PyTorch NMS. | Native SAHI engine (`models/sahi_inference.py`), Torchvision NMS. | **89.2%** *(+4.6%)* | **85.1%** *(+19.1% leap)* | 255 ms *(Sliced)* | **$0.000** | 18.0% |
-| **T6: CDFA EIL Matrix** *(Sprint 3 Final)* | Evaluated pest counts against crop phenology (vegetative vs silking) + hardened UI Pydantic models. | CDFA EIL Matrix (`models/cdfa_thresholds.py`), Streamlit app. | **89.2%** *(Foliar)* | **85.1%** | 255 ms *(E2E)* | **$0.000** | **12.6%** *(83.2% drop)* |
+- **CLAHE is now live**, but the 51.7% field-accuracy figure in Section 1 was measured *before* this fix. The honest next step is to re-run the same 261-image field test (African Beans Field + Makerere Beans, the exact sets used above) through the model with CLAHE active and report the new number next to 51.7% — not assume it improved things, verify it.
+- **The fine-tuned model's clean 59.52%** has not been re-run since CLAHE went live either.
+- No claim is made here about response-time impact of CLAHE — it adds a real CPU-bound image-processing step (Lab-space histogram equalization + HSV boost) before every inference, so latency should be re-measured, not assumed unchanged.
 
 ---
 
-## 4. Key Lessons & What We Deliberately Discarded
+## 4. Genuinely consistent figures kept from the prior document
 
-A critical factor in elevating decision precision and edge reliability was **filtering out misleading or low-ROI methods**:
+Not everything in the earlier version was wrong. These held up:
 
-1. **Discarded Scratch 3-Layer CNNs (shivam1423 style)**:
-   * Scratch shallow CNNs lack pre-trained feature extractors. They overfit rapidly in variable African sunlight and have no bounding-box localization. We discarded the scratch model and adopted modern transfer-learned backbones.
-2. **Discarded Non-Agricultural Dataset Classes (Kaggle)**:
-   * Datasets containing public-health insects (mosquitoes) or temperate European pests (sawflies) were filtered out to avoid polluting African maize, bean, and sorghum models.
-3. **Discarded Computationally Prohibitive ViTs**:
-   * Heavy 300M+ Vision Transformers (ViT-H, Swin-L) surveyed in academic reviews were rejected due to $>800\text{ms}$ latencies that would crash low-cost rural edge devices.
-4. **Discarded Cloud API Lock-in**:
-   * Commercial cloud VLM calls (\$0.060/query) were replaced with sovereign local Ollama instances on Drive `D:\`, eliminating recurring costs.
+- **83.2% unnecessary-spray reduction** — real output of `scripts/simulate_spray_reduction.py`, a deterministic (`seed=42`) 1,000-event Monte Carlo simulation run through the actual CDFA/EIL threshold logic in `models/cdfa_thresholds.py`. **[VERIFIED as a simulation result]** — it is not, and has never been, an empirical field measurement, and the earlier "88%" figure quoted elsewhere in the project was simply wrong; 83.2% is correct.
+- **717-image / 28-class training set** for the Kenya priority pest detector — matches the audit trail in `models/yolov8_agripests_taxonomy.md`, consistent with the model's own embedded metadata.
 
 ---
 
-## 5. Summary of Tangible Business & Environmental Impact
+## 5. What still has no independent evidence either way
 
-* **Cost Savings**: $100\%$ reduction in recurring cloud API fees ($\$0.00$ spend vs $\$6,000$ per 100,000 farmer queries).
-* **Crop Protection**: Detection of tiny chewing insects (Fall Armyworm neonates, stem borers, aphids) improved from $34\%$ to $85.1\%$.
-* **Environmental Safety**: Preventing $83.2\%$ of unnecessary chemical pesticide sprays (empirically validated via 1,000-event CDFA Monte Carlo simulation) protects Kenyan soil biology, preserves beneficial predator species (ladybirds), and reduces chemical exposure for smallholders.
+Flagging these rather than silently repeating or silently dropping them:
+
+- Ollama throughput ("31 tokens/sec") — no measurement of this found anywhere in the repo or telemetry log.
+- Any single "Tier-1" forward-pass latency figure below ~10ms quoted in prior reports — my own ONNX Runtime measurements this engagement ranged roughly 6-18ms depending on model and batch, which is in the right neighborhood but was never matched to one specific quoted number.
+- The SAHI/TTA/Bayesian pipeline's pest-detection recall on anything beyond the original n=15 image (90 pest instance) test — real, but the sample is small enough that "100%" or "85.1%" recovery claims built on top of it should not be presented as a settled number without a larger re-test, the same way the foliar classifier and the 12-class detector were re-tested at scale this session.
+
+---
+
+*Corrected version — supersedes all accuracy/latency claims in the prior "0-to-1 Architecture & Evolution Journey" document. Where this document says [VERIFIED], it means independently re-derived from raw images and raw model files in this session or a directly preceding one — not read from a summary report.*

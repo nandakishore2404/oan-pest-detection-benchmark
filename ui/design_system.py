@@ -512,8 +512,16 @@ def inject_theme():
             object-fit: contain !important;
         }}
 
-        /* Mobile Device Mockup Frame for Farmer Experience */
-        .mobile-device-shell {{
+        /* Mobile Device Mockup Frame for Farmer Experience.
+           .mobile-device-shell is kept for any legacy raw-HTML usage; the
+           .st-key-* selectors are the real target now that the Farmer screens
+           use st.container(key=...) so this style actually wraps the
+           Streamlit-native widgets inside it (a plain unsafe_allow_html div
+           does NOT nest later st.* calls in the real DOM - Streamlit renders
+           each element as its own sibling block). */
+        .mobile-device-shell,
+        .st-key-mobile_shell_home,
+        .st-key-mobile_shell_result {{
             max-width: 430px;
             width: 100%;
             margin: 0 auto;
@@ -526,7 +534,9 @@ def inject_theme():
 
         /* Responsive Breakpoints for Mobile Phones & Tablets */
         @media (max-width: 768px) {{
-            .mobile-device-shell {{
+            .mobile-device-shell,
+            .st-key-mobile_shell_home,
+            .st-key-mobile_shell_result {{
                 max-width: 100% !important;
                 border: none !important;
                 padding: 10px 4px !important;

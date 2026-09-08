@@ -169,8 +169,12 @@ def explain_crop_image(
         
     grad_cam = GradCAM(model, target_layer)
     
-    # Preprocess image (supports file path, string, or PIL Image)
-    if isinstance(image_path, Image.Image):
+    # Preprocess image (supports file path, string, or PIL Image).
+    # NOTE: duck-typed on purpose. isinstance(image_path, Image.Image) can spuriously
+    # fail here because ultralytics monkey-patches PIL.Image.open globally, which
+    # leaves two different Image class references in play across modules and breaks
+    # a nominal isinstance check for objects that are genuinely PIL Images.
+    if hasattr(image_path, "convert") and hasattr(image_path, "size"):
         img_pil = image_path.convert("RGB")
     else:
         img_pil = Image.open(image_path).convert("RGB")

@@ -145,6 +145,18 @@ class TimmAdapter(BasePestModel):
             else:
                 pil_img = image.convert("RGB")
 
+            # Field-condition contrast/lighting correction (CLAHE + insect-cuticle
+            # HSV boost). This was implemented in benchmark/foliage_contrast.py but
+            # never called anywhere - the independent field-accuracy audit found the
+            # lab-clean-vs-field-lit gap as the likely driver of the accuracy drop,
+            # so it now actually runs on every prediction. Fails open: a problem in
+            # the enhancement step must never block a diagnosis.
+            try:
+                from benchmark.foliage_contrast import enhance_foliage_contrast
+                pil_img = Image.fromarray(enhance_foliage_contrast(pil_img))
+            except Exception:
+                pass
+
             tensor = self.transform(pil_img).unsqueeze(0).to(self.device)
 
             with torch.no_grad():

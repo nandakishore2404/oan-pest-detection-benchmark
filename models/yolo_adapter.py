@@ -77,8 +77,18 @@ class YOLOAdapter(BasePestModel):
                 if not loaded:
                     raise RuntimeError(f"YOLOAdapter({self.model_id}) unavailable: model weights failed to load.")
 
+            # Same field-condition contrast correction as the classification adapter
+            # (see models/timm_adapter.py) - was dead code, now actually wired in.
+            predict_input = image
+            try:
+                from benchmark.foliage_contrast import enhance_foliage_contrast
+                src_img = Image.open(image).convert("RGB") if isinstance(image, str) else image.convert("RGB")
+                predict_input = Image.fromarray(enhance_foliage_contrast(src_img))
+            except Exception:
+                predict_input = image  # fail open
+
             results = self.model.predict(
-                image,
+                predict_input,
                 conf=self.threshold,
                 iou=self.iou,
                 augment=use_augment,
