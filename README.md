@@ -109,6 +109,9 @@ uvicorn api.main:app --host 0.0.0.0 --port 8000 --reload
 ```
 API Documentation is available interactively at `http://localhost:8000/docs`.
 
+### 7. Monitor Model Observability, Latency SLAs & Drift
+Open `http://localhost:8501` and navigate to **Tab 2: 📊 Model Observability & Telemetry Dashboard** to inspect real-time inference latency percentiles (P50, P95, P99), accuracy progression (+7.64% field gain), and zero-token cloud savings. See [`docs/observability_prompt.md`](docs/observability_prompt.md) for the master autonomous monitoring specification prompt.
+
 ---
 
 ## 🔬 Model Benchmarks & Edge Performance

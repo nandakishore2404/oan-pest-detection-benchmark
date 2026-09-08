@@ -84,13 +84,15 @@ def run_unified_diagnosis(image_path: str, model_type: str = "qwen2.5-coder:7b")
     # 3. Grad-CAM Visual Explainability Card
     print("\n[Step 3/4] Generating Grad-CAM Saliency Heatmap...")
     from benchmark.explainability import explain_crop_image
+    t2 = time.perf_counter()
     xai_res = explain_crop_image(image_path)
+    lat_gradcam = (time.perf_counter() - t2) * 1000.0
     
     out_dir = Path(r"D:\OAN_Data") if Path("D:\\").exists() else repo_root / "results"
     out_dir.mkdir(parents=True, exist_ok=True)
     card_path = out_dir / f"xai_card_{Path(image_path).stem}.jpg"
     xai_res["comparison_card"].save(card_path)
-    print(f"  Lesion Focus Score: {xai_res['lesion_focus_pct']:.1f}%")
+    print(f"  Lesion Focus Score: {xai_res['lesion_focus_pct']:.1f}% | Latency: {lat_gradcam:.2f} ms")
     print(f"  Visual Heatmap Card Saved: {card_path}")
     
     # 4. Tier 3 Local PCPB Advisory via Ollama (0 API Tokens)
@@ -106,13 +108,32 @@ def run_unified_diagnosis(image_path: str, model_type: str = "qwen2.5-coder:7b")
         "county": "Western Kenya Agricultural Hub (Kakamega / Bungoma)"
     }
     
+    t3 = time.perf_counter()
     advisory_text = advisor.generate_advisory(diagnosis_payload, language="English with Swahili Summary")
+    lat_ollama = (time.perf_counter() - t3) * 1000.0
     
     print("\n" + "=" * 70)
-    print("📋 LOCAL OLLAMA PCPB AGRONOMIC ADVISORY (ZERO API TOKENS)")
+    print(f"📋 LOCAL OLLAMA PCPB AGRONOMIC ADVISORY (ZERO API TOKENS | Latency: {lat_ollama:.2f} ms)")
     print("=" * 70)
     print(advisory_text)
-    print("=" * 70 + "\n")
+    print("=" * 70)
+
+    # 5. Log Telemetry Event
+    from benchmark.telemetry import TelemetryLogger
+    logger = TelemetryLogger()
+    event = logger.log_event(
+        image_name=image_path,
+        foliar_disease=foliar_diag,
+        foliar_conf=foliar_conf,
+        pest_count=len(pests_detected),
+        pests_detected=pests_detected,
+        tier1_latency_ms=lat_foliar,
+        tier2_latency_ms=lat_pest,
+        gradcam_latency_ms=lat_gradcam,
+        ollama_latency_ms=lat_ollama,
+        lesion_focus_pct=xai_res["lesion_focus_pct"]
+    )
+    print(f"📊 Telemetry Event Logged [Req ID: {event['request_id']}] | Total E2E: {event['latency_ms']['total_e2e']} ms | Tokens Saved: {event['token_economics']['cloud_tokens_saved']}\n")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="OAN Kenya Unified Diagnostic CLI")
