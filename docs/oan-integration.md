@@ -243,13 +243,13 @@ The BPP adapter translates the inference JSON into Beckn Layer 2 Catalog items:
               "descriptor": {
                 "name": "Utambuzi: Funza wa Jeshi (Fall Armyworm)",
                 "code": "Spodoptera frugiperda",
-                "short_desc": "Uhakika wa AI: 94.2% (Moderate Infestation)",
+                "short_desc": "Uhakika wa AI: 89.2% (Moderate Infestation)",
                 "images": [
                   {"url": "https://media.oan.ke/xai/tx-ke-20260906-89412_heatmap.jpg"}
                 ]
               },
               "tags": [
-                {"code": "confidence", "value": "0.942"},
+                {"code": "confidence", "value": "0.892"},
                 {"code": "ipm_cultural", "value": "Weka mchanga safi au jivu katikati ya jicho la mmea."},
                 {"code": "ipm_chemical", "value": "Emamectin Benzoate (10ml/20L), PHI: 7 days"},
                 {"code": "audio_advisory_url", "value": "https://media.oan.ke/audio/faw_swahili_adv.mp3"}

@@ -1,0 +1,37 @@
+# Agricultural Pest Detection Dataset for OAN Kenya
+# Formatted and benchmarked by Nanda Kishore Kakulla
+
+path: D:/OAN_Data/agricultural_pests_yolo/dataset
+train: images/train
+val: images/val
+test: images/test
+
+names:
+  0: Agrotis
+  1: Athetis lepigone
+  2: Athetis lineosa
+  3: Chilo suppressalis
+  4: Cnaphalocrocis medinalis Guenee
+  5: Creatonotus transiens
+  6: Diaphania indica
+  7: Endotricha consocia
+  8: Euproctis sparsa
+  9: Gryllidae
+  10: Gryllotalpidae
+  11: Helicoverpa armigera
+  12: Holotrichia oblita Faldermann
+  13: Loxostege sticticalis
+  14: Mamestra brassicae
+  15: Maruca testulalis Geyer
+  16: Mythimna separata
+  17: Naranga aenescens Moore
+  18: Nilaparvata
+  19: Paracymoriza taiwanalis
+  20: Sesamia inferens
+  21: Sirthenea flavipes
+  22: Sogatella furcifera
+  23: Spodoptera exigua
+  24: Spoladea recurvalis
+  25: Staurophora celsia
+  26: Timandra Recompta
+  27: Trichoptera

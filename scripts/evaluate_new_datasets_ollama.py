@@ -37,10 +37,20 @@ from models.sahi_inference import SahiInferenceEngine
 from benchmark.bayesian_prior import KenyanAgronomicBayesianPrior
 
 
-DATASET_DIR = r"D:\OAN_Data\agricultural_pests_yolo\dataset"
-TEST_IMG_DIR = os.path.join(DATASET_DIR, "images", "test")
-TEST_LBL_DIR = os.path.join(DATASET_DIR, "labels", "test")
-DATA_YAML = os.path.join(DATASET_DIR, "data.yaml")
+DEFAULT_LOCAL_TEST = os.path.join(REPO_ROOT, "data", "benchmark_test_15")
+DRIVE_D_DATASET = r"D:\OAN_Data\agricultural_pests_yolo\dataset"
+
+if os.path.exists(os.path.join(DRIVE_D_DATASET, "images", "test")):
+    DATASET_DIR = DRIVE_D_DATASET
+    TEST_IMG_DIR = os.path.join(DATASET_DIR, "images", "test")
+    TEST_LBL_DIR = os.path.join(DATASET_DIR, "labels", "test")
+    DATA_YAML = os.path.join(DATASET_DIR, "data.yaml")
+else:
+    DATASET_DIR = DEFAULT_LOCAL_TEST
+    TEST_IMG_DIR = os.path.join(DATASET_DIR, "images")
+    TEST_LBL_DIR = os.path.join(DATASET_DIR, "labels")
+    DATA_YAML = os.path.join(DATASET_DIR, "data.yaml")
+
 WEIGHTS_PATH = os.path.join(REPO_ROOT, "models", "trained", "yolov8_agripests_kenya.pt")
 
 

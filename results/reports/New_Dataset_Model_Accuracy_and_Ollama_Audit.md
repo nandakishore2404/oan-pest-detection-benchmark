@@ -28,11 +28,12 @@ Across the evaluated field test set:
 | **C. SOTA: SAHI Slicing + Bayesian Prior Calibrator** | 13 | 12 | 52.0% | 14.4% | 22.6% | **16.4%** *(+6.07×)* | 186.5 ms |
 
 ### Key Quantitative Findings:
-1. **+6.07× Boost in Micro-Target Recovery**:
-   - Baseline YOLO caught only **2.7%** of micro-pests.
-   - Activating SAHI patch slicing ($384\times384$ overlapping tiles) boosted micro-pest recovery to **16.4%**, successfully identifying camouflaged Stem Borers (*Chilo*) and Pod Borers (*Maruca*) that were completely invisible to the baseline.
-2. **TTA Delivers Massive Yield with Minimal Retraining**:
-   - Test-Time Augmentation (TTA) immediately recovered **13 true positives** (up from 3) with zero retraining or weights modification.
+1. **+13.7 Percentage Points Absolute Gain in Micro-Target Recovery (6.07× Relative Multiplier, n=15 Images / 90 Pests)**:
+   - Baseline YOLO caught only **2.7%** (2 out of 73 micro-pests).
+   - Activating SAHI patch slicing ($384\times384$ overlapping tiles) boosted micro-pest recovery to **16.4%** (12 out of 73 micro-pests; $+13.7$ percentage points absolute gain), successfully identifying camouflaged Stem Borers (*Chilo*) and Pod Borers (*Maruca*) that were completely invisible to the baseline.
+   - Overall recall grew from **3.3%** to **14.4%** (+11.1 percentage points absolute gain; 4.36× relative) on the held-out $n=15$ test split.
+2. **TTA Recovers 13 True Positives (vs 3 Baseline)**:
+   - Test-Time Augmentation (TTA) immediately recovered **13 true positives** (up from 3, $+11.1$ pp recall gain) with zero retraining or weights modification.
 3. **Phenological Bayesian Protection**:
    - The Bayesian Prior Calibrator eliminated out-of-season hallucinations (e.g. flagging an African Bollworm ear feeder during seedling emergence), ensuring that false detections do not trigger expensive chemical sprays.
 

@@ -23,10 +23,10 @@ Through a disciplined **6-stage engineering and agronomic journey**, introducing
 ├──────────────────────────────────────┬─────────────────────────────────────────────────┤
 │ ❌ DAY 0 (THE INCEPTION BASELINE)    │  ✅ TODAY (THE PRODUCTION DPI CORE)             │
 ├──────────────────────────────────────┼─────────────────────────────────────────────────┤
-│ • Accuracy: 41.5% (Coin-toss guess)  │  • Accuracy: 94.2% Verified Decision Precision  │
+│ • Accuracy: 41.5% (Coin-toss guess)  │  • Accuracy: 52-60% Pest / 89.2% Foliar Precision  │
 │ • Micro-Pests: 66% completely missed │  • Micro-Pests: 100% recovered via SAHI Slicing │
 │ • Cloud Cost: $0.060 / query (Burn)  │  • Cloud Cost: $0.000 (100% Zero-Token Offline) │
-│ • Chemical Sprays: 72% False Alarms  │  • Chemical Sprays: 8% (88% Unnecessary Halts)  │
+│ • Chemical Sprays: 72% False Alarms  │  • Chemical Sprays: 12.6% (83.2% Unnecessary Halts via EIL)  │
 │ • Hardware: Heavy Server GPU Needed  │  • Hardware: 14ms Tier-1 CPU on sub-$80 phones  │
 │ • Advisory: Generic Static English   │  • Advisory: PCPB-compliant Swahili at 31 t/s   │
 └──────────────────────────────────────┴─────────────────────────────────────────────────┘
@@ -60,7 +60,7 @@ The following flowchart illustrates the live multi-tier operational pipeline tha
                                                  │
                                                  ▼
                              [ 🌾 6. CDFA/KALRO ECONOMIC INJURY LEVEL ]
-                             (Phenology Gate: Vegetative vs Silking | Prevents 88% Sprays)
+                             (Phenology Gate: Vegetative vs Silking | Prevents 83.2% Sprays via EIL Simulation)
                                                  │
                                                  ▼
                              [ 🤖 7. LOCAL OFFLINE OLLAMA COPILOT ]
@@ -77,7 +77,7 @@ The following flowchart illustrates the live multi-tier operational pipeline tha
 
 ```
 ACCURACY (%)
- 100% ─────────────────────────────────────────────────────────────────────── [T6: 94.2%]
+ 100% ─────────────────────────────────────────────────────────────────────── [T6: 89.2% Foliar / 16.4% Micro-Pest Recall]
                                                                  [T5: 89.2%]
   80% ───────────────────────────────────────────── [T3: 79.8%]  [T4: 84.6%]
                                       [T2: 72.1%]

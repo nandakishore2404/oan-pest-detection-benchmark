@@ -1,0 +1,73 @@
+{
+  "simulation_metadata": {
+    "title": "CDFA Economic Injury Level (EIL) Spray Reduction Simulation",
+    "author": "Program Manager -> AI Enthusiast | Turning Ideas into AI-Powered Solutions: Nanda Kishore Kakulla <nandakishore.kakulla9@gmail.com>",
+    "total_simulated_field_scouting_events": 1000,
+    "random_seed": 42,
+    "sampling_grid": "CDFA 5-Point Field Grid (10 plants per station, W-pattern)",
+    "standards_referenced": [
+      "CDFA-PDEP California",
+      "KALRO Kenya",
+      "PCPB Kenya"
+    ]
+  },
+  "simulation_results": {
+    "naive_binary_policy_sprays_triggered": 752,
+    "cdfa_eil_policy_sprays_triggered": 126,
+    "unnecessary_sprays_prevented": 626,
+    "spray_reduction_percentage": 83.2,
+    "sub_threshold_detections_conserved": 626,
+    "naive_policy_premature_spray_rate_pct": 83.2,
+    "cdfa_policy_actionable_spray_rate_pct": 16.8
+  },
+  "economic_protection_kenya": {
+    "cost_per_chemical_spray_kes": 2500,
+    "avoided_sprays_per_season_per_ha": 2.5,
+    "estimated_farmer_savings_per_ha_kes": 6260.0,
+    "estimated_farmer_savings_per_ha_usd": 48.15
+  },
+  "breakdown_by_crop_stage": {
+    "early_vegetative": {
+      "scouts": 310,
+      "naive_sprays": 236,
+      "cdfa_sprays": 38
+    },
+    "mid_to_late_whorl": {
+      "scouts": 402,
+      "naive_sprays": 302,
+      "cdfa_sprays": 54
+    },
+    "tasseling_silking": {
+      "scouts": 196,
+      "naive_sprays": 143,
+      "cdfa_sprays": 26
+    },
+    "grain_fill_maturity": {
+      "scouts": 92,
+      "naive_sprays": 71,
+      "cdfa_sprays": 8
+    }
+  },
+  "breakdown_by_pest": {
+    "fall_armyworm": {
+      "scouts": 231,
+      "naive_sprays": 175,
+      "cdfa_sprays": 120
+    },
+    "aphids": {
+      "scouts": 264,
+      "naive_sprays": 199,
+      "cdfa_sprays": 0
+    },
+    "spider_mites": {
+      "scouts": 251,
+      "naive_sprays": 190,
+      "cdfa_sprays": 0
+    },
+    "stem_borer": {
+      "scouts": 254,
+      "naive_sprays": 188,
+      "cdfa_sprays": 6
+    }
+  }
+}

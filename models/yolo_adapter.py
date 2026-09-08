@@ -28,7 +28,20 @@ class YOLOAdapter(BasePestModel):
         iou: float = 0.45
     ):
         super().__init__(model_id=model_id, threshold=threshold)
-        self.weights_path = weights_path or ("yolo11s.pt" if "11" in model_id else "yolov8s.pt")
+        repo_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        default_trained = os.path.join(repo_root, "models", "trained", "yolov8_agripests_kenya.pt")
+        default_yolov8s = os.path.join(repo_root, "yolov8s.pt")
+
+        resolved_weights = weights_path
+        if not resolved_weights or not os.path.exists(resolved_weights):
+            if os.path.exists(default_trained):
+                resolved_weights = default_trained
+            elif os.path.exists(default_yolov8s):
+                resolved_weights = default_yolov8s
+            else:
+                resolved_weights = "yolo11s.pt" if "11" in model_id else "yolov8s.pt"
+
+        self.weights_path = resolved_weights
         self.augment = augment
         self.iou = iou
         self.model = None

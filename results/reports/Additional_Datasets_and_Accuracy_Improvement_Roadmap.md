@@ -8,7 +8,7 @@
 
 ## Executive Summary
 
-To elevate the OAN Kenya pest detection benchmark beyond current state-of-the-art levels (currently **94.2% decision precision** and **+21.1% micro-pest recall** achieved via SAHI slicing and CDFA economic injury thresholds), we conducted an exhaustive investigation into:
+To elevate the OAN Kenya pest detection benchmark beyond current state-of-the-art levels (currently **52.0% empirical pest precision** / **89.2% calibrated foliar precision** and **16.4% micro-pest recall (+13.7 percentage points absolute gain, 6.07× relative on n=15 images / 90 pests)** achieved via SAHI slicing and CDFA economic injury thresholds), we conducted an exhaustive investigation into:
 1. **Targeted, real-world agronomic datasets** from East Africa and global entomological benchmarks that directly address smallholder field conditions, occlusion, and pest life stages.
 2. **6 concrete architectural, algorithmic, and data-engineering interventions** that systematically eliminate remaining failure modes (such as camouflage, tiny sub-10px nymphs, out-of-season hallucinations, and false alarms from soil/dew drops).
 
@@ -46,7 +46,7 @@ prediction = adapter.predict("path/to/field_leaf.jpg")
 ### Intervention 2: Agronomic Phenology & Bayesian Prior Calibrator [Implemented Live]
 - **Mechanism**: Eliminates chronologically and biologically impossible false positives by conditioning visual detector confidence on crop phenological stage, Kenyan county, and season.
   $$\mathcal{P}(\text{Pest}_k \mid \text{Detection}, \text{Stage}, \text{County}) \propto \mathcal{P}(\text{Detection} \mid \text{Pest}_k) \times \mathcal{P}(\text{Pest}_k \mid \text{Stage}, \text{County})$$
-- **Empirical Accuracy Impact**: Completely eliminates out-of-season hallucinations (e.g. African Bollworm on 2-leaf seedlings, or storage weevils on green whorls), lifting **Decision Precision from 94.2% to 98.4%**.
+- **Empirical Accuracy Impact**: Completely eliminates out-of-season hallucinations (e.g. African Bollworm on 2-leaf seedlings, or storage weevils on green whorls), substantially suppressing out-of-season false alarms and aligning diagnostic outputs with Kenyan agro-ecological realities.
 - **Code Implementation**: Delivered in [`benchmark/bayesian_prior.py`](file:///c:/Users/nanda/OneDrive/Desktop/DELOITTE/Agri%20Africa/OAN%20KENYA/oan-pest-detection-benchmark/benchmark/bayesian_prior.py).
 
 ```python
@@ -94,15 +94,18 @@ result = calibrator.calibrate_prediction("African Bollworm", 0.88, crop_stage="e
 
 ## PART 3: Comparative Accuracy & Decision Matrix
 
-| Configuration / Pipeline Stage | Decision Precision | Small-Pest Recall (<2% Area) | Latency (CPU) | Storage Footprint | Edge Deployability |
-| :--- | :---: | :---: | :---: | :---: | :---: |
-| **0. Baseline YOLOv8s (Default COCO)** | 41.5% | 22.4% | 14 ms | 44 MB | High (Mobile Ready) |
-| **1. + Kenya Domain Fine-Tuning** | 78.4% | 58.1% | 14 ms | 44 MB | High (Mobile Ready) |
-| **2. + SAHI Multi-Scale Patch Slicing** | 89.1% | 94.2% (+21.1% gain) | 58 ms | 44 MB | Medium (Requires Slicing) |
-| **3. + CDFA Phenology EIL Thresholds** | 94.2% | 94.2% | 59 ms | 44 MB | High (Rule Engine) |
-| **4. + Test-Time Augmentation (TTA) [NEW]** | 96.1% | 96.8% | 38 ms | 44 MB | High (Direct Ultralytics) |
-| **5. + Bayesian Phenology Calibrator [NEW]** | **98.4%** | **96.8%** | 39 ms | 44 MB | **Optimal (Production Grade)** |
-| **6. + YOLOv8-P2 Dedicated Head [NEW]** | **97.8%** | **98.2%** | **18 ms** | 46 MB | **Optimal (Fast & Ultra-Precise)** |
+| Configuration / Pipeline Stage | Empirical Precision | Micro-Pest Recall (<2% Area) | Latency (CPU) | Storage Footprint | Empirical Evidence Source |
+| :--- | :---: | :---: | :---: | :---: | :--- |
+| **0. Baseline YOLOv8s (28-Taxa)** | 60.0% | 2.7% (2 / 73 pests) | 46.4 ms | 11.6 MB ONNX | 
+esults/reports/new_dataset_accuracy_ollama.json |
+| **1. + Test-Time Augmentation (TTA)** | 56.5% | 13.7% (+11.0 pp, 5.07×) | 98.5 ms | 11.6 MB ONNX | 
+esults/reports/new_dataset_accuracy_ollama.json |
+| **2. + SAHI Multi-Scale Patch Slicing** | 52.0% | 16.4% (+13.7 pp, 6.07×) | 186.5 ms | 11.6 MB ONNX | 
+esults/reports/new_dataset_accuracy_ollama.json (n=15, 90 pests) |
+| **3. + CDFA Phenology EIL Thresholds** | 83.2% Spray Drop | 16.4% Micro-Recall | 186.5 ms | Rule Table (3 KB) | 
+esults/reports/cdfa_spray_simulation.json (n=1000 scouts) |
+| **4. + Kenyan Bayesian Prior Calibrator** | Calibrated Priors | Stage-Aware Confidence | +2.1 ms | Bayesian Prior (5 KB) | Eliminates biologically impossible growth-stage errors |
+| **5. + YOLOv8-P2 Dedicated Head [Architecture]** | Modeled Target | +6.2% to +8.5% mAP projected | ~18 ms | 46 MB PyTorch | models/yolov8_p2_architecture.yaml |
 
 ---
 

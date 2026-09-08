@@ -35,7 +35,9 @@ def main():
         "--server.port",
         "8501",
         "--server.headless",
-        "true"
+        "true",
+        "--server.fileWatcherType",
+        "none"
     ]
 
     try:

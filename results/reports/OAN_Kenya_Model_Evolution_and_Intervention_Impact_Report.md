@@ -83,8 +83,8 @@ By systematically applying targeted machine learning and agronomic interventions
   * Integrated class-aware Non-Maximum Suppression (`torchvision.ops.nms`) to deduplicate boundary artifacts.
 * **Results**: 
   * Solved the **small-target downsampling problem**: high-resolution smartphone field photos are no longer shrunk to a blurry $640\times640$ canvas.
-  * **Micro-Pest Recall jumped by $+21.1\%$** (from $64.0\%$ to **$85.1\%$**).
-  * In live empirical audits, SAHI recovered **16 out of 16 microscopic pests** ($<2\%$ of frame area) that baseline YOLO missed.
+  * **Micro-Pest Recall improved by $+13.7$ percentage points** (from $2.7\%$ baseline to **$16.4\%$** via SAHI + Bayesian calibration; a 6.07x relative boost on n=15 images / 90 pests).
+  * In empirical 28-class evaluations (`results/reports/new_dataset_accuracy_ollama.json`), SAHI recovered 12 micro-pests vs 2 by standard YOLOv8s across 73 micro-targets.
 
 ### Stage 5: CDFA/KALRO Economic Injury Level (EIL) Decision Layer
 * **Intervention**: 
@@ -92,8 +92,8 @@ By systematically applying targeted machine learning and agronomic interventions
   * Evaluated pest counts against crop phenological stages (*Early Vegetative*, *Mid/Late Whorl*, *Tasseling/Silking*).
 * **Results**: 
   * Prevents smallholder farmers from spraying broad-spectrum toxins when pest density is below the economic damage threshold.
-  * **Unnecessary chemical sprays dropped from $68.0\%$ down to $8.0\%$** (an **$88\%$ reduction** in toxic runoff and wasted farmer capital).
-  * Overall Agronomic Decision Precision reached **$94.2\%$**.
+  * **Unnecessary chemical sprays dropped from $75.2\%$ down to $12.6\%$** (an **83.2% reduction** simulated across 1,000 field scouting events in `results/reports/cdfa_spray_simulation.json`).
+  * Calibrated Foliar Disease Precision reached **89.2%** (`step7_calibration.json`) and 28-Taxa Edge Precision reached **52.0% - 60.0%**.
 
 ---
 
