@@ -55,6 +55,18 @@ Smallholder farmers in Kenya lose up to 70% of seasonal yields to late-detected 
 
 ---
 
+## 🦙 Sovereign Token-Preserving Architecture: Local Ollama & Qwen 2.5 Coder
+
+To eliminate cloud API token exhaustion while empowering field officers with conversational agronomic intelligence, the platform employs a **hybrid sovereign execution model**:
+
+* **Primary Interface & Master Architect (Antigravity / Claude)**: Handles high-level strategy, code reviews, and Git management without burning tokens on repetitive text or heavy training loops.
+* **Local Edge Vision (ONNX Runtime CPU)**: Runs Tier 1 (1.99 ms) and Tier 2 (17.03 ms) locally on CPU with **0 API tokens and 0 cloud cost**.
+* **Local Agronomic Copilot (Ollama Qwen 2.5 Coder)**: Runs on `http://localhost:11434`, translating raw detection metrics into customized Swahili and English PCPB treatment advisories with **0 API tokens**.
+* **Storage Routed to Drive D:** Model weights (GGUF blobs) are stored directly in `D:\OllamaModels` (utilizing 193+ GB of free space, leaving the `C:\` drive completely unburdened).
+* **Autonomous Auto-ML Fine-Tuning**: `python scripts/continuous_tuning_orchestrator.py` leverages local Qwen to inspect field datasets, recommend training hyperparameters, retrain weights, and gate production updates automatically.
+
+---
+
 ## ⚡ Quickstart
 
 ### 1. Environment Setup
